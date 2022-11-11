@@ -6,14 +6,18 @@ namespace Xiangqi
 {
     class Board
     {
-        Cell[,] board;
+        public Cell[,] grid;
 
         public Board()
         {
-            board = new Cell[9,10];
-            Soldier soldier;
-            soldier = new Soldier();
-            board[0, 0].piece = soldier;
+            grid = new Cell[9,10];
+            for(int i = 0; i < 9; i++)
+            {
+                for(int z = 0; z < 10; z++)
+                {
+                    grid[i, z] = new Cell(false);
+                }
+            }
         }
     }
 }

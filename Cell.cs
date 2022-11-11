@@ -6,7 +6,18 @@ namespace Xiangqi
 {
     class Cell
     {
-        bool occupied;
+        public bool occupied;
         public Piece piece;
+
+        public Cell(bool pOccupied)
+        {
+            occupied = pOccupied;
+        }
+         
+        public Cell(bool pOccupied, Piece pPiece)
+        {
+            occupied = pOccupied;
+            piece = pPiece;
+        }
     }
 }
