@@ -34,11 +34,9 @@ namespace Xiangqi
             this.panel1 = new System.Windows.Forms.Panel();
             this.RedSoldier1 = new System.Windows.Forms.PictureBox();
             this.BoardImage = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -64,7 +62,7 @@ namespace Xiangqi
             // RedSoldier1
             // 
             this.RedSoldier1.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier1.Image")));
-            this.RedSoldier1.Location = new System.Drawing.Point(549, 130);
+            this.RedSoldier1.Location = new System.Drawing.Point(43, 119);
             this.RedSoldier1.Name = "RedSoldier1";
             this.RedSoldier1.Size = new System.Drawing.Size(60, 60);
             this.RedSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -82,23 +80,11 @@ namespace Xiangqi
             this.BoardImage.TabStop = false;
             this.BoardImage.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(864, 207);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(60, 60);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 796);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
@@ -107,7 +93,6 @@ namespace Xiangqi
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,9 +101,8 @@ namespace Xiangqi
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox BoardImage;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox RedSoldier1;
+        private System.Windows.Forms.PictureBox BoardImage;
     }
 }
 
