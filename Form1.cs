@@ -41,8 +41,6 @@ namespace Xiangqi
                     movementIcons[i, z].Parent = BoardImage;
                     movementIcons[i, z].Image = Image.FromFile(@"C:\Users\Max\Documents\Y3 Uni\Honours Stage Project\Code\Xiangqi\Images\greenDot.png");
                     movementIcons[i, z].BackColor = Color.White;
-                    //move the handler assignment to when the moving piece is known.
-                    //movementIcons[i, z].MouseClick += (sender, EventArgs) => {MoveUnit(sender, EventArgs, i, z); };
                     this.Controls.Add(movementIcons[i, z]);
                     movementIcons[i, z].SendToBack();
                     iconY += 75;
@@ -77,26 +75,41 @@ namespace Xiangqi
             //RedSoldier1.Top += 75;
             bool[,] moveBoard;
             moveBoard = piece.legalMoves(board);
-            //counts how many icons need to be displayed.
-            int count = 0;
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
                 for(int z = 0; z < 10; z++)
                 {
                     if(moveBoard[i,z] == true)
                     {
-                        movementIcons[i, z].BringToFront();
-                        movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, i, z, piece, pictureBox); };
+                        movementIcons[i,z].BringToFront();
+                        int a = i;
+                        int b = z;
+                        movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
                     }
                 }
             }
-            PictureBox moveIcon = new PictureBox();
+        }
+
+        private void UnshowMoves()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int z = 0; z < 10; z++)
+                {
+                    movementIcons[i, z].SendToBack();
+                }
+            }
         }
 
         private void MoveUnit(object sender, EventArgs e, int x, int y, Piece piece, PictureBox pictureBox)
         {
+            int xDiff = x - piece.x;
+            int yDiff = y - piece.y;
             piece.x = x;
             piece.y = y;
+            pictureBox.Left += xDiff * 75;
+            pictureBox.Top += yDiff * 75;
+            UnshowMoves();
         }
     }
 }

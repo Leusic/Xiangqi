@@ -14,7 +14,7 @@ namespace Xiangqi
             this.x = x;
             this.y = y;
             this.teamModifier = teamModifier;
-
+            this.alive = true;
         }
 
         public override bool[,] legalMoves(Board board)   
@@ -23,6 +23,8 @@ namespace Xiangqi
             tempBoard = new bool[9, 10];
             if(crossedRiver == false){
                 this.moveCheck(board, tempBoard, 0, (1 * teamModifier));
+                this.moveCheck(board, tempBoard, 0, (2 * teamModifier));
+                this.moveCheck(board, tempBoard, 0, (3 * teamModifier));
             }
             else
             {

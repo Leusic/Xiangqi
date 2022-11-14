@@ -20,11 +20,15 @@ namespace Xiangqi
             return legalMovesBoard;
         }
 
-        //checks if a move will collide with a friendly unit and if not sets the move grid position to true
+        //checks if a move will collide with a friendly unit or go out of bounds and if not sets the move grid position to true
         public void moveCheck(Board board, bool[,] tempBoard, int xMod, int yMod)
         {
+            if(this.x + xMod > 8 || this.y + yMod > 9 || this.x + xMod < 0 || this.y + yMod < 0)
+            {
+                ;
+            }
             //checks if position is occupied
-            if (board.grid[this.x + xMod, this.y + yMod].occupied != true)
+            else if (board.grid[this.x + xMod, this.y + yMod].occupied != true)
             {
                 tempBoard[this.x + xMod, this.y + yMod] = true;
             }
