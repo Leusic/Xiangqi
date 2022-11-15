@@ -6,7 +6,6 @@ namespace Xiangqi
 {
     class Soldier : Piece
     {
-        bool crossedRiver;
         public Soldier(int x, int y, int teamModifier)
         {
             canCrossRiver = true;
@@ -21,10 +20,8 @@ namespace Xiangqi
         {
             bool[,] tempBoard;
             tempBoard = new bool[9, 10];
-            if(crossedRiver == false){
+            if(this.crossedRiver == false){
                 this.moveCheck(board, tempBoard, 0, (1 * teamModifier));
-                this.moveCheck(board, tempBoard, 0, (2 * teamModifier));
-                this.moveCheck(board, tempBoard, 0, (3 * teamModifier));
             }
             else
             {

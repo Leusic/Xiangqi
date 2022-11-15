@@ -7,6 +7,7 @@ namespace Xiangqi
     class Piece
     {
         public bool canCrossRiver;
+        public bool crossedRiver;
         public bool alive;
         //-1 is Red, 1 is Black
         public int teamModifier;
@@ -36,6 +37,11 @@ namespace Xiangqi
             else if (board.grid[this.x + xMod, this.y + yMod].piece.teamModifier != this.teamModifier)
             {
                 tempBoard[this.x + xMod, this.y + yMod] = true;
+            }
+            //can unit cross river check
+            if ((this.canCrossRiver == false) && ((this.y < 5 && (this.y + yMod) >= 5) || (this.y > 4 && (this.y + yMod) <= 4)))
+            {
+                tempBoard[this.x + xMod, this.y + yMod] = false;
             }
         }
     }
