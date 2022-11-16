@@ -32,6 +32,16 @@ namespace Xiangqi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BlackGuard2 = new System.Windows.Forms.PictureBox();
+            this.RedGuard2 = new System.Windows.Forms.PictureBox();
+            this.BlackGuard1 = new System.Windows.Forms.PictureBox();
+            this.RedGuard1 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier5 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier4 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier3 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier2 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier1 = new System.Windows.Forms.PictureBox();
+            this.BlackGeneral = new System.Windows.Forms.PictureBox();
             this.RedGeneral = new System.Windows.Forms.PictureBox();
             this.RedSoldier3 = new System.Windows.Forms.PictureBox();
             this.RedSoldier4 = new System.Windows.Forms.PictureBox();
@@ -39,13 +49,21 @@ namespace Xiangqi
             this.RedSoldier2 = new System.Windows.Forms.PictureBox();
             this.RedSoldier1 = new System.Windows.Forms.PictureBox();
             this.BoardImage = new System.Windows.Forms.PictureBox();
-            this.BlackGeneral = new System.Windows.Forms.PictureBox();
-            this.BlackSoldier1 = new System.Windows.Forms.PictureBox();
-            this.BlackSoldier2 = new System.Windows.Forms.PictureBox();
-            this.BlackSoldier3 = new System.Windows.Forms.PictureBox();
-            this.BlackSoldier4 = new System.Windows.Forms.PictureBox();
-            this.BlackSoldier5 = new System.Windows.Forms.PictureBox();
+            this.BlackElephant1 = new System.Windows.Forms.PictureBox();
+            this.BlackElephant2 = new System.Windows.Forms.PictureBox();
+            this.RedElephant1 = new System.Windows.Forms.PictureBox();
+            this.RedElephant2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedGeneral)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier4)).BeginInit();
@@ -53,12 +71,10 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -73,6 +89,14 @@ namespace Xiangqi
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.RedElephant2);
+            this.panel1.Controls.Add(this.RedElephant1);
+            this.panel1.Controls.Add(this.BlackElephant2);
+            this.panel1.Controls.Add(this.BlackElephant1);
+            this.panel1.Controls.Add(this.BlackGuard2);
+            this.panel1.Controls.Add(this.RedGuard2);
+            this.panel1.Controls.Add(this.BlackGuard1);
+            this.panel1.Controls.Add(this.RedGuard1);
             this.panel1.Controls.Add(this.BlackSoldier5);
             this.panel1.Controls.Add(this.BlackSoldier4);
             this.panel1.Controls.Add(this.BlackSoldier3);
@@ -91,6 +115,106 @@ namespace Xiangqi
             this.panel1.Size = new System.Drawing.Size(720, 800);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // BlackGuard2
+            // 
+            this.BlackGuard2.Image = ((System.Drawing.Image)(resources.GetObject("BlackGuard2.Image")));
+            this.BlackGuard2.Location = new System.Drawing.Point(405, 34);
+            this.BlackGuard2.Name = "BlackGuard2";
+            this.BlackGuard2.Size = new System.Drawing.Size(60, 60);
+            this.BlackGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGuard2.TabIndex = 17;
+            this.BlackGuard2.TabStop = false;
+            // 
+            // RedGuard2
+            // 
+            this.RedGuard2.Image = ((System.Drawing.Image)(resources.GetObject("RedGuard2.Image")));
+            this.RedGuard2.Location = new System.Drawing.Point(405, 707);
+            this.RedGuard2.Name = "RedGuard2";
+            this.RedGuard2.Size = new System.Drawing.Size(60, 60);
+            this.RedGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedGuard2.TabIndex = 16;
+            this.RedGuard2.TabStop = false;
+            // 
+            // BlackGuard1
+            // 
+            this.BlackGuard1.Image = ((System.Drawing.Image)(resources.GetObject("BlackGuard1.Image")));
+            this.BlackGuard1.Location = new System.Drawing.Point(254, 34);
+            this.BlackGuard1.Name = "BlackGuard1";
+            this.BlackGuard1.Size = new System.Drawing.Size(60, 60);
+            this.BlackGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGuard1.TabIndex = 15;
+            this.BlackGuard1.TabStop = false;
+            // 
+            // RedGuard1
+            // 
+            this.RedGuard1.Image = ((System.Drawing.Image)(resources.GetObject("RedGuard1.Image")));
+            this.RedGuard1.Location = new System.Drawing.Point(254, 707);
+            this.RedGuard1.Name = "RedGuard1";
+            this.RedGuard1.Size = new System.Drawing.Size(60, 60);
+            this.RedGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedGuard1.TabIndex = 14;
+            this.RedGuard1.TabStop = false;
+            // 
+            // BlackSoldier5
+            // 
+            this.BlackSoldier5.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier5.Image")));
+            this.BlackSoldier5.Location = new System.Drawing.Point(627, 260);
+            this.BlackSoldier5.Name = "BlackSoldier5";
+            this.BlackSoldier5.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier5.TabIndex = 13;
+            this.BlackSoldier5.TabStop = false;
+            // 
+            // BlackSoldier4
+            // 
+            this.BlackSoldier4.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier4.Image")));
+            this.BlackSoldier4.Location = new System.Drawing.Point(479, 260);
+            this.BlackSoldier4.Name = "BlackSoldier4";
+            this.BlackSoldier4.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier4.TabIndex = 12;
+            this.BlackSoldier4.TabStop = false;
+            // 
+            // BlackSoldier3
+            // 
+            this.BlackSoldier3.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier3.Image")));
+            this.BlackSoldier3.Location = new System.Drawing.Point(330, 260);
+            this.BlackSoldier3.Name = "BlackSoldier3";
+            this.BlackSoldier3.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier3.TabIndex = 11;
+            this.BlackSoldier3.TabStop = false;
+            // 
+            // BlackSoldier2
+            // 
+            this.BlackSoldier2.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier2.Image")));
+            this.BlackSoldier2.Location = new System.Drawing.Point(178, 260);
+            this.BlackSoldier2.Name = "BlackSoldier2";
+            this.BlackSoldier2.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier2.TabIndex = 10;
+            this.BlackSoldier2.TabStop = false;
+            // 
+            // BlackSoldier1
+            // 
+            this.BlackSoldier1.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier1.Image")));
+            this.BlackSoldier1.Location = new System.Drawing.Point(32, 260);
+            this.BlackSoldier1.Name = "BlackSoldier1";
+            this.BlackSoldier1.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier1.TabIndex = 9;
+            this.BlackSoldier1.TabStop = false;
+            // 
+            // BlackGeneral
+            // 
+            this.BlackGeneral.Image = ((System.Drawing.Image)(resources.GetObject("BlackGeneral.Image")));
+            this.BlackGeneral.Location = new System.Drawing.Point(330, 34);
+            this.BlackGeneral.Name = "BlackGeneral";
+            this.BlackGeneral.Size = new System.Drawing.Size(60, 60);
+            this.BlackGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGeneral.TabIndex = 8;
+            this.BlackGeneral.TabStop = false;
             // 
             // RedGeneral
             // 
@@ -161,67 +285,47 @@ namespace Xiangqi
             this.BoardImage.Size = new System.Drawing.Size(720, 800);
             this.BoardImage.TabIndex = 0;
             this.BoardImage.TabStop = false;
-            this.BoardImage.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.BoardImage.Click += new System.EventHandler(this.Board_Click);
             // 
-            // BlackGeneral
+            // BlackElephant1
             // 
-            this.BlackGeneral.Image = ((System.Drawing.Image)(resources.GetObject("BlackGeneral.Image")));
-            this.BlackGeneral.Location = new System.Drawing.Point(330, 34);
-            this.BlackGeneral.Name = "BlackGeneral";
-            this.BlackGeneral.Size = new System.Drawing.Size(60, 60);
-            this.BlackGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackGeneral.TabIndex = 8;
-            this.BlackGeneral.TabStop = false;
+            this.BlackElephant1.Image = ((System.Drawing.Image)(resources.GetObject("BlackElephant1.Image")));
+            this.BlackElephant1.Location = new System.Drawing.Point(178, 34);
+            this.BlackElephant1.Name = "BlackElephant1";
+            this.BlackElephant1.Size = new System.Drawing.Size(60, 60);
+            this.BlackElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackElephant1.TabIndex = 18;
+            this.BlackElephant1.TabStop = false;
             // 
-            // BlackSoldier1
+            // BlackElephant2
             // 
-            this.BlackSoldier1.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier1.Image")));
-            this.BlackSoldier1.Location = new System.Drawing.Point(32, 260);
-            this.BlackSoldier1.Name = "BlackSoldier1";
-            this.BlackSoldier1.Size = new System.Drawing.Size(60, 60);
-            this.BlackSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackSoldier1.TabIndex = 9;
-            this.BlackSoldier1.TabStop = false;
+            this.BlackElephant2.Image = ((System.Drawing.Image)(resources.GetObject("BlackElephant2.Image")));
+            this.BlackElephant2.Location = new System.Drawing.Point(479, 34);
+            this.BlackElephant2.Name = "BlackElephant2";
+            this.BlackElephant2.Size = new System.Drawing.Size(60, 60);
+            this.BlackElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackElephant2.TabIndex = 19;
+            this.BlackElephant2.TabStop = false;
             // 
-            // BlackSoldier2
+            // RedElephant1
             // 
-            this.BlackSoldier2.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier2.Image")));
-            this.BlackSoldier2.Location = new System.Drawing.Point(178, 260);
-            this.BlackSoldier2.Name = "BlackSoldier2";
-            this.BlackSoldier2.Size = new System.Drawing.Size(60, 60);
-            this.BlackSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackSoldier2.TabIndex = 10;
-            this.BlackSoldier2.TabStop = false;
+            this.RedElephant1.Image = ((System.Drawing.Image)(resources.GetObject("RedElephant1.Image")));
+            this.RedElephant1.Location = new System.Drawing.Point(178, 707);
+            this.RedElephant1.Name = "RedElephant1";
+            this.RedElephant1.Size = new System.Drawing.Size(60, 60);
+            this.RedElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedElephant1.TabIndex = 20;
+            this.RedElephant1.TabStop = false;
             // 
-            // BlackSoldier3
+            // RedElephant2
             // 
-            this.BlackSoldier3.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier3.Image")));
-            this.BlackSoldier3.Location = new System.Drawing.Point(330, 260);
-            this.BlackSoldier3.Name = "BlackSoldier3";
-            this.BlackSoldier3.Size = new System.Drawing.Size(60, 60);
-            this.BlackSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackSoldier3.TabIndex = 11;
-            this.BlackSoldier3.TabStop = false;
-            // 
-            // BlackSoldier4
-            // 
-            this.BlackSoldier4.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier4.Image")));
-            this.BlackSoldier4.Location = new System.Drawing.Point(479, 260);
-            this.BlackSoldier4.Name = "BlackSoldier4";
-            this.BlackSoldier4.Size = new System.Drawing.Size(60, 60);
-            this.BlackSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackSoldier4.TabIndex = 12;
-            this.BlackSoldier4.TabStop = false;
-            // 
-            // BlackSoldier5
-            // 
-            this.BlackSoldier5.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier5.Image")));
-            this.BlackSoldier5.Location = new System.Drawing.Point(627, 260);
-            this.BlackSoldier5.Name = "BlackSoldier5";
-            this.BlackSoldier5.Size = new System.Drawing.Size(60, 60);
-            this.BlackSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackSoldier5.TabIndex = 13;
-            this.BlackSoldier5.TabStop = false;
+            this.RedElephant2.Image = ((System.Drawing.Image)(resources.GetObject("RedElephant2.Image")));
+            this.RedElephant2.Location = new System.Drawing.Point(479, 707);
+            this.RedElephant2.Name = "RedElephant2";
+            this.RedElephant2.Size = new System.Drawing.Size(60, 60);
+            this.RedElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedElephant2.TabIndex = 21;
+            this.RedElephant2.TabStop = false;
             // 
             // Form1
             // 
@@ -234,6 +338,16 @@ namespace Xiangqi
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedGeneral)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier4)).EndInit();
@@ -241,12 +355,10 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -272,6 +384,14 @@ namespace Xiangqi
         private System.Windows.Forms.PictureBox BlackSoldier2;
         private System.Windows.Forms.PictureBox BlackSoldier1;
         private System.Windows.Forms.PictureBox BlackGeneral;
+        private System.Windows.Forms.PictureBox BlackGuard2;
+        private System.Windows.Forms.PictureBox RedGuard2;
+        private System.Windows.Forms.PictureBox BlackGuard1;
+        private System.Windows.Forms.PictureBox RedGuard1;
+        private System.Windows.Forms.PictureBox RedElephant2;
+        private System.Windows.Forms.PictureBox RedElephant1;
+        private System.Windows.Forms.PictureBox BlackElephant2;
+        private System.Windows.Forms.PictureBox BlackElephant1;
     }
 }
 

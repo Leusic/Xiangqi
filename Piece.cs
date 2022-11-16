@@ -26,7 +26,7 @@ namespace Xiangqi
         {
             if(this.x + xMod > 8 || this.y + yMod > 9 || this.x + xMod < 0 || this.y + yMod < 0)
             {
-                ;
+                return;
             }
             //checks if position is occupied
             else if (board.grid[this.x + xMod, this.y + yMod].occupied != true)
@@ -42,6 +42,29 @@ namespace Xiangqi
             if ((this.canCrossRiver == false) && ((this.y < 5 && (this.y + yMod) >= 5) || (this.y > 4 && (this.y + yMod) <= 4)))
             {
                 tempBoard[this.x + xMod, this.y + yMod] = false;
+            }
+        }
+
+        public void palaceMoveCheck(Board board, bool[,] tempBoard, int xMod, int yMod)
+        {
+            this.moveCheck(board, tempBoard, xMod, yMod);
+            if (this.x + xMod > 8 || this.y + yMod > 9 || this.x + xMod < 0 || this.y + yMod < 0)
+            {
+                return;
+            }
+            if (this.teamModifier == -1)
+            {
+                if ((this.x + xMod < 3) || (this.x + xMod > 5) || (this.y + yMod < 7))
+                {
+                    tempBoard[this.x + xMod, this.y + yMod] = false;
+                }
+            }
+            if (this.teamModifier == 1)
+            {
+                if ((this.x + xMod < 3) || (this.x + xMod > 5) || (this.y + yMod > 2))
+                {
+                    tempBoard[this.x + xMod, this.y + yMod] = false;
+                }
             }
         }
     }

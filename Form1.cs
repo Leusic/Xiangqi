@@ -21,6 +21,10 @@ namespace Xiangqi
         Soldier redSoldier4 = new Soldier(6, 6, -1);
         Soldier redSoldier5 = new Soldier(8, 6, -1);
         General redGeneral = new General(4, 9, -1);
+        Guard redGuard1 = new Guard(3, 9, -1);
+        Guard redGuard2 = new Guard(5, 9, -1);
+        Elephant redElephant1 = new Elephant(2, 9, -1);
+        Elephant redElephant2 = new Elephant(6, 9, -1);
 
         Soldier blackSoldier1 = new Soldier(0, 3, 1);
         Soldier blackSoldier2 = new Soldier(2, 3, 1);
@@ -28,6 +32,10 @@ namespace Xiangqi
         Soldier blackSoldier4 = new Soldier(6, 3, 1);
         Soldier blackSoldier5 = new Soldier(8, 3, 1);
         General blackGeneral = new General(4, 0, 1);
+        Guard blackGuard1 = new Guard(3, 0, 1);
+        Guard blackGuard2 = new Guard(5, 0, 1);
+        Elephant blackElephant1 = new Elephant(2, 0, 1);
+        Elephant blackElephant2 = new Elephant(6, 0, 1);
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
@@ -44,6 +52,10 @@ namespace Xiangqi
             initialisePiece(redSoldier4, RedSoldier4, 6, 6);
             initialisePiece(redSoldier5, RedSoldier5, 8, 6);
             initialisePiece(redGeneral, RedGeneral, 4, 9);
+            initialisePiece(redGuard1, RedGuard1, 3, 9);
+            initialisePiece(redGuard2, RedGuard2, 5, 9);
+            initialisePiece(redElephant1, RedElephant1, 2, 9);
+            initialisePiece(redElephant2, RedElephant2, 6, 9);
 
             initialisePiece(blackSoldier1, BlackSoldier1, 0, 3);
             initialisePiece(blackSoldier2, BlackSoldier2, 2, 3);
@@ -51,6 +63,10 @@ namespace Xiangqi
             initialisePiece(blackSoldier4, BlackSoldier4, 6, 3);
             initialisePiece(blackSoldier5, BlackSoldier5, 8, 3);
             initialisePiece(blackGeneral, BlackGeneral, 4, 0);
+            initialisePiece(blackGuard1, BlackGuard1, 3, 0);
+            initialisePiece(blackGuard2, BlackGuard2, 5, 0);
+            initialisePiece(blackElephant1, BlackElephant1, 2, 0);
+            initialisePiece(blackElephant2, BlackElephant2, 6, 0);
 
             int iconX = 47;
             int iconY = 47;
@@ -105,7 +121,7 @@ namespace Xiangqi
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void Board_Click(object sender, EventArgs e)
         {
 
         }
@@ -139,15 +155,11 @@ namespace Xiangqi
 
         private void UnshowMoves()
         {
-            foreach (KeyValuePair<Piece, PictureBox> pair in allPieces)
+            for (int i = 0; i < 9; i++)
             {
-                for (int i = 0; i < 9; i++)
+                for (int z = 0; z < 10; z++)
                 {
-                    for (int z = 0; z < 10; z++)
-                    {
-                        movementIcons[i, z].SendToBack();
-                        movementIcons[i, z].MouseClick -= (sender, EventArgs) => { MoveUnit(sender, EventArgs, i, z, pair.Key, pair.Value); };
-                    }
+                    movementIcons[i, z].SendToBack();
                 }
             }
         }
