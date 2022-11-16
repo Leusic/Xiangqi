@@ -13,17 +13,44 @@ namespace Xiangqi
     public partial class Form1 : Form
     {
         Board board = new Board();
-        Soldier redSoldier1 = new Soldier(0,6,-1);
+
+        //piece definitions
+        Soldier redSoldier1 = new Soldier(0, 6, -1);
         Soldier redSoldier2 = new Soldier(2, 6, -1);
+        Soldier redSoldier3 = new Soldier(4, 6, -1);
+        Soldier redSoldier4 = new Soldier(6, 6, -1);
+        Soldier redSoldier5 = new Soldier(8, 6, -1);
+        General redGeneral = new General(4, 9, -1);
+
+        Soldier blackSoldier1 = new Soldier(0, 3, 1);
+        Soldier blackSoldier2 = new Soldier(2, 3, 1);
+        Soldier blackSoldier3 = new Soldier(4, 3, 1);
+        Soldier blackSoldier4 = new Soldier(6, 3, 1);
+        Soldier blackSoldier5 = new Soldier(8, 3, 1);
+        General blackGeneral = new General(4, 0, 1);
+
+
         PictureBox[,] movementIcons = new PictureBox[9, 10];
         Dictionary<Piece,PictureBox> allPieces = new Dictionary<Piece,PictureBox>();
 
         public Form1()
         {
-            //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
             InitializeComponent();
+            //initialising pieces
+            //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
             initialisePiece(redSoldier1, RedSoldier1, 0, 6);
             initialisePiece(redSoldier2, RedSoldier2, 2, 6);
+            initialisePiece(redSoldier3, RedSoldier3, 4, 6);
+            initialisePiece(redSoldier4, RedSoldier4, 6, 6);
+            initialisePiece(redSoldier5, RedSoldier5, 8, 6);
+            initialisePiece(redGeneral, RedGeneral, 4, 9);
+
+            initialisePiece(blackSoldier1, BlackSoldier1, 0, 3);
+            initialisePiece(blackSoldier2, BlackSoldier2, 2, 3);
+            initialisePiece(blackSoldier3, BlackSoldier3, 4, 3);
+            initialisePiece(blackSoldier4, BlackSoldier4, 6, 3);
+            initialisePiece(blackSoldier5, BlackSoldier5, 8, 3);
+            initialisePiece(blackGeneral, BlackGeneral, 4, 0);
 
             int iconX = 47;
             int iconY = 47;
