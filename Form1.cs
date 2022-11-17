@@ -25,6 +25,12 @@ namespace Xiangqi
         Guard redGuard2 = new Guard(5, 9, -1);
         Elephant redElephant1 = new Elephant(2, 9, -1);
         Elephant redElephant2 = new Elephant(6, 9, -1);
+        Horse redHorse1 = new Horse(1, 9, -1);
+        Horse redHorse2 = new Horse(7, 9, -1);
+        Chariot redChariot1 = new Chariot(0, 9, -1);
+        Chariot redChariot2 = new Chariot(8, 9, -1);
+        Cannon redCannon1 = new Cannon(1, 7, -1);
+        Cannon redCannon2 = new Cannon(7, 7, -1);
 
         Soldier blackSoldier1 = new Soldier(0, 3, 1);
         Soldier blackSoldier2 = new Soldier(2, 3, 1);
@@ -36,6 +42,12 @@ namespace Xiangqi
         Guard blackGuard2 = new Guard(5, 0, 1);
         Elephant blackElephant1 = new Elephant(2, 0, 1);
         Elephant blackElephant2 = new Elephant(6, 0, 1);
+        Horse blackHorse1 = new Horse(1, 0, 1);
+        Horse blackHorse2 = new Horse(7, 0, 1);
+        Chariot blackChariot1 = new Chariot(0, 0, 1);
+        Chariot blackChariot2 = new Chariot(8, 0, 1);
+        Cannon blackCannon1 = new Cannon(1, 2, 1);
+        Cannon blackCannon2 = new Cannon(7, 2, 1);
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
@@ -56,6 +68,12 @@ namespace Xiangqi
             initialisePiece(redGuard2, RedGuard2, 5, 9);
             initialisePiece(redElephant1, RedElephant1, 2, 9);
             initialisePiece(redElephant2, RedElephant2, 6, 9);
+            initialisePiece(redHorse1, RedHorse1, 1, 9);
+            initialisePiece(redHorse2, RedHorse2, 7, 9);
+            initialisePiece(redChariot1, RedChariot1, 0, 9);
+            initialisePiece(redChariot2, RedChariot2, 8, 9);
+            initialisePiece(redCannon1, RedCannon1, 1, 7);
+            initialisePiece(redCannon2, RedCannon2, 7, 7);
 
             initialisePiece(blackSoldier1, BlackSoldier1, 0, 3);
             initialisePiece(blackSoldier2, BlackSoldier2, 2, 3);
@@ -67,6 +85,12 @@ namespace Xiangqi
             initialisePiece(blackGuard2, BlackGuard2, 5, 0);
             initialisePiece(blackElephant1, BlackElephant1, 2, 0);
             initialisePiece(blackElephant2, BlackElephant2, 6, 0);
+            initialisePiece(blackHorse1, BlackHorse1, 1, 0);
+            initialisePiece(blackHorse2, BlackHorse2, 7, 0);
+            initialisePiece(blackChariot1, BlackChariot1, 0, 0);
+            initialisePiece(blackChariot2, BlackChariot2, 8, 0);
+            initialisePiece(blackCannon1, BlackCannon1, 1, 2);
+            initialisePiece(blackCannon2, BlackCannon2, 7, 2);
 
             int iconX = 47;
             int iconY = 47;
