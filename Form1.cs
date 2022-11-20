@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Xiangqi.Properties;
 
 namespace Xiangqi
 {
@@ -48,6 +49,8 @@ namespace Xiangqi
         Chariot blackChariot2 = new Chariot(8, 0, 1);
         Cannon blackCannon1 = new Cannon(1, 2, 1);
         Cannon blackCannon2 = new Cannon(7, 2, 1);
+
+        int currentTurn = -1;
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
@@ -107,6 +110,21 @@ namespace Xiangqi
             }
         }
 
+        private void updateTurn()
+        {
+            currentTurn = -currentTurn;
+            if (currentTurn == -1)
+            {
+                TurnTextbox.BackColor = Color.IndianRed;
+                TurnTextbox.Text = "Red's Turn";
+            }
+            else
+            {
+                TurnTextbox.BackColor = Color.DarkGray;
+                TurnTextbox.Text = "Black's Turn";
+            }
+        }
+
         private void initialiseMovementIcon(int i, int z, int x, int y)
         {
             movementIcons[i, z] = new PictureBox();
@@ -114,7 +132,7 @@ namespace Xiangqi
             movementIcons[i, z].Width = 25;
             movementIcons[i, z].Location = new Point(x, y);
             movementIcons[i, z].Parent = BoardImage;
-            movementIcons[i, z].Image = Image.FromFile(@"C:\Users\Max\Documents\Y3 Uni\Honours Stage Project\Code\Xiangqi\Images\greenDot.png");
+            movementIcons[i, z].Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//greenDot.png");
             movementIcons[i, z].BackColor = Color.White;
             this.Controls.Add(movementIcons[i, z]);
         }
@@ -152,26 +170,28 @@ namespace Xiangqi
 
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
-            UnshowMoves();
-            //RedSoldier1.Top += 75;
-            bool[,] moveBoard;
-            moveBoard = piece.legalMoves(board);
-            for (int i = 0; i < 9; i++)
-            {
-                for(int z = 0; z < 10; z++)
+            if (piece.teamModifier == currentTurn) {
+                UnshowMoves();
+                //RedSoldier1.Top += 75;
+                bool[,] moveBoard;
+                moveBoard = piece.legalMoves(board);
+                for (int i = 0; i < 9; i++)
                 {
-                    if(moveBoard[i,z] == true)
+                    for (int z = 0; z < 10; z++)
                     {
-                        int a = i;
-                        int b = z;
-                        //removes event handlers of previously used buttons so that multiple pieces dont move at once.
-                        int x = movementIcons[i, z].Location.X;
-                        int y = movementIcons[i, z].Location.Y;
-                        movementIcons[i, z].Dispose();
-                        movementIcons[i, z] = null;
-                        initialiseMovementIcon(i,z,x,y);
-                        movementIcons[i, z].BringToFront();
-                        movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
+                        if (moveBoard[i, z] == true)
+                        {
+                            int a = i;
+                            int b = z;
+                            //removes event handlers of previously used buttons so that multiple pieces dont move at once.
+                            int x = movementIcons[i, z].Location.X;
+                            int y = movementIcons[i, z].Location.Y;
+                            movementIcons[i, z].Dispose();
+                            movementIcons[i, z] = null;
+                            initialiseMovementIcon(i, z, x, y);
+                            movementIcons[i, z].BringToFront();
+                            movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
+                        }
                     }
                 }
             }
@@ -206,6 +226,7 @@ namespace Xiangqi
             pictureBox.Left += xDiff * 75;
             pictureBox.Top += yDiff * 75;
             UnshowMoves();
+            updateTurn();
         }
     }
 }

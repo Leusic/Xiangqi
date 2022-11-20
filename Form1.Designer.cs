@@ -32,6 +32,10 @@ namespace Xiangqi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.RedCannon2 = new System.Windows.Forms.PictureBox();
+            this.RedCannon1 = new System.Windows.Forms.PictureBox();
+            this.BlackCannon2 = new System.Windows.Forms.PictureBox();
+            this.BlackCannon1 = new System.Windows.Forms.PictureBox();
             this.BlackChariot2 = new System.Windows.Forms.PictureBox();
             this.RedChariot2 = new System.Windows.Forms.PictureBox();
             this.RedChariot1 = new System.Windows.Forms.PictureBox();
@@ -61,11 +65,12 @@ namespace Xiangqi
             this.RedSoldier2 = new System.Windows.Forms.PictureBox();
             this.RedSoldier1 = new System.Windows.Forms.PictureBox();
             this.BoardImage = new System.Windows.Forms.PictureBox();
-            this.BlackCannon1 = new System.Windows.Forms.PictureBox();
-            this.BlackCannon2 = new System.Windows.Forms.PictureBox();
-            this.RedCannon1 = new System.Windows.Forms.PictureBox();
-            this.RedCannon2 = new System.Windows.Forms.PictureBox();
+            this.TurnTextbox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlackChariot2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedChariot2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedChariot1)).BeginInit();
@@ -95,10 +100,6 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -151,6 +152,46 @@ namespace Xiangqi
             this.panel1.Size = new System.Drawing.Size(720, 800);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // RedCannon2
+            // 
+            this.RedCannon2.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon2.Image")));
+            this.RedCannon2.Location = new System.Drawing.Point(554, 555);
+            this.RedCannon2.Name = "RedCannon2";
+            this.RedCannon2.Size = new System.Drawing.Size(60, 60);
+            this.RedCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedCannon2.TabIndex = 33;
+            this.RedCannon2.TabStop = false;
+            // 
+            // RedCannon1
+            // 
+            this.RedCannon1.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon1.Image")));
+            this.RedCannon1.Location = new System.Drawing.Point(103, 555);
+            this.RedCannon1.Name = "RedCannon1";
+            this.RedCannon1.Size = new System.Drawing.Size(60, 60);
+            this.RedCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedCannon1.TabIndex = 32;
+            this.RedCannon1.TabStop = false;
+            // 
+            // BlackCannon2
+            // 
+            this.BlackCannon2.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon2.Image")));
+            this.BlackCannon2.Location = new System.Drawing.Point(554, 181);
+            this.BlackCannon2.Name = "BlackCannon2";
+            this.BlackCannon2.Size = new System.Drawing.Size(60, 60);
+            this.BlackCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackCannon2.TabIndex = 31;
+            this.BlackCannon2.TabStop = false;
+            // 
+            // BlackCannon1
+            // 
+            this.BlackCannon1.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon1.Image")));
+            this.BlackCannon1.Location = new System.Drawing.Point(103, 181);
+            this.BlackCannon1.Name = "BlackCannon1";
+            this.BlackCannon1.Size = new System.Drawing.Size(60, 60);
+            this.BlackCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackCannon1.TabIndex = 30;
+            this.BlackCannon1.TabStop = false;
             // 
             // BlackChariot2
             // 
@@ -438,62 +479,37 @@ namespace Xiangqi
             this.BoardImage.Image = ((System.Drawing.Image)(resources.GetObject("BoardImage.Image")));
             this.BoardImage.Location = new System.Drawing.Point(0, 0);
             this.BoardImage.Name = "BoardImage";
-            this.BoardImage.Size = new System.Drawing.Size(720, 800);
+            this.BoardImage.Size = new System.Drawing.Size(1100, 800);
             this.BoardImage.TabIndex = 0;
             this.BoardImage.TabStop = false;
             this.BoardImage.Click += new System.EventHandler(this.Board_Click);
             // 
-            // BlackCannon1
+            // TurnTextbox
             // 
-            this.BlackCannon1.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon1.Image")));
-            this.BlackCannon1.Location = new System.Drawing.Point(103, 181);
-            this.BlackCannon1.Name = "BlackCannon1";
-            this.BlackCannon1.Size = new System.Drawing.Size(60, 60);
-            this.BlackCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackCannon1.TabIndex = 30;
-            this.BlackCannon1.TabStop = false;
-            // 
-            // BlackCannon2
-            // 
-            this.BlackCannon2.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon2.Image")));
-            this.BlackCannon2.Location = new System.Drawing.Point(554, 181);
-            this.BlackCannon2.Name = "BlackCannon2";
-            this.BlackCannon2.Size = new System.Drawing.Size(60, 60);
-            this.BlackCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BlackCannon2.TabIndex = 31;
-            this.BlackCannon2.TabStop = false;
-            // 
-            // RedCannon1
-            // 
-            this.RedCannon1.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon1.Image")));
-            this.RedCannon1.Location = new System.Drawing.Point(103, 555);
-            this.RedCannon1.Name = "RedCannon1";
-            this.RedCannon1.Size = new System.Drawing.Size(60, 60);
-            this.RedCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.RedCannon1.TabIndex = 32;
-            this.RedCannon1.TabStop = false;
-            // 
-            // RedCannon2
-            // 
-            this.RedCannon2.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon2.Image")));
-            this.RedCannon2.Location = new System.Drawing.Point(554, 555);
-            this.RedCannon2.Name = "RedCannon2";
-            this.RedCannon2.Size = new System.Drawing.Size(60, 60);
-            this.RedCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.RedCannon2.TabIndex = 33;
-            this.RedCannon2.TabStop = false;
+            this.TurnTextbox.BackColor = System.Drawing.Color.IndianRed;
+            this.TurnTextbox.Location = new System.Drawing.Point(745, 383);
+            this.TurnTextbox.Name = "TurnTextbox";
+            this.TurnTextbox.Size = new System.Drawing.Size(182, 23);
+            this.TurnTextbox.TabIndex = 34;
+            this.TurnTextbox.Text = "Red\'s Turn";
+            this.TurnTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 796);
+            this.Controls.Add(this.TurnTextbox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlackChariot2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedChariot2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedChariot1)).EndInit();
@@ -523,11 +539,8 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -580,6 +593,7 @@ namespace Xiangqi
         private System.Windows.Forms.PictureBox RedCannon1;
         private System.Windows.Forms.PictureBox BlackCannon2;
         private System.Windows.Forms.PictureBox BlackCannon1;
+        private System.Windows.Forms.TextBox TurnTextbox;
     }
 }
 

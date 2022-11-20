@@ -35,7 +35,7 @@ namespace Xiangqi
                     {
                         screen = true;
                     }
-                    if (board.grid[this.x, this.y + i].occupied != true && screen == false)
+                    else if (board.grid[this.x, this.y + i].occupied != true && screen == false)
                     {
                         moveCheck(board, tempBoard, 0, i);
                     }
@@ -59,7 +59,7 @@ namespace Xiangqi
                     {
                         screen = true;
                     }
-                    if (board.grid[this.x, this.y - i].occupied != true && screen == false)
+                    else if (board.grid[this.x, this.y - i].occupied != true && screen == false)
                     {
                         moveCheck(board, tempBoard, 0, -i);
                     }
@@ -83,7 +83,7 @@ namespace Xiangqi
                     {
                         screen = true;
                     }
-                    if (board.grid[this.x + i, this.y].occupied != true && screen == false)
+                    else if (board.grid[this.x + i, this.y].occupied != true && screen == false)
                     {
                         moveCheck(board, tempBoard, i, 0);
                     }
@@ -107,7 +107,7 @@ namespace Xiangqi
                     {
                         screen = true;
                     }
-                    if (board.grid[this.x - i, this.y].occupied != true && screen == false)
+                    else if (board.grid[this.x - i, this.y].occupied != true && screen == false)
                     {
                         moveCheck(board, tempBoard, -i, 0);
                     }
