@@ -258,6 +258,7 @@ namespace Xiangqi
             //taking a piece moves the taken piece to its team graveyard
             if(board.grid[x,y].occupied == true)
             {
+                board.grid[x, y].piece.alive = false;
                 if(board.grid[x,y].piece.teamModifier == -1)
                 {
                     redGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
