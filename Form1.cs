@@ -51,6 +51,8 @@ namespace Xiangqi
         Cannon blackCannon2 = new Cannon(7, 2, 1);
 
         int currentTurn = -1;
+        Dictionary<Piece,PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
+        Dictionary<Piece, PictureBox> blackGraveyard = new Dictionary<Piece, PictureBox>();
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
@@ -122,6 +124,40 @@ namespace Xiangqi
             {
                 TurnTextbox.BackColor = Color.DarkGray;
                 TurnTextbox.Text = "Black's Turn";
+            }
+        }
+
+        private void updateGraveyard()
+        {
+            int count = 0;
+            int y = 33;
+            int x = 745;
+            foreach(KeyValuePair<Piece,PictureBox> i in blackGraveyard)
+            {
+                if(count > 3)
+                {
+                    count = 0;
+                    x += 75;
+                    y = 33;
+                }
+                i.Value.Location = new Point(x,y);
+                y += 75;
+                count++;
+            }
+            count = 0;
+            y = 433;
+            x = 745;
+            foreach (KeyValuePair < Piece,PictureBox> i in redGraveyard)
+            {
+                if (count > 3)
+                {
+                    count = 0;
+                    x += 75;
+                    y = 433;
+                }
+                i.Value.Location = new Point(x,y);
+                y += 75;
+                count++;
             }
         }
 
@@ -218,6 +254,19 @@ namespace Xiangqi
             if ((piece.y < 5 && (piece.y + yDiff) >= 5) || (piece.y > 4 && (piece.y + yDiff) <= 4))
             {
                  piece.crossedRiver = true;
+            }
+            //taking a piece moves the taken piece to its team graveyard
+            if(board.grid[x,y].occupied == true)
+            {
+                if(board.grid[x,y].piece.teamModifier == -1)
+                {
+                    redGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
+                }
+                else
+                {
+                    blackGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
+                }
+                updateGraveyard();
             }
             piece.x = x;
             piece.y = y;
