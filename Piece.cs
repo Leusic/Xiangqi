@@ -6,6 +6,7 @@ namespace Xiangqi
 {
     class Piece
     {
+        public string name;
         public bool canCrossRiver;
         public bool crossedRiver;
         public bool alive;
@@ -45,9 +46,12 @@ namespace Xiangqi
             }
         }
 
+
         public void palaceMoveCheck(Board board, bool[,] tempBoard, int xMod, int yMod)
         {
+            //standard move check
             this.moveCheck(board, tempBoard, xMod, yMod);
+            //reperform out of bounds check
             if (this.x + xMod > 8 || this.y + yMod > 9 || this.x + xMod < 0 || this.y + yMod < 0)
             {
                 return;

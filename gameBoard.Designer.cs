@@ -1,7 +1,7 @@
 ﻿
 namespace Xiangqi
 {
-    partial class Form1
+    partial class gameBoard
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace Xiangqi
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(gameBoard));
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.RedCannon2 = new System.Windows.Forms.PictureBox();

@@ -11,7 +11,7 @@ using Xiangqi.Properties;
 
 namespace Xiangqi
 {
-    public partial class Form1 : Form
+    public partial class gameBoard : Form
     {
         Board board = new Board();
 
@@ -58,44 +58,47 @@ namespace Xiangqi
         PictureBox[,] movementIcons = new PictureBox[9, 10];
         Dictionary<Piece,PictureBox> allPieces = new Dictionary<Piece,PictureBox>();
 
-        public Form1()
+        bool redInCheck = false;
+        bool blackInCheck = false;
+
+        public gameBoard()
         {
             InitializeComponent();
             //initialising pieces
             //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
-            initialisePiece(redSoldier1, RedSoldier1, 0, 6);
-            initialisePiece(redSoldier2, RedSoldier2, 2, 6);
-            initialisePiece(redSoldier3, RedSoldier3, 4, 6);
-            initialisePiece(redSoldier4, RedSoldier4, 6, 6);
-            initialisePiece(redSoldier5, RedSoldier5, 8, 6);
-            initialisePiece(redGeneral, RedGeneral, 4, 9);
-            initialisePiece(redGuard1, RedGuard1, 3, 9);
-            initialisePiece(redGuard2, RedGuard2, 5, 9);
-            initialisePiece(redElephant1, RedElephant1, 2, 9);
-            initialisePiece(redElephant2, RedElephant2, 6, 9);
-            initialisePiece(redHorse1, RedHorse1, 1, 9);
-            initialisePiece(redHorse2, RedHorse2, 7, 9);
-            initialisePiece(redChariot1, RedChariot1, 0, 9);
-            initialisePiece(redChariot2, RedChariot2, 8, 9);
-            initialisePiece(redCannon1, RedCannon1, 1, 7);
-            initialisePiece(redCannon2, RedCannon2, 7, 7);
+            initialisePiece(redSoldier1, RedSoldier1, 0, 6, "redSoldier1");
+            initialisePiece(redSoldier2, RedSoldier2, 2, 6, "redSoldier2");
+            initialisePiece(redSoldier3, RedSoldier3, 4, 6, "redSoldier3");
+            initialisePiece(redSoldier4, RedSoldier4, 6, 6, "redSoldier4");
+            initialisePiece(redSoldier5, RedSoldier5, 8, 6, "redSoldier5");
+            initialisePiece(redGeneral, RedGeneral, 4, 9, "redGeneral");
+            initialisePiece(redGuard1, RedGuard1, 3, 9, "redGuard1");
+            initialisePiece(redGuard2, RedGuard2, 5, 9, "redGuard2");
+            initialisePiece(redElephant1, RedElephant1, 2, 9, "redElephant1");
+            initialisePiece(redElephant2, RedElephant2, 6, 9, "redElephant2");
+            initialisePiece(redHorse1, RedHorse1, 1, 9, "redHorse1");
+            initialisePiece(redHorse2, RedHorse2, 7, 9, "redHorse2");
+            initialisePiece(redChariot1, RedChariot1, 0, 9, "redChariot1");
+            initialisePiece(redChariot2, RedChariot2, 8, 9, "redChariot2");
+            initialisePiece(redCannon1, RedCannon1, 1, 7, "redCannon1");
+            initialisePiece(redCannon2, RedCannon2, 7, 7, "redCannon2");
 
-            initialisePiece(blackSoldier1, BlackSoldier1, 0, 3);
-            initialisePiece(blackSoldier2, BlackSoldier2, 2, 3);
-            initialisePiece(blackSoldier3, BlackSoldier3, 4, 3);
-            initialisePiece(blackSoldier4, BlackSoldier4, 6, 3);
-            initialisePiece(blackSoldier5, BlackSoldier5, 8, 3);
-            initialisePiece(blackGeneral, BlackGeneral, 4, 0);
-            initialisePiece(blackGuard1, BlackGuard1, 3, 0);
-            initialisePiece(blackGuard2, BlackGuard2, 5, 0);
-            initialisePiece(blackElephant1, BlackElephant1, 2, 0);
-            initialisePiece(blackElephant2, BlackElephant2, 6, 0);
-            initialisePiece(blackHorse1, BlackHorse1, 1, 0);
-            initialisePiece(blackHorse2, BlackHorse2, 7, 0);
-            initialisePiece(blackChariot1, BlackChariot1, 0, 0);
-            initialisePiece(blackChariot2, BlackChariot2, 8, 0);
-            initialisePiece(blackCannon1, BlackCannon1, 1, 2);
-            initialisePiece(blackCannon2, BlackCannon2, 7, 2);
+            initialisePiece(blackSoldier1, BlackSoldier1, 0, 3, "blackSoldier1");
+            initialisePiece(blackSoldier2, BlackSoldier2, 2, 3, "blackSoldier2");
+            initialisePiece(blackSoldier3, BlackSoldier3, 4, 3, "blackSoldier3");
+            initialisePiece(blackSoldier4, BlackSoldier4, 6, 3, "blackSoldier4");
+            initialisePiece(blackSoldier5, BlackSoldier5, 8, 3, "blackSoldier5");
+            initialisePiece(blackGeneral, BlackGeneral, 4, 0, "blackGeneral");
+            initialisePiece(blackGuard1, BlackGuard1, 3, 0, "blackGuard1");
+            initialisePiece(blackGuard2, BlackGuard2, 5, 0, "blackGuard2");
+            initialisePiece(blackElephant1, BlackElephant1, 2, 0, "blackElephant1");
+            initialisePiece(blackElephant2, BlackElephant2, 6, 0, "blackElephant2");
+            initialisePiece(blackHorse1, BlackHorse1, 1, 0, "blackHorse1");
+            initialisePiece(blackHorse2, BlackHorse2, 7, 0, "blackHorse2");
+            initialisePiece(blackChariot1, BlackChariot1, 0, 0, "blackChariot1");
+            initialisePiece(blackChariot2, BlackChariot2, 8, 0, "blackChariot2");
+            initialisePiece(blackCannon1, BlackCannon1, 1, 2, "blackCannon1");
+            initialisePiece(blackCannon2, BlackCannon2, 7, 2, "blackCannon2");
 
             int iconX = 47;
             int iconY = 47;
@@ -124,6 +127,90 @@ namespace Xiangqi
             {
                 TurnTextbox.BackColor = Color.DarkGray;
                 TurnTextbox.Text = "Black's Turn";
+            }
+        }
+
+        private void checkmate()
+        {
+
+        }
+
+        private void checkScan()
+        {
+            bool tempCheck = false;
+            int blackGeneralX = 99, blackGeneralY = 99, redGeneralX = 99, redGeneralY = 99;
+            //finds the locations of the generals on the board
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+            {
+                Type pieceType = i.Key.GetType();
+                if(pieceType.Name == "General")
+                {
+                    //general is red
+                    if(i.Key.teamModifier == -1)
+                    {
+                        redGeneralX = i.Key.x;
+                        redGeneralY = i.Key.y;
+                    }
+                    //general is black
+                    if (i.Key.teamModifier == 1)
+                    {
+                        blackGeneralX = i.Key.x;
+                        blackGeneralY = i.Key.y;
+                    }
+                }
+            }
+            //check if the red general is in check
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+            {
+                if (i.Key.teamModifier == 1)
+                {
+                    bool[,] pieceMoves = i.Key.legalMoves(board);
+                    if (pieceMoves[redGeneralX, redGeneralY] == true)
+                    {
+                        //if this is second round in check, end game
+                        if (redInCheck == true)
+                        {
+                            Application.Run(new gameBoard());
+                        }
+                        else
+                        {
+                            tempCheck = true;
+                            redInCheck = true;
+                        }
+                    }
+                }
+            }
+            //if red is no longer in check, reset check
+            if(tempCheck == false)
+            {
+                redInCheck = false;
+            }
+            tempCheck = false;
+            //check if the black general is in check
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+            {
+                if (i.Key.teamModifier == -1)
+                {
+                    bool[,] pieceMoves = i.Key.legalMoves(board);
+                    if (pieceMoves[blackGeneralX, blackGeneralY] == true)
+                    {
+                        //if this is second round in check, end game
+                        if (blackInCheck == true)
+                        {
+                            Application.Run(new gameBoard());
+                        }
+                        else
+                        {
+                            tempCheck = true;
+                            blackInCheck = true;
+                        }
+                    }
+                }
+            }
+            //if black is no longer in check, reset check
+            if (tempCheck == false)
+            {
+                blackInCheck = false;
             }
         }
 
@@ -173,8 +260,9 @@ namespace Xiangqi
             this.Controls.Add(movementIcons[i, z]);
         }
 
-        private void initialisePiece(Piece piece, PictureBox pictureBox, int x, int y)
+        private void initialisePiece(Piece piece, PictureBox pictureBox, int x, int y, string name)
         {
+            piece.name = name;
             pictureBox.Parent = BoardImage;
             pictureBox.BackColor = Color.Transparent;
             board.grid[x, y].occupied = true;
@@ -206,27 +294,30 @@ namespace Xiangqi
 
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
-            if (piece.teamModifier == currentTurn) {
-                UnshowMoves();
-                //RedSoldier1.Top += 75;
-                bool[,] moveBoard;
-                moveBoard = piece.legalMoves(board);
-                for (int i = 0; i < 9; i++)
+            if(piece.alive == true)
+            {
+                if (piece.teamModifier == currentTurn)
                 {
-                    for (int z = 0; z < 10; z++)
+                    UnshowMoves();
+                    bool[,] moveBoard;
+                    moveBoard = piece.legalMoves(board);
+                    for (int i = 0; i < 9; i++)
                     {
-                        if (moveBoard[i, z] == true)
+                        for (int z = 0; z < 10; z++)
                         {
-                            int a = i;
-                            int b = z;
-                            //removes event handlers of previously used buttons so that multiple pieces dont move at once.
-                            int x = movementIcons[i, z].Location.X;
-                            int y = movementIcons[i, z].Location.Y;
-                            movementIcons[i, z].Dispose();
-                            movementIcons[i, z] = null;
-                            initialiseMovementIcon(i, z, x, y);
-                            movementIcons[i, z].BringToFront();
-                            movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
+                            if (moveBoard[i, z] == true)
+                            {
+                                int a = i;
+                                int b = z;
+                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
+                                int x = movementIcons[i, z].Location.X;
+                                int y = movementIcons[i, z].Location.Y;
+                                movementIcons[i, z].Dispose();
+                                movementIcons[i, z] = null;
+                                initialiseMovementIcon(i, z, x, y);
+                                movementIcons[i, z].BringToFront();
+                                movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
+                            }
                         }
                     }
                 }
@@ -259,7 +350,7 @@ namespace Xiangqi
             if(board.grid[x,y].occupied == true)
             {
                 board.grid[x, y].piece.alive = false;
-                if(board.grid[x,y].piece.teamModifier == -1)
+                if (board.grid[x,y].piece.teamModifier == -1)
                 {
                     redGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
                 }
@@ -277,6 +368,7 @@ namespace Xiangqi
             pictureBox.Top += yDiff * 75;
             UnshowMoves();
             updateTurn();
+            checkScan();
         }
     }
 }
