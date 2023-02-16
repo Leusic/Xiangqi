@@ -130,14 +130,31 @@ namespace Xiangqi
             }
         }
 
-        private void checkmate()
+        private void MenuButtonClick(object sender, EventArgs e)
         {
+            MainMenu mainMenu = new MainMenu();
+            this.Hide();
+            mainMenu.ShowDialog();
+            this.Close();
+        }
 
+        private void gameOver()
+        {
+            CheckmateTextbox.BringToFront();
+            WinningTeamTextbox.BringToFront();
+            MenuButton.BringToFront();
+            TurnTextbox.Text = "Game Over!";
+            TurnTextbox.BackColor = Color.Tan;
+            CheckTextbox.SendToBack();
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+            {
+                i.Key.alive = false;
+            }
         }
 
         private void checkScan()
         {
-            bool tempCheck = false;
+            bool blackTempCheck = false, redTempCheck = false;
             int blackGeneralX = 99, blackGeneralY = 99, redGeneralX = 99, redGeneralY = 99;
             //finds the locations of the generals on the board
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
@@ -170,22 +187,25 @@ namespace Xiangqi
                         //if this is second round in check, end game
                         if (redInCheck == true)
                         {
-                            Application.Run(new gameBoard());
+                            gameOver();
+                            WinningTeamTextbox.Text = "Black Wins!";
                         }
                         else
                         {
-                            tempCheck = true;
+                            CheckTextbox.Text = "Red is in check";
+                            redTempCheck = true;
                             redInCheck = true;
                         }
                     }
                 }
             }
             //if red is no longer in check, reset check
-            if(tempCheck == false)
+            if(redTempCheck == false)
             {
+                CheckTextbox.Text = "Neither team in check";
                 redInCheck = false;
             }
-            tempCheck = false;
+            redTempCheck = false;
             //check if the black general is in check
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
@@ -197,21 +217,25 @@ namespace Xiangqi
                         //if this is second round in check, end game
                         if (blackInCheck == true)
                         {
-                            Application.Run(new gameBoard());
+                            gameOver();
+                            WinningTeamTextbox.Text = "Red Wins!";
                         }
                         else
                         {
-                            tempCheck = true;
+                            CheckTextbox.Text = "Black is in check";
+                            blackTempCheck = true;
                             blackInCheck = true;
                         }
                     }
                 }
             }
             //if black is no longer in check, reset check
-            if (tempCheck == false)
+            if (blackTempCheck == false)
             {
+                CheckTextbox.Text = "Neither team in check";
                 blackInCheck = false;
             }
+            blackTempCheck = false;
         }
 
         private void updateGraveyard()
@@ -272,24 +296,8 @@ namespace Xiangqi
             allPieces.Add(piece,pictureBox);
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Board_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
@@ -369,6 +377,21 @@ namespace Xiangqi
             UnshowMoves();
             updateTurn();
             checkScan();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

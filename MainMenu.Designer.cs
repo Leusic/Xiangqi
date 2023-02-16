@@ -28,12 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.localGameButton = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // localGameButton
+            // 
+            this.localGameButton.Location = new System.Drawing.Point(316, 12);
+            this.localGameButton.Name = "localGameButton";
+            this.localGameButton.Size = new System.Drawing.Size(126, 23);
+            this.localGameButton.TabIndex = 0;
+            this.localGameButton.Text = "Play Local Game";
+            this.localGameButton.UseVisualStyleBackColor = true;
+            this.localGameButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // MainMenu
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form2";
+            this.Controls.Add(this.localGameButton);
+            this.Name = "MainMenu";
+            this.Text = "Xiangqi Menu";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button localGameButton;
     }
 }

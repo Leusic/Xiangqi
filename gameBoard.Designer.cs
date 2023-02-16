@@ -30,8 +30,9 @@ namespace Xiangqi
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(gameBoard));
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CheckTextbox = new System.Windows.Forms.Label();
+            this.TurnTextbox = new System.Windows.Forms.Label();
             this.RedCannon2 = new System.Windows.Forms.PictureBox();
             this.RedCannon1 = new System.Windows.Forms.PictureBox();
             this.BlackCannon2 = new System.Windows.Forms.PictureBox();
@@ -65,7 +66,9 @@ namespace Xiangqi
             this.RedSoldier2 = new System.Windows.Forms.PictureBox();
             this.RedSoldier1 = new System.Windows.Forms.PictureBox();
             this.BoardImage = new System.Windows.Forms.PictureBox();
-            this.TurnTextbox = new System.Windows.Forms.TextBox();
+            this.CheckmateTextbox = new System.Windows.Forms.Label();
+            this.WinningTeamTextbox = new System.Windows.Forms.Label();
+            this.MenuButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
@@ -102,18 +105,10 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1113, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(59, 56);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CheckTextbox);
+            this.panel1.Controls.Add(this.TurnTextbox);
             this.panel1.Controls.Add(this.RedCannon2);
             this.panel1.Controls.Add(this.RedCannon1);
             this.panel1.Controls.Add(this.BlackCannon2);
@@ -147,11 +142,36 @@ namespace Xiangqi
             this.panel1.Controls.Add(this.RedSoldier2);
             this.panel1.Controls.Add(this.RedSoldier1);
             this.panel1.Controls.Add(this.BoardImage);
+            this.panel1.Controls.Add(this.CheckmateTextbox);
+            this.panel1.Controls.Add(this.WinningTeamTextbox);
+            this.panel1.Controls.Add(this.MenuButton);
             this.panel1.Location = new System.Drawing.Point(1, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1100, 800);
             this.panel1.TabIndex = 1;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // CheckTextbox
+            // 
+            this.CheckTextbox.BackColor = System.Drawing.SystemColors.Control;
+            this.CheckTextbox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckTextbox.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CheckTextbox.Location = new System.Drawing.Point(863, 389);
+            this.CheckTextbox.Name = "CheckTextbox";
+            this.CheckTextbox.Size = new System.Drawing.Size(130, 16);
+            this.CheckTextbox.TabIndex = 41;
+            this.CheckTextbox.Text = "Neither team in check";
+            this.CheckTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TurnTextbox
+            // 
+            this.TurnTextbox.BackColor = System.Drawing.Color.IndianRed;
+            this.TurnTextbox.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TurnTextbox.Location = new System.Drawing.Point(738, 379);
+            this.TurnTextbox.Name = "TurnTextbox";
+            this.TurnTextbox.Size = new System.Drawing.Size(119, 33);
+            this.TurnTextbox.TabIndex = 40;
+            this.TurnTextbox.Text = "Red\'s Turn";
+            this.TurnTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RedCannon2
             // 
@@ -475,37 +495,62 @@ namespace Xiangqi
             // 
             // BoardImage
             // 
+            this.BoardImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BoardImage.BackColor = System.Drawing.Color.Transparent;
             this.BoardImage.Image = ((System.Drawing.Image)(resources.GetObject("BoardImage.Image")));
-            this.BoardImage.Location = new System.Drawing.Point(0, 0);
+            this.BoardImage.Location = new System.Drawing.Point(3, -3);
             this.BoardImage.Name = "BoardImage";
             this.BoardImage.Size = new System.Drawing.Size(1100, 800);
             this.BoardImage.TabIndex = 0;
             this.BoardImage.TabStop = false;
-            this.BoardImage.Click += new System.EventHandler(this.Board_Click);
             // 
-            // TurnTextbox
+            // CheckmateTextbox
             // 
-            this.TurnTextbox.BackColor = System.Drawing.Color.IndianRed;
-            this.TurnTextbox.Location = new System.Drawing.Point(745, 383);
-            this.TurnTextbox.Name = "TurnTextbox";
-            this.TurnTextbox.Size = new System.Drawing.Size(182, 23);
-            this.TurnTextbox.TabIndex = 34;
-            this.TurnTextbox.Text = "Red\'s Turn";
-            this.TurnTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.CheckmateTextbox.AutoSize = true;
+            this.CheckmateTextbox.BackColor = System.Drawing.Color.White;
+            this.CheckmateTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckmateTextbox.Location = new System.Drawing.Point(311, 368);
+            this.CheckmateTextbox.Name = "CheckmateTextbox";
+            this.CheckmateTextbox.Size = new System.Drawing.Size(108, 28);
+            this.CheckmateTextbox.TabIndex = 38;
+            this.CheckmateTextbox.Text = "Checkmate";
+            this.CheckmateTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // Form1
+            // WinningTeamTextbox
+            // 
+            this.WinningTeamTextbox.AutoSize = true;
+            this.WinningTeamTextbox.BackColor = System.Drawing.Color.White;
+            this.WinningTeamTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.WinningTeamTextbox.Location = new System.Drawing.Point(315, 396);
+            this.WinningTeamTextbox.Name = "WinningTeamTextbox";
+            this.WinningTeamTextbox.Size = new System.Drawing.Size(99, 28);
+            this.WinningTeamTextbox.TabIndex = 39;
+            this.WinningTeamTextbox.Text = "Red Wins!";
+            this.WinningTeamTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // MenuButton
+            // 
+            this.MenuButton.Location = new System.Drawing.Point(999, 368);
+            this.MenuButton.Name = "MenuButton";
+            this.MenuButton.Size = new System.Drawing.Size(90, 52);
+            this.MenuButton.TabIndex = 37;
+            this.MenuButton.Text = "Return to Menu";
+            this.MenuButton.UseVisualStyleBackColor = true;
+            this.MenuButton.Click += new System.EventHandler(this.MenuButtonClick);
+            // 
+            // gameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 796);
-            this.Controls.Add(this.TurnTextbox);
+            this.ClientSize = new System.Drawing.Size(1102, 796);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "gameBoard";
+            this.Text = "Xiangqi";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).EndInit();
@@ -540,13 +585,10 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox RedSoldier1;
         private System.Windows.Forms.PictureBox BoardImage;
@@ -593,7 +635,11 @@ namespace Xiangqi
         private System.Windows.Forms.PictureBox RedCannon1;
         private System.Windows.Forms.PictureBox BlackCannon2;
         private System.Windows.Forms.PictureBox BlackCannon1;
-        private System.Windows.Forms.TextBox TurnTextbox;
+        private System.Windows.Forms.Button MenuButton;
+        private System.Windows.Forms.Label WinningTeamTextbox;
+        private System.Windows.Forms.Label CheckmateTextbox;
+        private System.Windows.Forms.Label TurnTextbox;
+        private System.Windows.Forms.Label CheckTextbox;
     }
 }
 

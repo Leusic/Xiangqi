@@ -14,5 +14,13 @@ namespace Xiangqi
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gameBoard GameBoard = new gameBoard();
+            this.Hide();
+            GameBoard.ShowDialog();
+            this.Close();
+        }
     }
 }
