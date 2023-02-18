@@ -154,7 +154,7 @@ namespace Xiangqi
 
         private void checkScan()
         {
-            bool blackTempCheck = false, redTempCheck = false;
+            bool blackTempCheck = false, redTempCheck = false, flyingGeneral = false;
             int blackGeneralX = 99, blackGeneralY = 99, redGeneralX = 99, redGeneralY = 99;
             //finds the locations of the generals on the board
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
@@ -176,6 +176,52 @@ namespace Xiangqi
                     }
                 }
             }
+
+            //flying general rule 
+            //red's turn
+            if(currentTurn == -1)
+            {
+                if(redGeneralX == blackGeneralX)
+                {
+                    flyingGeneral = true;
+                    for(int i = redGeneralY; i > 0; i--)
+                    {
+                        if((board.grid[redGeneralX, redGeneralY - i].occupied == true) && (board.grid[redGeneralX, redGeneralY - i].piece.GetType().Name != "General"))
+                        {
+                            flyingGeneral = false;
+                            break;
+                        }
+                    }
+                }
+                if(flyingGeneral == true)
+                {
+                    gameOver();
+                    WinningTeamTextbox.Text = "Red Wins!";
+                }
+            }
+            flyingGeneral = false;
+            //black's turn
+            if(currentTurn == 1)
+            {
+                if (redGeneralX == blackGeneralX)
+                {
+                    flyingGeneral = true;
+                    for (int i = blackGeneralY; i < 10; i++)
+                    {
+                        if ((board.grid[blackGeneralX, blackGeneralY + i].occupied == true) && (board.grid[blackGeneralX, blackGeneralY + i].piece.GetType().Name != "General"))
+                        {
+                            flyingGeneral = false;
+                            break;
+                        }
+                    }
+                }
+                if (flyingGeneral == true)
+                {
+                    gameOver();
+                    WinningTeamTextbox.Text = "Black Wins!";
+                }
+            }
+
             //check if the red general is in check
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
