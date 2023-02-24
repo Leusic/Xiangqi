@@ -69,6 +69,11 @@ namespace Xiangqi
             this.CheckmateTextbox = new System.Windows.Forms.Label();
             this.WinningTeamTextbox = new System.Windows.Forms.Label();
             this.MenuButton = new System.Windows.Forms.Button();
+            this.RollbackButton = new System.Windows.Forms.Button();
+            this.moveLabel1 = new System.Windows.Forms.Label();
+            this.moveLabel2 = new System.Windows.Forms.Label();
+            this.moveLabel4 = new System.Windows.Forms.Label();
+            this.moveLabel3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
@@ -540,11 +545,66 @@ namespace Xiangqi
             this.MenuButton.UseVisualStyleBackColor = true;
             this.MenuButton.Click += new System.EventHandler(this.MenuButtonClick);
             // 
+            // RollbackButton
+            // 
+            this.RollbackButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RollbackButton.Location = new System.Drawing.Point(12, 805);
+            this.RollbackButton.Name = "RollbackButton";
+            this.RollbackButton.Size = new System.Drawing.Size(152, 34);
+            this.RollbackButton.TabIndex = 2;
+            this.RollbackButton.Text = "Rollback a turn";
+            this.RollbackButton.UseVisualStyleBackColor = true;
+            this.RollbackButton.Click += new System.EventHandler(this.RollbackButton_Click);
+            // 
+            // moveLabel1
+            // 
+            this.moveLabel1.AutoSize = true;
+            this.moveLabel1.ForeColor = System.Drawing.Color.Red;
+            this.moveLabel1.Location = new System.Drawing.Point(179, 805);
+            this.moveLabel1.Name = "moveLabel1";
+            this.moveLabel1.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel1.TabIndex = 3;
+            this.moveLabel1.Text = "-";
+            // 
+            // moveLabel2
+            // 
+            this.moveLabel2.AutoSize = true;
+            this.moveLabel2.Location = new System.Drawing.Point(223, 805);
+            this.moveLabel2.Name = "moveLabel2";
+            this.moveLabel2.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel2.TabIndex = 5;
+            this.moveLabel2.Text = "-";
+            this.moveLabel2.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // moveLabel4
+            // 
+            this.moveLabel4.AutoSize = true;
+            this.moveLabel4.Location = new System.Drawing.Point(223, 827);
+            this.moveLabel4.Name = "moveLabel4";
+            this.moveLabel4.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel4.TabIndex = 6;
+            this.moveLabel4.Text = "-";
+            // 
+            // moveLabel3
+            // 
+            this.moveLabel3.AutoSize = true;
+            this.moveLabel3.ForeColor = System.Drawing.Color.Red;
+            this.moveLabel3.Location = new System.Drawing.Point(179, 827);
+            this.moveLabel3.Name = "moveLabel3";
+            this.moveLabel3.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel3.TabIndex = 7;
+            this.moveLabel3.Text = "-";
+            // 
             // gameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1102, 796);
+            this.ClientSize = new System.Drawing.Size(1102, 851);
+            this.Controls.Add(this.moveLabel3);
+            this.Controls.Add(this.moveLabel4);
+            this.Controls.Add(this.moveLabel2);
+            this.Controls.Add(this.moveLabel1);
+            this.Controls.Add(this.RollbackButton);
             this.Controls.Add(this.panel1);
             this.Name = "gameBoard";
             this.Text = "Xiangqi";
@@ -585,6 +645,7 @@ namespace Xiangqi
             ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -640,6 +701,11 @@ namespace Xiangqi
         private System.Windows.Forms.Label CheckmateTextbox;
         private System.Windows.Forms.Label TurnTextbox;
         private System.Windows.Forms.Label CheckTextbox;
+        private System.Windows.Forms.Button RollbackButton;
+        private System.Windows.Forms.Label moveLabel1;
+        private System.Windows.Forms.Label moveLabel2;
+        private System.Windows.Forms.Label moveLabel4;
+        private System.Windows.Forms.Label moveLabel3;
     }
 }
 

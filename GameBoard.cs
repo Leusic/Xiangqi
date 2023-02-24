@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,12 +52,14 @@ namespace Xiangqi
         Cannon blackCannon2 = new Cannon(7, 2, 1);
 
         int currentTurn = -1;
-        Dictionary<Piece,PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
+        Dictionary<Piece, PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
         Dictionary<Piece, PictureBox> blackGraveyard = new Dictionary<Piece, PictureBox>();
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
-        Dictionary<Piece,PictureBox> allPieces = new Dictionary<Piece,PictureBox>();
+        Dictionary<Piece, PictureBox> allPieces = new Dictionary<Piece, PictureBox>();
+
+        List<String> moveLog = new List<String>();
 
         bool redInCheck = false;
         bool blackInCheck = false;
@@ -64,6 +67,8 @@ namespace Xiangqi
         public gameBoard()
         {
             InitializeComponent();
+
+            moveLog.Add("-");
             //initialising pieces
             //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
             initialisePiece(redSoldier1, RedSoldier1, 0, 6, "redSoldier1");
@@ -71,7 +76,7 @@ namespace Xiangqi
             initialisePiece(redSoldier3, RedSoldier3, 4, 6, "redSoldier3");
             initialisePiece(redSoldier4, RedSoldier4, 6, 6, "redSoldier4");
             initialisePiece(redSoldier5, RedSoldier5, 8, 6, "redSoldier5");
-            initialisePiece(redGeneral, RedGeneral, 4, 9, "redGeneral");
+            initialisePiece(redGeneral, RedGeneral, 4, 9, "redGeneral1");
             initialisePiece(redGuard1, RedGuard1, 3, 9, "redGuard1");
             initialisePiece(redGuard2, RedGuard2, 5, 9, "redGuard2");
             initialisePiece(redElephant1, RedElephant1, 2, 9, "redElephant1");
@@ -88,7 +93,7 @@ namespace Xiangqi
             initialisePiece(blackSoldier3, BlackSoldier3, 4, 3, "blackSoldier3");
             initialisePiece(blackSoldier4, BlackSoldier4, 6, 3, "blackSoldier4");
             initialisePiece(blackSoldier5, BlackSoldier5, 8, 3, "blackSoldier5");
-            initialisePiece(blackGeneral, BlackGeneral, 4, 0, "blackGeneral");
+            initialisePiece(blackGeneral, BlackGeneral, 4, 0, "blackGeneral1");
             initialisePiece(blackGuard1, BlackGuard1, 3, 0, "blackGuard1");
             initialisePiece(blackGuard2, BlackGuard2, 5, 0, "blackGuard2");
             initialisePiece(blackElephant1, BlackElephant1, 2, 0, "blackElephant1");
@@ -102,9 +107,9 @@ namespace Xiangqi
 
             int iconX = 47;
             int iconY = 47;
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
-                for(int z = 0; z < 10;  z++)
+                for (int z = 0; z < 10; z++)
                 {
                     initialiseMovementIcon(i, z, iconX, iconY);
                     movementIcons[i, z].SendToBack();
@@ -160,10 +165,10 @@ namespace Xiangqi
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
                 Type pieceType = i.Key.GetType();
-                if(pieceType.Name == "General")
+                if (pieceType.Name == "General")
                 {
                     //general is red
-                    if(i.Key.teamModifier == -1)
+                    if (i.Key.teamModifier == -1)
                     {
                         redGeneralX = i.Key.x;
                         redGeneralY = i.Key.y;
@@ -179,21 +184,21 @@ namespace Xiangqi
 
             //flying general rule 
             //red's turn
-            if(currentTurn == -1)
+            if (currentTurn == -1)
             {
-                if(redGeneralX == blackGeneralX)
+                if (redGeneralX == blackGeneralX)
                 {
                     flyingGeneral = true;
-                    for(int i = redGeneralY; i > 0; i--)
+                    for (int i = redGeneralY; i > 0; i--)
                     {
-                        if((board.grid[redGeneralX, redGeneralY - i].occupied == true) && (board.grid[redGeneralX, redGeneralY - i].piece.GetType().Name != "General"))
+                        if ((board.grid[redGeneralX, redGeneralY - i].occupied == true) && (board.grid[redGeneralX, redGeneralY - i].piece.GetType().Name != "General"))
                         {
                             flyingGeneral = false;
                             break;
                         }
                     }
                 }
-                if(flyingGeneral == true)
+                if (flyingGeneral == true)
                 {
                     gameOver();
                     WinningTeamTextbox.Text = "Red Wins!";
@@ -201,7 +206,7 @@ namespace Xiangqi
             }
             flyingGeneral = false;
             //black's turn
-            if(currentTurn == 1)
+            if (currentTurn == 1)
             {
                 if (redGeneralX == blackGeneralX)
                 {
@@ -246,7 +251,7 @@ namespace Xiangqi
                 }
             }
             //if red is no longer in check, reset check
-            if(redTempCheck == false)
+            if (redTempCheck == false)
             {
                 CheckTextbox.Text = "Neither team in check";
                 redInCheck = false;
@@ -289,22 +294,22 @@ namespace Xiangqi
             int count = 0;
             int y = 33;
             int x = 745;
-            foreach(KeyValuePair<Piece,PictureBox> i in blackGraveyard)
+            foreach (KeyValuePair<Piece, PictureBox> i in blackGraveyard)
             {
-                if(count > 3)
+                if (count > 3)
                 {
                     count = 0;
                     x += 75;
                     y = 33;
                 }
-                i.Value.Location = new Point(x,y);
+                i.Value.Location = new Point(x, y);
                 y += 75;
                 count++;
             }
             count = 0;
             y = 433;
             x = 745;
-            foreach (KeyValuePair < Piece,PictureBox> i in redGraveyard)
+            foreach (KeyValuePair<Piece, PictureBox> i in redGraveyard)
             {
                 if (count > 3)
                 {
@@ -312,7 +317,7 @@ namespace Xiangqi
                     x += 75;
                     y = 433;
                 }
-                i.Value.Location = new Point(x,y);
+                i.Value.Location = new Point(x, y);
                 y += 75;
                 count++;
             }
@@ -339,7 +344,7 @@ namespace Xiangqi
             board.grid[x, y].piece = piece;
             pictureBox.Location = new Point(28 + (x * 75), 33 + (y * 75));
             pictureBox.MouseClick += (sender, EventArgs) => { ShowMoves(sender, EventArgs, piece, pictureBox); }; ;
-            allPieces.Add(piece,pictureBox);
+            allPieces.Add(piece, pictureBox);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -348,7 +353,7 @@ namespace Xiangqi
 
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
-            if(piece.alive == true)
+            if (piece.alive == true)
             {
                 if (piece.teamModifier == currentTurn)
                 {
@@ -389,8 +394,135 @@ namespace Xiangqi
             }
         }
 
+        private void updateMoveDisplay()
+        {
+            if (currentTurn == 1)
+            {
+                try
+                {
+                    moveLabel2.Text = moveLog[moveLog.Count - 1].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel2.Text = "-";
+                }
+                try
+                {
+                    moveLabel1.Text = moveLog[moveLog.Count - 2].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel1.Text = "-";
+                }
+                try
+                {
+                    moveLabel3.Text = moveLog[moveLog.Count - 4].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel3.Text = "-";
+                }
+                try
+                {
+                    moveLabel4.Text = moveLog[moveLog.Count - 3].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel4.Text = "-";
+                }
+            }
+            if (currentTurn == -1)
+            {
+                try
+                {
+                    moveLabel1.Text = moveLog[moveLog.Count - 1].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel1.Text = "-";
+                }
+                try
+                {
+                    moveLabel2.Text = "-";
+                }
+                catch
+                {
+                    moveLabel2.Text = "-";
+                }
+                try
+                {
+                    moveLabel3.Text = moveLog[moveLog.Count - 3].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel3.Text = "-";
+                }
+                try
+                {
+                    moveLabel4.Text = moveLog[moveLog.Count - 2].Substring(0, 4);
+                }
+                catch
+                {
+                    moveLabel4.Text = "-";
+                }
+            }
+        }
+
+        //converts movement strings to the corresponding piece and the x and y movement it made (for going backwards through moves)
+        //move strings are formatted as the x and y the piece started at and the x and y the piece ended at
+        private List<char> getPieceCode(Piece piece)
+        {
+            List<char> charCode = new List<char>();
+            String pieceName = piece.name;
+
+            //team
+            if (pieceName.Contains("red"))
+            {
+                charCode.Add('R');
+            }
+            if (pieceName.Contains("black"))
+            {
+                charCode.Add('B');
+            }
+
+            //type of piece
+            switch (piece.GetType().Name)
+            {
+                case "Chariot":
+                    charCode.Add('R');
+                    break;
+                case "Cannon":
+                    charCode.Add('C');
+                    break;
+                case "Elephant":
+                    charCode.Add('E');
+                    break;
+                case "Guard":
+                    charCode.Add('A');
+                    break;
+                case "Horse":
+                    charCode.Add('H');
+                    break;
+                case "Soldier":
+                    charCode.Add('P');
+                    break;
+                default:
+                    charCode.Add('K');
+                    break;
+            }
+            charCode.Add(pieceName[pieceName.Length - 1]);
+            return charCode;
+        }
+
         private void MoveUnit(object sender, EventArgs e, int x, int y, Piece piece, PictureBox pictureBox)
         {
+            //characters for logging the move
+            List<char> moveChars = new List<char>();
+            moveChars.Add((char)(piece.x + 65));
+            moveChars.Add((char)(9 - piece.y + '0'));
+            moveChars.Add((char)(x + 65));
+            moveChars.Add((char)(9 - y + '0'));
+
             board.grid[piece.x, piece.y].occupied = false;
             board.grid[piece.x, piece.y].piece = null;
             int xDiff = x - piece.x;
@@ -398,13 +530,13 @@ namespace Xiangqi
             //checks if the river is crossed because if it is a soldier it's movement patterns change
             if ((piece.y < 5 && (piece.y + yDiff) >= 5) || (piece.y > 4 && (piece.y + yDiff) <= 4))
             {
-                 piece.crossedRiver = true;
+                piece.crossedRiver = true;
             }
             //taking a piece moves the taken piece to its team graveyard
-            if(board.grid[x,y].occupied == true)
+            if (board.grid[x, y].occupied == true)
             {
                 board.grid[x, y].piece.alive = false;
-                if (board.grid[x,y].piece.teamModifier == -1)
+                if (board.grid[x, y].piece.teamModifier == -1)
                 {
                     redGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
                 }
@@ -412,6 +544,7 @@ namespace Xiangqi
                 {
                     blackGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
                 }
+                moveChars.AddRange(getPieceCode(board.grid[x, y].piece));
                 updateGraveyard();
             }
             piece.x = x;
@@ -421,23 +554,251 @@ namespace Xiangqi
             pictureBox.Left += xDiff * 75;
             pictureBox.Top += yDiff * 75;
             UnshowMoves();
+            string moveString = new string(moveChars.ToArray());
+            moveLog.Add(moveString);
+            updateMoveDisplay();
             updateTurn();
             checkScan();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void label1_Click_2(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RollbackButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String rollbackMove = moveLog[moveLog.Count - 1];
+                int startX = rollbackMove[0] - 65;
+                int startY = rollbackMove[1] - '0';
+                startY = 9 - startY;
+                int endX = rollbackMove[2] - 65;
+                int endY = rollbackMove[3] - '0';
+                endY = 9 - endY;
+                Piece pieceToMove = board.grid[endX, endY].piece;
+                int xDiff = endX - startX;
+                int yDiff = endY - startY;
+                PictureBox pictureBoxToMove = allPieces[pieceToMove];
+
+                pieceToMove.x = startX;
+                pieceToMove.y = startY;
+                board.grid[startX, startY].occupied = true;
+                board.grid[startX, startY].piece = pieceToMove;
+                pictureBoxToMove.Left -= xDiff * 75;
+                pictureBoxToMove.Top -= yDiff * 75;
+
+                //if a piece was taken on the move in question
+                if (rollbackMove.Length > 4)
+                {
+                    Piece revivedPiece = getTakenPieceFromCode(rollbackMove);
+                    PictureBox revivedPictureBox = allPieces[revivedPiece];
+                    revivedPiece.alive = true;
+                    if (revivedPiece.teamModifier == -1)
+                    {
+                        redGraveyard.Remove(revivedPiece);
+                    }
+                    else
+                    {
+                        blackGraveyard.Remove(revivedPiece);
+                    }
+                    revivedPictureBox.Top = 33;
+                    revivedPictureBox.Left = 28;
+                    revivedPictureBox.Top += endY * 75;
+                    revivedPictureBox.Left += endX * 75;
+
+                    board.grid[endX, endY].piece = revivedPiece;
+                }
+                else
+                {
+                    board.grid[endX, endY].occupied = false;
+                    board.grid[endX, endY].piece = null;
+                }
+                moveLog.Remove(rollbackMove);
+                updateMoveDisplay();
+                updateTurn();
+            }
+            catch { }
+        }
+
+        private Piece getTakenPieceFromCode(String moveCode)
+        {
+            Piece revivedPiece = null;
+            if (moveCode[4] == 'R')
+            {
+                switch (moveCode[5])
+                {
+                    case 'R':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redChariot1;
+                                break;
+                            default:
+                                revivedPiece = redChariot2;
+                                break;
+                        }
+                        break;
+                    case 'C':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redCannon1;
+                                break;
+                            default:
+                                revivedPiece = redCannon2;
+                                break;
+                        }
+                        break;
+                    case 'E':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redElephant1;
+                                break;
+                            default:
+                                revivedPiece = redElephant2;
+                                break;
+                        }
+                        break;
+                    case 'A':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redGuard1;
+                                break;
+                            default:
+                                revivedPiece = redGuard2;
+                                break;
+                        }
+                        break;
+                    case 'H':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redHorse1;
+                                break;
+                            default:
+                                revivedPiece = redHorse2;
+                                break;
+                        }
+                        break;
+                    case 'P':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = redSoldier1;
+                                break;
+                            case '2':
+                                revivedPiece = redSoldier2;
+                                break;
+                            case '3':
+                                revivedPiece = redSoldier3;
+                                break;
+                            case '4':
+                                revivedPiece = redSoldier4;
+                                break;
+                            default:
+                                revivedPiece = redSoldier5;
+                                break;
+                        }
+                        break;
+                    default:
+                        revivedPiece = redGeneral;
+                        break;
+                }
+            }
+            if (moveCode[4] == 'B')
+            {
+                switch (moveCode[5])
+                {
+                    case 'R':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackChariot1;
+                                break;
+                            default:
+                                revivedPiece = blackChariot2;
+                                break;
+                        }
+                        break;
+                    case 'C':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackCannon1;
+                                break;
+                            default:
+                                revivedPiece = blackCannon2;
+                                break;
+                        }
+                        break;
+                    case 'E':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackElephant1;
+                                break;
+                            default:
+                                revivedPiece = blackElephant2;
+                                break;
+                        }
+                        break;
+                    case 'A':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackGuard1;
+                                break;
+                            default:
+                                revivedPiece = blackGuard2;
+                                break;
+                        }
+                        break;
+                    case 'H':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackHorse1;
+                                break;
+                            default:
+                                revivedPiece = blackHorse2;
+                                break;
+                        }
+                        break;
+                    case 'P':
+                        switch (moveCode[6])
+                        {
+                            case '1':
+                                revivedPiece = blackSoldier1;
+                                break;
+                            case '2':
+                                revivedPiece = blackSoldier2;
+                                break;
+                            case '3':
+                                revivedPiece = blackSoldier3;
+                                break;
+                            case '4':
+                                revivedPiece = blackSoldier4;
+                                break;
+                            default:
+                                revivedPiece = blackSoldier5;
+                                break;
+                        }
+                        break;
+                    default:
+                        revivedPiece = blackGeneral;
+                        break;
+                }
+            }
+            return revivedPiece;
         }
     }
 }
