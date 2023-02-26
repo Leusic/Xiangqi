@@ -16,18 +16,18 @@ namespace Xiangqi
             this.alive = true;
         }
 
-        public override bool[,] legalMoves(Board board)   
+        public override bool[,] legalMoves(ref Board board)   
         {
             bool[,] tempBoard;
             tempBoard = new bool[9, 10];
             if(this.crossedRiver == false){
-                this.moveCheck(board, tempBoard, 0, (1 * teamModifier));
+                this.moveCheck(ref board, tempBoard, 0, (1 * teamModifier));
             }
             else
             {
-                this.moveCheck(board, tempBoard, 0, (1 * teamModifier));
-                this.moveCheck(board, tempBoard, -1, 0);
-                this.moveCheck(board, tempBoard, 1, 0);
+                this.moveCheck(ref board, tempBoard, 0, (1 * teamModifier));
+                this.moveCheck(ref board, tempBoard, -1, 0);
+                this.moveCheck(ref board, tempBoard, 1, 0);
             }
             return tempBoard;
         }

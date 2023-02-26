@@ -16,15 +16,15 @@ namespace Xiangqi
             this.alive = true;
         }
 
-        public override bool[,] legalMoves(Board board)
+        public override bool[,] legalMoves(ref Board board)
         {
             bool[,] tempBoard;
             tempBoard = new bool[9, 10];
 
-            this.palaceMoveCheck(board, tempBoard, 0, 1);
-            this.palaceMoveCheck(board, tempBoard, 0, -1);
-            this.palaceMoveCheck(board, tempBoard, -1, 0);
-            this.palaceMoveCheck(board, tempBoard, 1, 0);
+            this.palaceMoveCheck(ref board, tempBoard, 0, 1);
+            this.palaceMoveCheck(ref board, tempBoard, 0, -1);
+            this.palaceMoveCheck(ref board, tempBoard, -1, 0);
+            this.palaceMoveCheck(ref board, tempBoard, 1, 0);
 
             return tempBoard;
         }

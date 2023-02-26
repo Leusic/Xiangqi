@@ -159,39 +159,18 @@ namespace Xiangqi
 
         private void checkScan()
         {
-            bool blackTempCheck = false, redTempCheck = false, flyingGeneral = false;
-            int blackGeneralX = 99, blackGeneralY = 99, redGeneralX = 99, redGeneralY = 99;
-            //finds the locations of the generals on the board
-            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
-            {
-                Type pieceType = i.Key.GetType();
-                if (pieceType.Name == "General")
-                {
-                    //general is red
-                    if (i.Key.teamModifier == -1)
-                    {
-                        redGeneralX = i.Key.x;
-                        redGeneralY = i.Key.y;
-                    }
-                    //general is black
-                    if (i.Key.teamModifier == 1)
-                    {
-                        blackGeneralX = i.Key.x;
-                        blackGeneralY = i.Key.y;
-                    }
-                }
-            }
+            bool flyingGeneral = false;
 
             //flying general rule 
             //red's turn
             if (currentTurn == -1)
             {
-                if (redGeneralX == blackGeneralX)
+                if (redGeneral.x == blackGeneral.x)
                 {
                     flyingGeneral = true;
-                    for (int i = redGeneralY; i > 0; i--)
+                    for (int i = redGeneral.y; i > 0; i--)
                     {
-                        if ((board.grid[redGeneralX, redGeneralY - i].occupied == true) && (board.grid[redGeneralX, redGeneralY - i].piece.GetType().Name != "General"))
+                        if ((board.grid[redGeneral.x, redGeneral.y - i].occupied == true) && (board.grid[redGeneral.x, redGeneral.y - i].piece.GetType().Name != "General"))
                         {
                             flyingGeneral = false;
                             break;
@@ -208,12 +187,12 @@ namespace Xiangqi
             //black's turn
             if (currentTurn == 1)
             {
-                if (redGeneralX == blackGeneralX)
+                if (redGeneral.x == blackGeneral.x)
                 {
                     flyingGeneral = true;
-                    for (int i = blackGeneralY; i < 10; i++)
+                    for (int i = blackGeneral.y; i < 10; i++)
                     {
-                        if ((board.grid[blackGeneralX, blackGeneralY + i].occupied == true) && (board.grid[blackGeneralX, blackGeneralY + i].piece.GetType().Name != "General"))
+                        if ((board.grid[blackGeneral.x, blackGeneral.y + i].occupied == true) && (board.grid[blackGeneral.x, blackGeneral.y + i].piece.GetType().Name != "General"))
                         {
                             flyingGeneral = false;
                             break;
@@ -227,66 +206,37 @@ namespace Xiangqi
                 }
             }
 
+            redInCheck = false;
+            blackInCheck = false;
+            CheckTextbox.Text = "Neither team in check";
+
             //check if the red general is in check
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
                 if (i.Key.teamModifier == 1)
                 {
-                    bool[,] pieceMoves = i.Key.legalMoves(board);
-                    if (pieceMoves[redGeneralX, redGeneralY] == true)
+                    bool[,] pieceMoves = i.Key.legalMoves(ref board);
+                    if (pieceMoves[redGeneral.x, redGeneral.y] == true)
                     {
-                        //if this is second round in check, end game
-                        if (redInCheck == true)
-                        {
-                            gameOver();
-                            WinningTeamTextbox.Text = "Black Wins!";
-                        }
-                        else
-                        {
-                            CheckTextbox.Text = "Red is in check";
-                            redTempCheck = true;
-                            redInCheck = true;
-                        }
+                        CheckTextbox.Text = "Red is in check";
+                        redInCheck = true;
                     }
                 }
             }
             //if red is no longer in check, reset check
-            if (redTempCheck == false)
-            {
-                CheckTextbox.Text = "Neither team in check";
-                redInCheck = false;
-            }
-            redTempCheck = false;
             //check if the black general is in check
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
                 if (i.Key.teamModifier == -1)
                 {
-                    bool[,] pieceMoves = i.Key.legalMoves(board);
-                    if (pieceMoves[blackGeneralX, blackGeneralY] == true)
+                    bool[,] pieceMoves = i.Key.legalMoves(ref board);
+                    if (pieceMoves[blackGeneral.x, blackGeneral.y] == true)
                     {
-                        //if this is second round in check, end game
-                        if (blackInCheck == true)
-                        {
-                            gameOver();
-                            WinningTeamTextbox.Text = "Red Wins!";
-                        }
-                        else
-                        {
-                            CheckTextbox.Text = "Black is in check";
-                            blackTempCheck = true;
-                            blackInCheck = true;
-                        }
+                        CheckTextbox.Text = "Black is in check";
+                        blackInCheck = true;
                     }
                 }
             }
-            //if black is no longer in check, reset check
-            if (blackTempCheck == false)
-            {
-                CheckTextbox.Text = "Neither team in check";
-                blackInCheck = false;
-            }
-            blackTempCheck = false;
         }
 
         private void updateGraveyard()
@@ -359,7 +309,7 @@ namespace Xiangqi
                 {
                     UnshowMoves();
                     bool[,] moveBoard;
-                    moveBoard = piece.legalMoves(board);
+                    moveBoard = piece.legalMoves(ref board);
                     for (int i = 0; i < 9; i++)
                     {
                         for (int z = 0; z < 10; z++)
@@ -549,6 +499,11 @@ namespace Xiangqi
             }
             piece.x = x;
             piece.y = y;
+            if (board.grid[x,y].occupied == true)
+            {
+                board.grid[x, y].piece.x = 99;
+                board.grid[x, y].piece.y = 99;
+            }
             board.grid[x, y].occupied = true;
             board.grid[x, y].piece = piece;
             pictureBox.Left += xDiff * 75;

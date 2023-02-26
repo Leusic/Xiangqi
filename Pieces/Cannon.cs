@@ -16,7 +16,7 @@ namespace Xiangqi
             this.alive = true;
         }
 
-        public override bool[,] legalMoves(Board board)
+        public override bool[,] legalMoves(ref Board board)
         {
             bool[,] tempBoard;
             tempBoard = new bool[9, 10];
@@ -28,7 +28,7 @@ namespace Xiangqi
                 {
                     if (board.grid[this.x, this.y + i].occupied == true && board.grid[this.x, this.y + i].piece.teamModifier != this.teamModifier && screen == true)
                     {
-                        moveCheck(board, tempBoard, 0, i);
+                        moveCheck(ref board, tempBoard, 0, i);
                         break;
                     }
                     if (board.grid[this.x, this.y + i].occupied == true)
@@ -37,7 +37,7 @@ namespace Xiangqi
                     }
                     else if (board.grid[this.x, this.y + i].occupied != true && screen == false)
                     {
-                        moveCheck(board, tempBoard, 0, i);
+                        moveCheck(ref board, tempBoard, 0, i);
                     }
                     if (board.grid[this.x, this.y + i].occupied != true && screen == true)
                     {
@@ -52,7 +52,7 @@ namespace Xiangqi
                 {
                     if (board.grid[this.x, this.y - i].occupied == true && board.grid[this.x, this.y - i].piece.teamModifier != this.teamModifier && screen == true)
                     {
-                        moveCheck(board, tempBoard, 0, -i);
+                        moveCheck(ref board, tempBoard, 0, -i);
                         break;
                     }
                     if (board.grid[this.x, this.y - i].occupied == true)
@@ -61,7 +61,7 @@ namespace Xiangqi
                     }
                     else if (board.grid[this.x, this.y - i].occupied != true && screen == false)
                     {
-                        moveCheck(board, tempBoard, 0, -i);
+                        moveCheck(ref board, tempBoard, 0, -i);
                     }
                     if (board.grid[this.x, this.y - i].occupied != true && screen == true)
                     {
@@ -76,7 +76,7 @@ namespace Xiangqi
                 {
                     if (board.grid[this.x + i, this.y].occupied == true && board.grid[this.x + i, this.y].piece.teamModifier != this.teamModifier && screen == true)
                     {
-                        moveCheck(board, tempBoard, i, 0);
+                        moveCheck(ref board, tempBoard, i, 0);
                         break;
                     }
                     if (board.grid[this.x + i, this.y].occupied == true)
@@ -85,7 +85,7 @@ namespace Xiangqi
                     }
                     else if (board.grid[this.x + i, this.y].occupied != true && screen == false)
                     {
-                        moveCheck(board, tempBoard, i, 0);
+                        moveCheck(ref board, tempBoard, i, 0);
                     }
                     if (board.grid[this.x + i, this.y].occupied != true && screen == true)
                     {
@@ -100,7 +100,7 @@ namespace Xiangqi
                 {
                     if (board.grid[this.x - i, this.y].occupied == true && board.grid[this.x - i, this.y].piece.teamModifier != this.teamModifier && screen == true)
                     {
-                        moveCheck(board, tempBoard, -i, 0);
+                        moveCheck(ref board, tempBoard, -i, 0);
                         break;
                     }
                     if (board.grid[this.x - i, this.y].occupied == true)
@@ -109,7 +109,7 @@ namespace Xiangqi
                     }
                     else if (board.grid[this.x - i, this.y].occupied != true && screen == false)
                     {
-                        moveCheck(board, tempBoard, -i, 0);
+                        moveCheck(ref board, tempBoard, -i, 0);
                     }
                     if (board.grid[this.x - i, this.y].occupied != true && screen == true)
                     {
