@@ -112,10 +112,10 @@ namespace Xiangqi
             {
                 for (int z = 0; z < 10; z++)
                 {
-                    initialiseMovementIcon(i, z, iconX, iconY);
-                    movementIcons[i, z].SendToBack();
                     initialiseMovementCross(i, z, iconX, iconY);
-                    movementCrosses[i, z].SendToBack();
+                    movementCrosses[i, z].Visible = false;
+                    initialiseMovementIcon(i, z, iconX, iconY);
+                    movementIcons[i, z].Visible = false;
                     iconY += 75;
                 }
                 iconY = 47;
@@ -284,19 +284,18 @@ namespace Xiangqi
             movementIcons[i, z].Location = new Point(x, y);
             movementIcons[i, z].Parent = BoardImage;
             movementIcons[i, z].Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//greenDot.png");
-            movementIcons[i, z].BackColor = Color.White;
-            this.Controls.Add(movementIcons[i, z]);
+            movementIcons[i, z].BackColor = Color.Transparent;
         }
 
         private void initialiseMovementCross(int i, int z, int x, int y)
         {
-            movementIcons[i, z] = new PictureBox();
-            movementIcons[i, z].Height = 25;
-            movementIcons[i, z].Width = 25;
-            movementIcons[i, z].Location = new Point(x, y);
-            movementIcons[i, z].Parent = BoardImage;
-            movementIcons[i, z].Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//redCross.png");
-            movementIcons[i, z].BackColor = Color.White;
+            movementCrosses[i, z] = new PictureBox();
+            movementCrosses[i, z].Height = 25;
+            movementCrosses[i, z].Width = 25;
+            movementCrosses[i, z].Location = new Point(x, y);
+            movementCrosses[i, z].Parent = BoardImage;
+            movementCrosses[i, z].Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//redCross.png");
+            movementCrosses[i, z].BackColor = Color.Transparent;
         }
 
         private void initialisePiece(Piece piece, PictureBox pictureBox, int x, int y, string name)
@@ -338,6 +337,7 @@ namespace Xiangqi
                                 movementIcons[i, z].Dispose();
                                 movementIcons[i, z] = null;
                                 initialiseMovementIcon(i, z, x, y);
+                                movementIcons[i, z].Visible = true;
                                 movementIcons[i, z].BringToFront();
                                 movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
                             }
@@ -351,6 +351,7 @@ namespace Xiangqi
                                 movementCrosses[i, z].Dispose();
                                 movementCrosses[i, z] = null;
                                 initialiseMovementCross(i, z, x, y);
+                                movementCrosses[i, z].Visible = true;
                                 movementCrosses[i, z].BringToFront();
                             }
                         }
@@ -365,7 +366,8 @@ namespace Xiangqi
             {
                 for (int z = 0; z < 10; z++)
                 {
-                    movementIcons[i, z].SendToBack();
+                    movementIcons[i, z].Visible = false;
+                    movementCrosses[i, z].Visible = false;
                 }
             }
         }
