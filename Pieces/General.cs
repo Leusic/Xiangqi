@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Xiangqi
 {
@@ -14,19 +15,29 @@ namespace Xiangqi
             this.y = y;
             this.teamModifier = teamModifier;
             this.alive = true;
+            this.moveBoard = new int[9, 10];
         }
 
-        public override bool[,] legalMoves(ref Board board)
+        public override int[,] legalMoves(ref Board board, ref Dictionary<Piece, PictureBox> allPieces)
         {
-            bool[,] tempBoard;
-            tempBoard = new bool[9, 10];
+            this.moveBoard = new int[9, 10];
+            this.palaceMoveCheck(ref board, ref allPieces, this.moveBoard, 0, 1);
+            this.palaceMoveCheck(ref board, ref allPieces, this.moveBoard, 0, -1);
+            this.palaceMoveCheck(ref board, ref allPieces, this.moveBoard, -1, 0);
+            this.palaceMoveCheck(ref board, ref allPieces, this.moveBoard, 1, 0);
 
-            this.palaceMoveCheck(ref board, tempBoard, 0, 1);
-            this.palaceMoveCheck(ref board, tempBoard, 0, -1);
-            this.palaceMoveCheck(ref board, tempBoard, -1, 0);
-            this.palaceMoveCheck(ref board, tempBoard, 1, 0);
+            return this.moveBoard;
+        }
 
-            return tempBoard;
+        public override int[,] legalMovesBasic(ref Board board)
+        {
+            this.moveBoard = new int[9, 10];
+            this.palaceMoveCheckBasic(ref board, this.moveBoard, 0, 1);
+            this.palaceMoveCheckBasic(ref board, this.moveBoard, 0, -1);
+            this.palaceMoveCheckBasic(ref board, this.moveBoard, -1, 0);
+            this.palaceMoveCheckBasic(ref board, this.moveBoard, 1, 0);
+
+            return this.moveBoard;
         }
     }
 }

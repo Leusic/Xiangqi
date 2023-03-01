@@ -57,6 +57,7 @@ namespace Xiangqi
 
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
+        PictureBox[,] movementCrosses = new PictureBox[9, 10];
         Dictionary<Piece, PictureBox> allPieces = new Dictionary<Piece, PictureBox>();
 
         List<String> moveLog = new List<String>();
@@ -113,6 +114,8 @@ namespace Xiangqi
                 {
                     initialiseMovementIcon(i, z, iconX, iconY);
                     movementIcons[i, z].SendToBack();
+                    initialiseMovementCross(i, z, iconX, iconY);
+                    movementCrosses[i, z].SendToBack();
                     iconY += 75;
                 }
                 iconY = 47;
@@ -157,87 +160,87 @@ namespace Xiangqi
             }
         }
 
-        private void checkScan()
-        {
-            bool flyingGeneral = false;
+        //private void checkScan()
+        //{
+        //    bool flyingGeneral = false;
 
-            //flying general rule 
-            //red's turn
-            if (currentTurn == -1)
-            {
-                if (redGeneral.x == blackGeneral.x)
-                {
-                    flyingGeneral = true;
-                    for (int i = redGeneral.y; i > 0; i--)
-                    {
-                        if ((board.grid[redGeneral.x, redGeneral.y - i].occupied == true) && (board.grid[redGeneral.x, redGeneral.y - i].piece.GetType().Name != "General"))
-                        {
-                            flyingGeneral = false;
-                            break;
-                        }
-                    }
-                }
-                if (flyingGeneral == true)
-                {
-                    gameOver();
-                    WinningTeamTextbox.Text = "Red Wins!";
-                }
-            }
-            flyingGeneral = false;
-            //black's turn
-            if (currentTurn == 1)
-            {
-                if (redGeneral.x == blackGeneral.x)
-                {
-                    flyingGeneral = true;
-                    for (int i = blackGeneral.y; i < 10; i++)
-                    {
-                        if ((board.grid[blackGeneral.x, blackGeneral.y + i].occupied == true) && (board.grid[blackGeneral.x, blackGeneral.y + i].piece.GetType().Name != "General"))
-                        {
-                            flyingGeneral = false;
-                            break;
-                        }
-                    }
-                }
-                if (flyingGeneral == true)
-                {
-                    gameOver();
-                    WinningTeamTextbox.Text = "Black Wins!";
-                }
-            }
+        //    //flying general rule 
+        //    //red's turn
+        //    if (currentTurn == -1)
+        //    {
+        //        if (redGeneral.x == blackGeneral.x)
+        //        {
+        //            flyingGeneral = true;
+        //            for (int i = redGeneral.y; i > 0; i--)
+        //            {
+        //                if ((board.grid[redGeneral.x, redGeneral.y - i].occupied == true) && (board.grid[redGeneral.x, redGeneral.y - i].piece.GetType().Name != "General"))
+        //                {
+        //                    flyingGeneral = false;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //        if (flyingGeneral == true)
+        //        {
+        //            gameOver();
+        //            WinningTeamTextbox.Text = "Red Wins!";
+        //        }
+        //    }
+        //    flyingGeneral = false;
+        //    //black's turn
+        //    if (currentTurn == 1)
+        //    {
+        //        if (redGeneral.x == blackGeneral.x)
+        //        {
+        //            flyingGeneral = true;
+        //            for (int i = blackGeneral.y; i < 10; i++)
+        //            {
+        //                if ((board.grid[blackGeneral.x, blackGeneral.y + i].occupied == true) && (board.grid[blackGeneral.x, blackGeneral.y + i].piece.GetType().Name != "General"))
+        //                {
+        //                    flyingGeneral = false;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //        if (flyingGeneral == true)
+        //        {
+        //            gameOver();
+        //            WinningTeamTextbox.Text = "Black Wins!";
+        //        }
+        //    }
 
-            redInCheck = false;
-            blackInCheck = false;
-            CheckTextbox.Text = "Neither team in check";
+        //    redInCheck = false;
+        //    blackInCheck = false;
+        //    CheckTextbox.Text = "Neither team in check";
 
-            //check if the red general is in check
-            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
-            {
-                if (i.Key.teamModifier == 1)
-                {
-                    bool[,] pieceMoves = i.Key.legalMoves(ref board);
-                    if (pieceMoves[redGeneral.x, redGeneral.y] == true)
-                    {
-                        CheckTextbox.Text = "Red is in check";
-                        redInCheck = true;
-                    }
-                }
-            }
-            //if red is no longer in check, reset check
-            //check if the black general is in check
-            foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
-            {
-                if (i.Key.teamModifier == -1)
-                {
-                    bool[,] pieceMoves = i.Key.legalMoves(ref board);
-                    if (pieceMoves[blackGeneral.x, blackGeneral.y] == true)
-                    {
-                        CheckTextbox.Text = "Black is in check";
-                        blackInCheck = true;
-                    }
-                }
-            }
-        }
+        //    //check if the red general is in check
+        //    foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+        //    {
+        //        if (i.Key.teamModifier == 1)
+        //        {
+        //            int[,] pieceMoves = i.Key.legalMoves(ref board, ref allPieces);
+        //            if (pieceMoves[redGeneral.x, redGeneral.y] == 2)
+        //            {
+        //                CheckTextbox.Text = "Red is in check";
+        //                redInCheck = true;
+        //            }
+        //        }
+        //    }
+        //    //if red is no longer in check, reset check
+        //    //check if the black general is in check
+        //    foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+        //    {
+        //        if (i.Key.teamModifier == -1)
+        //        {
+        //            int[,] pieceMoves = i.Key.legalMoves(ref board, ref allPieces);
+        //            if (pieceMoves[blackGeneral.x, blackGeneral.y] == 2)
+        //            {
+        //                CheckTextbox.Text = "Black is in check";
+        //                blackInCheck = true;
+        //            }
+        //        }
+        //    }
+        //}
 
         private void updateGraveyard()
         {
@@ -285,6 +288,17 @@ namespace Xiangqi
             this.Controls.Add(movementIcons[i, z]);
         }
 
+        private void initialiseMovementCross(int i, int z, int x, int y)
+        {
+            movementIcons[i, z] = new PictureBox();
+            movementIcons[i, z].Height = 25;
+            movementIcons[i, z].Width = 25;
+            movementIcons[i, z].Location = new Point(x, y);
+            movementIcons[i, z].Parent = BoardImage;
+            movementIcons[i, z].Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//redCross.png");
+            movementIcons[i, z].BackColor = Color.White;
+        }
+
         private void initialisePiece(Piece piece, PictureBox pictureBox, int x, int y, string name)
         {
             piece.name = name;
@@ -308,13 +322,13 @@ namespace Xiangqi
                 if (piece.teamModifier == currentTurn)
                 {
                     UnshowMoves();
-                    bool[,] moveBoard;
-                    moveBoard = piece.legalMoves(ref board);
+                    int[,] moveBoard;
+                    moveBoard = piece.legalMoves(ref board, ref allPieces);
                     for (int i = 0; i < 9; i++)
                     {
                         for (int z = 0; z < 10; z++)
                         {
-                            if (moveBoard[i, z] == true)
+                            if (moveBoard[i, z] == 2)
                             {
                                 int a = i;
                                 int b = z;
@@ -326,6 +340,18 @@ namespace Xiangqi
                                 initialiseMovementIcon(i, z, x, y);
                                 movementIcons[i, z].BringToFront();
                                 movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
+                            }
+                            if (moveBoard[i,z] == 1)
+                            {
+                                int a = i;
+                                int b = z;
+                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
+                                int x = movementCrosses[i, z].Location.X;
+                                int y = movementCrosses[i, z].Location.Y;
+                                movementCrosses[i, z].Dispose();
+                                movementCrosses[i, z] = null;
+                                initialiseMovementCross(i, z, x, y);
+                                movementCrosses[i, z].BringToFront();
                             }
                         }
                     }
@@ -513,7 +539,7 @@ namespace Xiangqi
             moveLog.Add(moveString);
             updateMoveDisplay();
             updateTurn();
-            checkScan();
+            //checkScan();
         }
 
         private void label1_Click_2(object sender, EventArgs e)

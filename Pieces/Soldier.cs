@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Xiangqi
 {
@@ -14,22 +15,38 @@ namespace Xiangqi
             this.y = y;
             this.teamModifier = teamModifier;
             this.alive = true;
+            this.moveBoard = new int[9, 10];
         }
 
-        public override bool[,] legalMoves(ref Board board)   
+        public override int[,] legalMoves(ref Board board, ref Dictionary<Piece, PictureBox> allPieces)   
         {
-            bool[,] tempBoard;
-            tempBoard = new bool[9, 10];
+            this.moveBoard = new int[9, 10];
             if(this.crossedRiver == false){
-                this.moveCheck(ref board, tempBoard, 0, (1 * teamModifier));
+                this.moveCheck(ref board, ref allPieces, this.moveBoard, 0, (1 * teamModifier));
             }
             else
             {
-                this.moveCheck(ref board, tempBoard, 0, (1 * teamModifier));
-                this.moveCheck(ref board, tempBoard, -1, 0);
-                this.moveCheck(ref board, tempBoard, 1, 0);
+                this.moveCheck(ref board, ref allPieces, this.moveBoard, 0, (1 * teamModifier));
+                this.moveCheck(ref board, ref allPieces, this.moveBoard, -1, 0);
+                this.moveCheck(ref board, ref allPieces, this.moveBoard, 1, 0);
             }
-            return tempBoard;
+            return this.moveBoard;
+        }
+
+        public override int[,] legalMovesBasic(ref Board board)
+        {
+            this.moveBoard = new int[9, 10];
+            if (this.crossedRiver == false)
+            {
+                this.moveCheckBasic(ref board, this.moveBoard, 0, (1 * teamModifier));
+            }
+            else
+            {
+                this.moveCheckBasic(ref board, this.moveBoard, 0, (1 * teamModifier));
+                this.moveCheckBasic(ref board, this.moveBoard, -1, 0);
+                this.moveCheckBasic(ref board, this.moveBoard, 1, 0);
+            }
+            return this.moveBoard;
         }
     }
 }
