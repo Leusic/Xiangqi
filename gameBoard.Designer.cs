@@ -74,6 +74,8 @@ namespace Xiangqi
             this.moveLabel2 = new System.Windows.Forms.Label();
             this.moveLabel4 = new System.Windows.Forms.Label();
             this.moveLabel3 = new System.Windows.Forms.Label();
+            this.saveGameButton = new System.Windows.Forms.Button();
+            this.saveGameStatusLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
@@ -595,11 +597,34 @@ namespace Xiangqi
             this.moveLabel3.TabIndex = 7;
             this.moveLabel3.Text = "-";
             // 
+            // saveGameButton
+            // 
+            this.saveGameButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.saveGameButton.Location = new System.Drawing.Point(281, 805);
+            this.saveGameButton.Name = "saveGameButton";
+            this.saveGameButton.Size = new System.Drawing.Size(152, 34);
+            this.saveGameButton.TabIndex = 8;
+            this.saveGameButton.Text = "Save game";
+            this.saveGameButton.UseVisualStyleBackColor = true;
+            this.saveGameButton.Click += new System.EventHandler(this.saveGameButton_Click);
+            // 
+            // saveGameStatusLabel
+            // 
+            this.saveGameStatusLabel.AutoSize = true;
+            this.saveGameStatusLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.saveGameStatusLabel.Location = new System.Drawing.Point(439, 813);
+            this.saveGameStatusLabel.Name = "saveGameStatusLabel";
+            this.saveGameStatusLabel.Size = new System.Drawing.Size(15, 20);
+            this.saveGameStatusLabel.TabIndex = 9;
+            this.saveGameStatusLabel.Text = "-";
+            // 
             // gameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 851);
+            this.Controls.Add(this.saveGameStatusLabel);
+            this.Controls.Add(this.saveGameButton);
             this.Controls.Add(this.moveLabel3);
             this.Controls.Add(this.moveLabel4);
             this.Controls.Add(this.moveLabel2);
@@ -706,6 +731,8 @@ namespace Xiangqi
         private System.Windows.Forms.Label moveLabel2;
         private System.Windows.Forms.Label moveLabel4;
         private System.Windows.Forms.Label moveLabel3;
+        private System.Windows.Forms.Button saveGameButton;
+        private System.Windows.Forms.Label saveGameStatusLabel;
     }
 }
 

@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xiangqi.Properties;
+using System.Xml;
+using System.IO;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Xiangqi
 {
@@ -65,7 +69,7 @@ namespace Xiangqi
         bool redInCheck = false;
         bool blackInCheck = false;
 
-        public gameBoard()
+        public gameBoard(Board startBoard)
         {
             InitializeComponent();
 
@@ -160,87 +164,75 @@ namespace Xiangqi
             }
         }
 
-        //private void checkScan()
-        //{
-        //    bool flyingGeneral = false;
+        private void unGameOver()
+        {
+            CheckmateTextbox.SendToBack();
+            WinningTeamTextbox.SendToBack();
+            MenuButton.SendToBack();
+            CheckTextbox.BringToFront();
+        }
 
-        //    //flying general rule 
-        //    //red's turn
-        //    if (currentTurn == -1)
-        //    {
-        //        if (redGeneral.x == blackGeneral.x)
-        //        {
-        //            flyingGeneral = true;
-        //            for (int i = redGeneral.y; i > 0; i--)
-        //            {
-        //                if ((board.grid[redGeneral.x, redGeneral.y - i].occupied == true) && (board.grid[redGeneral.x, redGeneral.y - i].piece.GetType().Name != "General"))
-        //                {
-        //                    flyingGeneral = false;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //        if (flyingGeneral == true)
-        //        {
-        //            gameOver();
-        //            WinningTeamTextbox.Text = "Red Wins!";
-        //        }
-        //    }
-        //    flyingGeneral = false;
-        //    //black's turn
-        //    if (currentTurn == 1)
-        //    {
-        //        if (redGeneral.x == blackGeneral.x)
-        //        {
-        //            flyingGeneral = true;
-        //            for (int i = blackGeneral.y; i < 10; i++)
-        //            {
-        //                if ((board.grid[blackGeneral.x, blackGeneral.y + i].occupied == true) && (board.grid[blackGeneral.x, blackGeneral.y + i].piece.GetType().Name != "General"))
-        //                {
-        //                    flyingGeneral = false;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //        if (flyingGeneral == true)
-        //        {
-        //            gameOver();
-        //            WinningTeamTextbox.Text = "Black Wins!";
-        //        }
-        //    }
-
-        //    redInCheck = false;
-        //    blackInCheck = false;
-        //    CheckTextbox.Text = "Neither team in check";
-
-        //    //check if the red general is in check
-        //    foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
-        //    {
-        //        if (i.Key.teamModifier == 1)
-        //        {
-        //            int[,] pieceMoves = i.Key.legalMoves(ref board, ref allPieces);
-        //            if (pieceMoves[redGeneral.x, redGeneral.y] == 2)
-        //            {
-        //                CheckTextbox.Text = "Red is in check";
-        //                redInCheck = true;
-        //            }
-        //        }
-        //    }
-        //    //if red is no longer in check, reset check
-        //    //check if the black general is in check
-        //    foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
-        //    {
-        //        if (i.Key.teamModifier == -1)
-        //        {
-        //            int[,] pieceMoves = i.Key.legalMoves(ref board, ref allPieces);
-        //            if (pieceMoves[blackGeneral.x, blackGeneral.y] == 2)
-        //            {
-        //                CheckTextbox.Text = "Black is in check";
-        //                blackInCheck = true;
-        //            }
-        //        }
-        //    }
-        //}
+        private void checkScan()
+        {
+            redInCheck = false; blackInCheck = false;
+            CheckTextbox.Text = "Neither team in check";
+            bool possibleMove = false;
+            //is black in check
+            //checks if any enemy team units legal movements can hit the friendly general, if they can this move is illegal due to placing self into check
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces) if ((i.Key.teamModifier == -1) && (i.Key.legalMovesBasic(ref board)[blackGeneral.x, blackGeneral.y] == 2))
+                {
+                    blackInCheck = true;
+                    CheckTextbox.Text = "Black in check!";
+                    possibleMove = false;
+                    foreach (KeyValuePair<Piece, PictureBox> z in allPieces) if (z.Key.teamModifier == 1)
+                        {
+                            int[,] moveBoard = z.Key.legalMoves(ref board, ref allPieces);
+                            for(int a = 0; a < 8; a++)
+                            {
+                                for(int b = 0; b < 9; b++)
+                                {
+                                    if (moveBoard[a, b] == 2)
+                                    {
+                                        possibleMove = true;
+                                    }
+                                }
+                            }
+                        }
+                    if(possibleMove == false)
+                    {
+                        WinningTeamTextbox.Text = "Red Wins!";
+                        gameOver();
+                    }
+                    break;
+                }
+            //is red in check
+            foreach (KeyValuePair<Piece, PictureBox> i in allPieces) if ((i.Key.teamModifier == 1) && (i.Key.legalMovesBasic(ref board)[redGeneral.x, redGeneral.y] == 2))
+                {
+                    redInCheck = true;
+                    CheckTextbox.Text = "Red in check!";
+                    possibleMove = false;
+                    foreach (KeyValuePair<Piece, PictureBox> z in allPieces) if (z.Key.teamModifier == -1)
+                        {
+                            int[,] moveBoard = z.Key.legalMoves(ref board, ref allPieces);
+                            for (int a = 0; a < 8; a++)
+                            {
+                                for (int b = 0; b < 9; b++)
+                                {
+                                    if (moveBoard[a, b] == 2)
+                                    {
+                                        possibleMove = true;
+                                    }
+                                }
+                            }
+                        }
+                    if(possibleMove == false)
+                    {
+                        WinningTeamTextbox.Text = "Black Wins!";
+                        gameOver();
+                    }
+                    break;
+                }
+        }
 
         private void updateGraveyard()
         {
@@ -541,7 +533,7 @@ namespace Xiangqi
             moveLog.Add(moveString);
             updateMoveDisplay();
             updateTurn();
-            //checkScan();
+            checkScan();
         }
 
         private void label1_Click_2(object sender, EventArgs e)
@@ -606,8 +598,31 @@ namespace Xiangqi
                 moveLog.Remove(rollbackMove);
                 updateMoveDisplay();
                 updateTurn();
+                CheckTextbox.BringToFront();
+                UnshowMoves();
+                checkScan();
             }
             catch { }
+        }
+
+        private void saveGameButton_Click(object sender, EventArgs e)
+        {
+            //uses xml serialisation to serialize the board and save it to a file
+            TextWriter writer = null;
+            try
+            {
+                var fileContent = JsonConvert.SerializeObject(board);
+                String sPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                writer = new StreamWriter(sPath, false);
+                writer.Write(fileContent);
+            }
+            finally
+            {
+                if(writer != null)
+                {
+                    writer.Close();
+                }
+            }
         }
 
         private Piece getTakenPieceFromCode(String moveCode)

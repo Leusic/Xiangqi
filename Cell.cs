@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Xiangqi
 {
-    class Cell
+    public class Cell
     {
         public bool occupied;
         public Piece piece;

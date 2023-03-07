@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Xiangqi
 {
-    class Board
+    public class Board
     {
         public Cell[,] grid;
 

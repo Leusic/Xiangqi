@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Xiangqi
 {
-    class Piece
+    public class Piece
     {
         public string name;
         public bool canCrossRiver;

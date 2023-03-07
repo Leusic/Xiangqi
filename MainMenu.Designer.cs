@@ -32,15 +32,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.loadSaveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // localGameButton
             // 
-            this.localGameButton.Location = new System.Drawing.Point(324, 234);
+            this.localGameButton.Location = new System.Drawing.Point(314, 213);
             this.localGameButton.Name = "localGameButton";
-            this.localGameButton.Size = new System.Drawing.Size(126, 23);
+            this.localGameButton.Size = new System.Drawing.Size(149, 23);
             this.localGameButton.TabIndex = 0;
-            this.localGameButton.Text = "Play Local Game";
+            this.localGameButton.Text = "Play New Local Game";
             this.localGameButton.UseVisualStyleBackColor = true;
             this.localGameButton.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -74,11 +75,22 @@
             this.label3.Text = "Max Trotter, 2023";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // loadSaveButton
+            // 
+            this.loadSaveButton.Location = new System.Drawing.Point(328, 262);
+            this.loadSaveButton.Name = "loadSaveButton";
+            this.loadSaveButton.Size = new System.Drawing.Size(126, 23);
+            this.loadSaveButton.TabIndex = 4;
+            this.loadSaveButton.Text = "Load Saved Game";
+            this.loadSaveButton.UseVisualStyleBackColor = true;
+            this.loadSaveButton.Click += new System.EventHandler(this.loadSaveButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.loadSaveButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -96,5 +108,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button loadSaveButton;
     }
 }
