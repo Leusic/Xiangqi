@@ -13,11 +13,5 @@ namespace Xiangqi
         {
             occupied = pOccupied;
         }
-         
-        public Cell(bool pOccupied, Piece pPiece)
-        {
-            occupied = pOccupied;
-            piece = pPiece;
-        }
     }
 }

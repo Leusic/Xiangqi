@@ -114,6 +114,7 @@ namespace Xiangqi
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.MenuButton);
             this.panel1.Controls.Add(this.CheckTextbox);
             this.panel1.Controls.Add(this.TurnTextbox);
             this.panel1.Controls.Add(this.RedCannon2);
@@ -151,7 +152,6 @@ namespace Xiangqi
             this.panel1.Controls.Add(this.BoardImage);
             this.panel1.Controls.Add(this.CheckmateTextbox);
             this.panel1.Controls.Add(this.WinningTeamTextbox);
-            this.panel1.Controls.Add(this.MenuButton);
             this.panel1.Location = new System.Drawing.Point(1, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1100, 800);

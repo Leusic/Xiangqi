@@ -13,6 +13,7 @@ using System.Xml;
 using System.IO;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
 
 namespace Xiangqi
 {
@@ -55,7 +56,6 @@ namespace Xiangqi
         Cannon blackCannon1 = new Cannon(1, 2, 1);
         Cannon blackCannon2 = new Cannon(7, 2, 1);
 
-        int currentTurn = -1;
         Dictionary<Piece, PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
         Dictionary<Piece, PictureBox> blackGraveyard = new Dictionary<Piece, PictureBox>();
 
@@ -63,52 +63,122 @@ namespace Xiangqi
         PictureBox[,] movementIcons = new PictureBox[9, 10];
         PictureBox[,] movementCrosses = new PictureBox[9, 10];
         Dictionary<Piece, PictureBox> allPieces = new Dictionary<Piece, PictureBox>();
+        Dictionary<String, Piece> nameToPiece = null;
 
         List<String> moveLog = new List<String>();
 
         bool redInCheck = false;
         bool blackInCheck = false;
 
-        public gameBoard(Board startBoard)
+        public gameBoard(Save loadedSave)
         {
             InitializeComponent();
 
-            moveLog.Add("-");
-            //initialising pieces
-            //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
-            initialisePiece(redSoldier1, RedSoldier1, 0, 6, "redSoldier1");
-            initialisePiece(redSoldier2, RedSoldier2, 2, 6, "redSoldier2");
-            initialisePiece(redSoldier3, RedSoldier3, 4, 6, "redSoldier3");
-            initialisePiece(redSoldier4, RedSoldier4, 6, 6, "redSoldier4");
-            initialisePiece(redSoldier5, RedSoldier5, 8, 6, "redSoldier5");
-            initialisePiece(redGeneral, RedGeneral, 4, 9, "redGeneral1");
-            initialisePiece(redGuard1, RedGuard1, 3, 9, "redGuard1");
-            initialisePiece(redGuard2, RedGuard2, 5, 9, "redGuard2");
-            initialisePiece(redElephant1, RedElephant1, 2, 9, "redElephant1");
-            initialisePiece(redElephant2, RedElephant2, 6, 9, "redElephant2");
-            initialisePiece(redHorse1, RedHorse1, 1, 9, "redHorse1");
-            initialisePiece(redHorse2, RedHorse2, 7, 9, "redHorse2");
-            initialisePiece(redChariot1, RedChariot1, 0, 9, "redChariot1");
-            initialisePiece(redChariot2, RedChariot2, 8, 9, "redChariot2");
-            initialisePiece(redCannon1, RedCannon1, 1, 7, "redCannon1");
-            initialisePiece(redCannon2, RedCannon2, 7, 7, "redCannon2");
+            allPieces = new Dictionary<Piece, PictureBox>
+            {
+                {redSoldier1 , RedSoldier1}, {redSoldier2, RedSoldier2}, {redSoldier3, RedSoldier3}, {redSoldier4, RedSoldier4}, {redSoldier5, RedSoldier5}, {redGeneral, RedGeneral}, {redGuard1, RedGuard1}, {redGuard2, RedGuard2},
+                {redElephant1, RedElephant1 }, {redElephant2, RedElephant2}, {redHorse1, RedHorse1}, {redHorse2, RedHorse2}, {redChariot1, RedChariot1}, {redChariot2, RedChariot2}, {redCannon1, RedCannon1}, {redCannon2, RedCannon2},
+                {blackSoldier1 , BlackSoldier1}, {blackSoldier2, BlackSoldier2}, {blackSoldier3, BlackSoldier3}, {blackSoldier4, BlackSoldier4}, {blackSoldier5, BlackSoldier5}, {blackGeneral, BlackGeneral}, {blackGuard1, BlackGuard1}, {blackGuard2, BlackGuard2},
+                {blackElephant1, BlackElephant1 }, {blackElephant2, BlackElephant2}, {blackHorse1, BlackHorse1}, {blackHorse2, BlackHorse2}, {blackChariot1, BlackChariot1}, {blackChariot2, BlackChariot2}, {blackCannon1, BlackCannon1}, {blackCannon2, BlackCannon2},
+            };
 
-            initialisePiece(blackSoldier1, BlackSoldier1, 0, 3, "blackSoldier1");
-            initialisePiece(blackSoldier2, BlackSoldier2, 2, 3, "blackSoldier2");
-            initialisePiece(blackSoldier3, BlackSoldier3, 4, 3, "blackSoldier3");
-            initialisePiece(blackSoldier4, BlackSoldier4, 6, 3, "blackSoldier4");
-            initialisePiece(blackSoldier5, BlackSoldier5, 8, 3, "blackSoldier5");
-            initialisePiece(blackGeneral, BlackGeneral, 4, 0, "blackGeneral1");
-            initialisePiece(blackGuard1, BlackGuard1, 3, 0, "blackGuard1");
-            initialisePiece(blackGuard2, BlackGuard2, 5, 0, "blackGuard2");
-            initialisePiece(blackElephant1, BlackElephant1, 2, 0, "blackElephant1");
-            initialisePiece(blackElephant2, BlackElephant2, 6, 0, "blackElephant2");
-            initialisePiece(blackHorse1, BlackHorse1, 1, 0, "blackHorse1");
-            initialisePiece(blackHorse2, BlackHorse2, 7, 0, "blackHorse2");
-            initialisePiece(blackChariot1, BlackChariot1, 0, 0, "blackChariot1");
-            initialisePiece(blackChariot2, BlackChariot2, 8, 0, "blackChariot2");
-            initialisePiece(blackCannon1, BlackCannon1, 1, 2, "blackCannon1");
-            initialisePiece(blackCannon2, BlackCannon2, 7, 2, "blackCannon2");
+            //maps piece names to picture boxes, used for loading saves
+            nameToPiece = new Dictionary<String, Piece>
+            {
+                {"redSoldier1", redSoldier1}, {"redSoldier2", redSoldier2 }, {"redSoldier3", redSoldier3}, {"redSoldier4", redSoldier4 }, {"redSoldier5", redSoldier5}, {"redGeneral1", redGeneral}, {"redGuard1", redGuard1}, {"redGuard2", redGuard2},
+                {"redElephant1", redElephant1 }, {"redElephant2", redElephant2}, {"redHorse1", redHorse1}, {"redHorse2", redHorse2}, {"redChariot1", redChariot1}, {"redChariot2", redChariot2}, {"redCannon1", redCannon1}, {"redCannon2", redCannon2},
+                {"blackSoldier1", blackSoldier1}, {"blackSoldier2", blackSoldier2 }, {"blackSoldier3", blackSoldier3}, {"blackSoldier4", blackSoldier4 }, {"blackSoldier5", blackSoldier5}, {"blackGeneral1", blackGeneral}, {"blackGuard1", blackGuard1}, {"blackGuard2", blackGuard2},
+                {"blackElephant1", blackElephant1 }, {"blackElephant2", blackElephant2}, {"blackHorse1", blackHorse1}, {"blackHorse2", blackHorse2}, {"blackChariot1", blackChariot1}, {"blackChariot2", blackChariot2}, {"blackCannon1", blackCannon1}, {"blackCannon2", blackCannon2}
+            };
+
+
+            //if loading saved game
+            if(loadedSave != null)
+            {
+                foreach(Piece i in loadedSave.pieces)
+                {
+                    Piece currentPiece = nameToPiece[i.name];
+                    currentPiece.x = i.x;
+                    currentPiece.y = i.y;
+                    currentPiece.alive = i.alive;
+                    currentPiece.name = i.name;
+
+                    //
+                    if((currentPiece.x > 10) || (currentPiece.y > 10))
+                    {
+                        currentPiece.x = 0;
+                        currentPiece.y = 0;
+                    }
+                    initialisePiece(currentPiece, allPieces[currentPiece], currentPiece.x, currentPiece.y, currentPiece.name);
+                    if(currentPiece.alive == false)
+                    {
+                        currentPiece.x = 99; currentPiece.y = 99;
+                        if(currentPiece.teamModifier == -1)
+                        {
+                            redGraveyard.Add(currentPiece, allPieces[currentPiece]);
+                        }
+                        if (currentPiece.teamModifier == 1)
+                        {
+                            blackGraveyard.Add(currentPiece, allPieces[currentPiece]);
+                        }
+
+                    }
+                }
+                board.currentTurn = loadedSave.currentTurn;
+                if(board.currentTurn == 1)
+                {
+                    board.currentTurn = -1;
+                    updateTurn();
+                }
+                if (board.currentTurn == -1){
+                    board.currentTurn = 1;
+                    updateTurn();
+                }
+                moveLog = loadedSave.rollbackMoves;
+                updateMoveDisplay();
+
+            }
+            //if starting new game
+            else
+            {
+                board.currentTurn = -1;
+                //initialising pieces
+                //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
+                initialisePiece(redSoldier1, RedSoldier1, 0, 6, "redSoldier1");
+                initialisePiece(redSoldier2, RedSoldier2, 2, 6, "redSoldier2");
+                initialisePiece(redSoldier3, RedSoldier3, 4, 6, "redSoldier3");
+                initialisePiece(redSoldier4, RedSoldier4, 6, 6, "redSoldier4");
+                initialisePiece(redSoldier5, RedSoldier5, 8, 6, "redSoldier5");
+                initialisePiece(redGeneral, RedGeneral, 4, 9, "redGeneral1");
+                initialisePiece(redGuard1, RedGuard1, 3, 9, "redGuard1");
+                initialisePiece(redGuard2, RedGuard2, 5, 9, "redGuard2");
+                initialisePiece(redElephant1, RedElephant1, 2, 9, "redElephant1");
+                initialisePiece(redElephant2, RedElephant2, 6, 9, "redElephant2");
+                initialisePiece(redHorse1, RedHorse1, 1, 9, "redHorse1");
+                initialisePiece(redHorse2, RedHorse2, 7, 9, "redHorse2");
+                initialisePiece(redChariot1, RedChariot1, 0, 9, "redChariot1");
+                initialisePiece(redChariot2, RedChariot2, 8, 9, "redChariot2");
+                initialisePiece(redCannon1, RedCannon1, 1, 7, "redCannon1");
+                initialisePiece(redCannon2, RedCannon2, 7, 7, "redCannon2");
+
+                initialisePiece(blackSoldier1, BlackSoldier1, 0, 3, "blackSoldier1");
+                initialisePiece(blackSoldier2, BlackSoldier2, 2, 3, "blackSoldier2");
+                initialisePiece(blackSoldier3, BlackSoldier3, 4, 3, "blackSoldier3");
+                initialisePiece(blackSoldier4, BlackSoldier4, 6, 3, "blackSoldier4");
+                initialisePiece(blackSoldier5, BlackSoldier5, 8, 3, "blackSoldier5");
+                initialisePiece(blackGeneral, BlackGeneral, 4, 0, "blackGeneral1");
+                initialisePiece(blackGuard1, BlackGuard1, 3, 0, "blackGuard1");
+                initialisePiece(blackGuard2, BlackGuard2, 5, 0, "blackGuard2");
+                initialisePiece(blackElephant1, BlackElephant1, 2, 0, "blackElephant1");
+                initialisePiece(blackElephant2, BlackElephant2, 6, 0, "blackElephant2");
+                initialisePiece(blackHorse1, BlackHorse1, 1, 0, "blackHorse1");
+                initialisePiece(blackHorse2, BlackHorse2, 7, 0, "blackHorse2");
+                initialisePiece(blackChariot1, BlackChariot1, 0, 0, "blackChariot1");
+                initialisePiece(blackChariot2, BlackChariot2, 8, 0, "blackChariot2");
+                initialisePiece(blackCannon1, BlackCannon1, 1, 2, "blackCannon1");
+                initialisePiece(blackCannon2, BlackCannon2, 7, 2, "blackCannon2");
+                moveLog.Add("-");
+            }
 
             int iconX = 47;
             int iconY = 47;
@@ -125,12 +195,13 @@ namespace Xiangqi
                 iconY = 47;
                 iconX += 75;
             }
+            updateGraveyard();
         }
 
         private void updateTurn()
         {
-            currentTurn = -currentTurn;
-            if (currentTurn == -1)
+            board.currentTurn = -board.currentTurn;
+            if (board.currentTurn == -1)
             {
                 TurnTextbox.BackColor = Color.IndianRed;
                 TurnTextbox.Text = "Red's Turn";
@@ -299,7 +370,6 @@ namespace Xiangqi
             board.grid[x, y].piece = piece;
             pictureBox.Location = new Point(28 + (x * 75), 33 + (y * 75));
             pictureBox.MouseClick += (sender, EventArgs) => { ShowMoves(sender, EventArgs, piece, pictureBox); }; ;
-            allPieces.Add(piece, pictureBox);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -310,7 +380,7 @@ namespace Xiangqi
         {
             if (piece.alive == true)
             {
-                if (piece.teamModifier == currentTurn)
+                if (piece.teamModifier == board.currentTurn)
                 {
                     UnshowMoves();
                     int[,] moveBoard;
@@ -366,7 +436,7 @@ namespace Xiangqi
 
         private void updateMoveDisplay()
         {
-            if (currentTurn == 1)
+            if (board.currentTurn == 1)
             {
                 try
                 {
@@ -401,7 +471,7 @@ namespace Xiangqi
                     moveLabel4.Text = "-";
                 }
             }
-            if (currentTurn == -1)
+            if (board.currentTurn == -1)
             {
                 try
                 {
@@ -534,6 +604,7 @@ namespace Xiangqi
             updateMoveDisplay();
             updateTurn();
             checkScan();
+            saveGameStatusLabel.Text = "";
         }
 
         private void label1_Click_2(object sender, EventArgs e)
@@ -601,6 +672,7 @@ namespace Xiangqi
                 CheckTextbox.BringToFront();
                 UnshowMoves();
                 checkScan();
+                saveGameStatusLabel.Text = "";
             }
             catch { }
         }
@@ -609,12 +681,19 @@ namespace Xiangqi
         {
             //uses xml serialisation to serialize the board and save it to a file
             TextWriter writer = null;
+            List<Piece> piecesToWrite = new List<Piece>();
             try
             {
-                var fileContent = JsonConvert.SerializeObject(board);
+                foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+                {
+                    piecesToWrite.Add(i.Key);
+                }
+                Save saveObject = new Save(piecesToWrite, board.currentTurn, moveLog);
+                var fileContent = JsonConvert.SerializeObject(saveObject);
                 String sPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                writer = new StreamWriter(sPath, false);
+                writer = new StreamWriter(sPath = "XiangqiSave.txt", false);
                 writer.Write(fileContent);
+                saveGameStatusLabel.Text = "Game Saved!";
             }
             finally
             {
@@ -622,6 +701,7 @@ namespace Xiangqi
                 {
                     writer.Close();
                 }
+
             }
         }
 

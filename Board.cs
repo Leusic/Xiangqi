@@ -7,6 +7,7 @@ namespace Xiangqi
     public class Board
     {
         public Cell[,] grid;
+        public int currentTurn;
 
         public Board()
         {

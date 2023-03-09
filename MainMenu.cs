@@ -33,14 +33,14 @@ namespace Xiangqi
 
         private void loadSaveButton_Click(object sender, EventArgs e)
         {
-            Board loadedBoard = null;
+            Save loadedSave = null;
             TextReader reader = null;
             try
             {
-                String sPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                String sPath = System.AppDomain.CurrentDomain.BaseDirectory + "XiangqiSave.txt";
                 reader = new StreamReader(sPath);
                 var fileContents = reader.ReadToEnd();
-                loadedBoard = JsonConvert.DeserializeObject<Board>(fileContents);
+                loadedSave = JsonConvert.DeserializeObject<Save>(fileContents);
             }
             finally
             {
@@ -49,7 +49,7 @@ namespace Xiangqi
                     reader.Close();
                 }
             }
-            gameBoard GameBoard = new gameBoard(null);
+            gameBoard GameBoard = new gameBoard(loadedSave);
             this.Hide();
             GameBoard.ShowDialog();
             this.Close();
