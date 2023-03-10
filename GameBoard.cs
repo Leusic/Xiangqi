@@ -70,7 +70,7 @@ namespace Xiangqi
         bool redInCheck = false;
         bool blackInCheck = false;
 
-        public gameBoard(Save loadedSave)
+        public gameBoard(Save loadedSave, int modeCode)
         {
             InitializeComponent();
 

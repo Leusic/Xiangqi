@@ -33,11 +33,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.loadSaveButton = new System.Windows.Forms.Button();
+            this.joinGameButton = new System.Windows.Forms.Button();
+            this.hostGameButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // localGameButton
             // 
-            this.localGameButton.Location = new System.Drawing.Point(314, 213);
+            this.localGameButton.Location = new System.Drawing.Point(314, 198);
             this.localGameButton.Name = "localGameButton";
             this.localGameButton.Size = new System.Drawing.Size(149, 23);
             this.localGameButton.TabIndex = 0;
@@ -77,7 +79,7 @@
             // 
             // loadSaveButton
             // 
-            this.loadSaveButton.Location = new System.Drawing.Point(328, 262);
+            this.loadSaveButton.Location = new System.Drawing.Point(328, 236);
             this.loadSaveButton.Name = "loadSaveButton";
             this.loadSaveButton.Size = new System.Drawing.Size(126, 23);
             this.loadSaveButton.TabIndex = 4;
@@ -85,11 +87,33 @@
             this.loadSaveButton.UseVisualStyleBackColor = true;
             this.loadSaveButton.Click += new System.EventHandler(this.loadSaveButton_Click);
             // 
+            // joinGameButton
+            // 
+            this.joinGameButton.Location = new System.Drawing.Point(328, 276);
+            this.joinGameButton.Name = "joinGameButton";
+            this.joinGameButton.Size = new System.Drawing.Size(126, 23);
+            this.joinGameButton.TabIndex = 5;
+            this.joinGameButton.Text = "Join Network Game";
+            this.joinGameButton.UseVisualStyleBackColor = true;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
+            // 
+            // hostGameButton
+            // 
+            this.hostGameButton.Location = new System.Drawing.Point(328, 316);
+            this.hostGameButton.Name = "hostGameButton";
+            this.hostGameButton.Size = new System.Drawing.Size(126, 23);
+            this.hostGameButton.TabIndex = 6;
+            this.hostGameButton.Text = "Host Network Game";
+            this.hostGameButton.UseVisualStyleBackColor = true;
+            this.hostGameButton.Click += new System.EventHandler(this.hostGameButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.hostGameButton);
+            this.Controls.Add(this.joinGameButton);
             this.Controls.Add(this.loadSaveButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -109,5 +133,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button loadSaveButton;
+        private System.Windows.Forms.Button joinGameButton;
+        private System.Windows.Forms.Button hostGameButton;
     }
 }
