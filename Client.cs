@@ -12,14 +12,14 @@ namespace Xiangqi
 {
     public class Client
     {
-        TcpClient client = null;
+        UdpClient client = null;
         string address = null;
 
         public void findServer()
         {
             try
             {
-                client = new TcpClient();
+                client = new UdpClient();
                 string address = null;
                 int port = 43;
 
@@ -28,32 +28,18 @@ namespace Xiangqi
 
                 string IPBase1 = localIP.Split('.')[0] + "." + localIP.Split('.')[1] + "." + localIP.Split('.')[2] + ".";
 
-                bool addressFound = false;
-                for(int i = 0; i <=255; i++)
-                {
-                    if (addressFound == false)
-                    {
-                        address = IPBase1 + i.ToString();
-                        try
-                        {
-                            client.ConnectAsync(address, port).Wait(1000);
-                            StreamWriter sw = new StreamWriter(client.GetStream());
-                            StreamReader sr = new StreamReader(client.GetStream());
-                            sw.WriteLine("Xiangqi?");
-                            sw.Flush();
-                            if (sr.ReadLine() == "Sure")
-                            {
-                                addressFound = true;
-                                Console.WriteLine("Host found on " + address);
-                            }
+                var serverEp = new IPEndPoint(IPAddress.Any, 43);
 
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                Console.WriteLine(IPBase1);
+                client.EnableBroadcast = true;
+                var data = Encoding.ASCII.GetBytes("Test data");
+                client.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, 43));
+
+                var serverResponseData = client.Receive(ref serverEp);
+                var serverResponse = Encoding.ASCII.GetString(serverResponseData);
+
+                Console.WriteLine("Got Response: " + serverResponse + " from " + serverEp);
+
+                client.Close();
             }
             catch (Exception e)
             {
