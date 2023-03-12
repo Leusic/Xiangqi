@@ -11,11 +11,16 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using static System.Windows.Forms.AxHost;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Xiangqi
 {
     public partial class MainMenu : Form
     {
+        Save loadedSave = null;
+        gameBoard GameBoard = null;
+
         public MainMenu()
         {
             InitializeComponent();
@@ -23,7 +28,14 @@ namespace Xiangqi
 
         private void button1_Click(object sender, EventArgs e)
         {
-            gameBoard GameBoard = new gameBoard(null, 0);
+            if(loadedSave == null)
+            {
+                GameBoard = new gameBoard(null, 0);
+            }
+            if(loadedSave != null)
+            {
+                GameBoard = new gameBoard(loadedSave, 1);
+            }
             this.Hide();
             GameBoard.ShowDialog();
             this.Close();
@@ -36,7 +48,6 @@ namespace Xiangqi
 
         private void loadSaveButton_Click(object sender, EventArgs e)
         {
-            Save loadedSave = null;
             TextReader reader = null;
             try
             {
@@ -52,20 +63,38 @@ namespace Xiangqi
                     reader.Close();
                 }
             }
-            gameBoard GameBoard = new gameBoard(loadedSave, 1);
-            //this.Hide();
-            GameBoard.ShowDialog();
-            //this.Close();
+            if(loadedSave != null)
+            {
+                loadLabel.Text = "Current Game: Previous Save";
+            }
         }
 
         private void joinGameButton_Click(object sender, EventArgs e)
         {
-
+            Client client = new Client();
+            client.findServer();
+            //gameBoard GameBoard = new gameBoard(null, )
         }
 
         private void hostGameButton_Click(object sender, EventArgs e)
         {
+            //runs the server in parallel
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                Server.runServer();
+            }).Start();
+        }
 
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void unloadSaveButton_Click(object sender, EventArgs e)
+        {
+            loadedSave = null;
+            loadLabel.Text = "Current Game: New Game";
         }
     }
 }

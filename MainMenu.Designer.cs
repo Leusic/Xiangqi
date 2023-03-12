@@ -35,15 +35,17 @@
             this.loadSaveButton = new System.Windows.Forms.Button();
             this.joinGameButton = new System.Windows.Forms.Button();
             this.hostGameButton = new System.Windows.Forms.Button();
+            this.loadLabel = new System.Windows.Forms.Label();
+            this.unloadSaveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // localGameButton
             // 
-            this.localGameButton.Location = new System.Drawing.Point(314, 198);
+            this.localGameButton.Location = new System.Drawing.Point(343, 189);
             this.localGameButton.Name = "localGameButton";
-            this.localGameButton.Size = new System.Drawing.Size(149, 23);
+            this.localGameButton.Size = new System.Drawing.Size(90, 23);
             this.localGameButton.TabIndex = 0;
-            this.localGameButton.Text = "Play New Local Game";
+            this.localGameButton.Text = "Start Game";
             this.localGameButton.UseVisualStyleBackColor = true;
             this.localGameButton.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -79,7 +81,7 @@
             // 
             // loadSaveButton
             // 
-            this.loadSaveButton.Location = new System.Drawing.Point(328, 236);
+            this.loadSaveButton.Location = new System.Drawing.Point(328, 218);
             this.loadSaveButton.Name = "loadSaveButton";
             this.loadSaveButton.Size = new System.Drawing.Size(126, 23);
             this.loadSaveButton.TabIndex = 4;
@@ -99,7 +101,7 @@
             // 
             // hostGameButton
             // 
-            this.hostGameButton.Location = new System.Drawing.Point(328, 316);
+            this.hostGameButton.Location = new System.Drawing.Point(328, 305);
             this.hostGameButton.Name = "hostGameButton";
             this.hostGameButton.Size = new System.Drawing.Size(126, 23);
             this.hostGameButton.TabIndex = 6;
@@ -107,11 +109,33 @@
             this.hostGameButton.UseVisualStyleBackColor = true;
             this.hostGameButton.Click += new System.EventHandler(this.hostGameButton_Click);
             // 
+            // loadLabel
+            // 
+            this.loadLabel.Location = new System.Drawing.Point(312, 352);
+            this.loadLabel.Name = "loadLabel";
+            this.loadLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.loadLabel.Size = new System.Drawing.Size(161, 27);
+            this.loadLabel.TabIndex = 7;
+            this.loadLabel.Text = "Current Game: New Game";
+            this.loadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // unloadSaveButton
+            // 
+            this.unloadSaveButton.Location = new System.Drawing.Point(328, 247);
+            this.unloadSaveButton.Name = "unloadSaveButton";
+            this.unloadSaveButton.Size = new System.Drawing.Size(126, 23);
+            this.unloadSaveButton.TabIndex = 8;
+            this.unloadSaveButton.Text = "Unload Saved Game";
+            this.unloadSaveButton.UseVisualStyleBackColor = true;
+            this.unloadSaveButton.Click += new System.EventHandler(this.unloadSaveButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.unloadSaveButton);
+            this.Controls.Add(this.loadLabel);
             this.Controls.Add(this.hostGameButton);
             this.Controls.Add(this.joinGameButton);
             this.Controls.Add(this.loadSaveButton);
@@ -121,6 +145,7 @@
             this.Controls.Add(this.localGameButton);
             this.Name = "MainMenu";
             this.Text = "Xiangqi Menu";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +160,7 @@
         private System.Windows.Forms.Button loadSaveButton;
         private System.Windows.Forms.Button joinGameButton;
         private System.Windows.Forms.Button hostGameButton;
+        private System.Windows.Forms.Label loadLabel;
+        private System.Windows.Forms.Button unloadSaveButton;
     }
 }

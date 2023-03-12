@@ -621,6 +621,7 @@ namespace Xiangqi
         {
             try
             {
+                //retrieve last move and get the starting and ending X and Y values from it
                 String rollbackMove = moveLog[moveLog.Count - 1];
                 int startX = rollbackMove[0] - 65;
                 int startY = rollbackMove[1] - '0';
@@ -628,11 +629,15 @@ namespace Xiangqi
                 int endX = rollbackMove[2] - 65;
                 int endY = rollbackMove[3] - '0';
                 endY = 9 - endY;
+
+                //use the end x and y to find the piece that needs to be moved and then it's picturebox
                 Piece pieceToMove = board.grid[endX, endY].piece;
+
                 int xDiff = endX - startX;
                 int yDiff = endY - startY;
                 PictureBox pictureBoxToMove = allPieces[pieceToMove];
 
+                //move the piece to where it was before it moved, and update the board accordingly
                 pieceToMove.x = startX;
                 pieceToMove.y = startY;
                 board.grid[startX, startY].occupied = true;
@@ -640,12 +645,14 @@ namespace Xiangqi
                 pictureBoxToMove.Left -= xDiff * 75;
                 pictureBoxToMove.Top -= yDiff * 75;
 
-                //if a piece was taken on the move in question
+                //if a piece was taken on the move in question (the move code will have additional characters if this is the case)
                 if (rollbackMove.Length > 4)
                 {
+                    //translates the code for the taken piece from the end of the move code and retrieves the piece and the picturebox for it
                     Piece revivedPiece = getTakenPieceFromCode(rollbackMove);
                     PictureBox revivedPictureBox = allPieces[revivedPiece];
                     revivedPiece.alive = true;
+                    //removes the piece from it's team's graveyard
                     if (revivedPiece.teamModifier == -1)
                     {
                         redGraveyard.Remove(revivedPiece);
@@ -654,6 +661,7 @@ namespace Xiangqi
                     {
                         blackGraveyard.Remove(revivedPiece);
                     }
+                    //resets the position of the now revived piece's picturebox and updates the board
                     revivedPictureBox.Top = 33;
                     revivedPictureBox.Left = 28;
                     revivedPictureBox.Top += endY * 75;
@@ -661,11 +669,14 @@ namespace Xiangqi
 
                     board.grid[endX, endY].piece = revivedPiece;
                 }
+                //if no piece was taken on the turn being rolled back, update the board to empty the cell the piece is now leaving
                 else
                 {
                     board.grid[endX, endY].occupied = false;
                     board.grid[endX, endY].piece = null;
                 }
+
+                //remove the rolled back move from the movelog and update the move display, the current turn, bring forward the check textbox incase you are rolling back from a end of game state and run a checkscan
                 moveLog.Remove(rollbackMove);
                 updateMoveDisplay();
                 updateTurn();
