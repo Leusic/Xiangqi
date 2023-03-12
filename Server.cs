@@ -84,7 +84,10 @@ namespace Xiangqi
                     string[] splitRequest;
                     switch (splitLine[0])
                     {
-                        //case ""
+                        case "Xiangqi?":
+                            Console.WriteLine("Xiangqi client connection found");
+                            sw.Write("Sure");
+                            break;
                         case "NOOP":
                             Console.WriteLine("NOOP performed, doing nothing");
                             break;
