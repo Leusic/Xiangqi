@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 
@@ -11,6 +13,8 @@ namespace Xiangqi
     public class Client
     {
         TcpClient client = null;
+        string address = null;
+
         public void findServer()
         {
             try
@@ -19,36 +23,55 @@ namespace Xiangqi
                 string address = null;
                 int port = 43;
 
-                client.ReceiveTimeout = 1000;
-                client.SendTimeout = 1000;
+                string localIP = fetchIPAddress();
+                Console.WriteLine("This Device's IP is: " + localIP);
 
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (var ip in host.AddressList)
+                string IPBase1 = localIP.Split('.')[0] + "." + localIP.Split('.')[1] + "." + localIP.Split('.')[2] + ".";
+
+                bool addressFound = false;
+                for(int i = 0; i <=255; i++)
                 {
-                    try
+                    if (addressFound == false)
                     {
-                        client.Connect(ip.ToString(), port);
+                        address = IPBase1 + i.ToString();
+                        try
+                        {
+                            client.ConnectAsync(address, port).Wait(1000);
+                            StreamWriter sw = new StreamWriter(client.GetStream());
+                            StreamReader sr = new StreamReader(client.GetStream());
+                            sw.WriteLine("Xiangqi?");
+                            sw.Flush();
+                            if (sr.ReadLine() == "Sure")
+                            {
+                                addressFound = true;
+                                Console.WriteLine("Host found on " + address);
+                            }
+
+                        }
+                        catch
+                        {
+                        }
                     }
-                    catch
-                    {
-                        Console.WriteLine("Device found: " + ip.ToString() + " but not open on port 43");
-                    }
-                    
                 }
-
-                //for(int i = 0; i <= 255; i++)
-                //{
-                //address = 
-                //client.Connect(address, port);
-                //}
-
-                StreamWriter sw = new StreamWriter(client.GetStream());
-                StreamReader sr = new StreamReader(client.GetStream());
+                Console.WriteLine(IPBase1);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Runtime Error Detected: " + e.ToString());
             }
+        }
+
+        public string fetchIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No IPv4 addresses detected");
         }
         static void Main(string[] args)
         {

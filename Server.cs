@@ -56,8 +56,8 @@ namespace Xiangqi
             {
                 NetworkStream socketStream;
                 socketStream = new NetworkStream(connection);
-                socketStream.ReadTimeout = 1000;
-                socketStream.WriteTimeout = 1000;
+                //socketStream.ReadTimeout = 1000;
+                //socketStream.WriteTimeout = 1000;
                 try
                 {
                     StreamWriter sw = new StreamWriter(socketStream);
@@ -84,7 +84,10 @@ namespace Xiangqi
                     string[] splitRequest;
                     switch (splitLine[0])
                     {
-                        //case ""
+                        case "Xiangqi?":
+                            Console.WriteLine("Xiangqi client connection found");
+                            sw.Write("Sure");
+                            break;
                         case "NOOP":
                             Console.WriteLine("NOOP performed, doing nothing");
                             break;
