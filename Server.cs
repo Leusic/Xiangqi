@@ -15,10 +15,9 @@ namespace Xiangqi
             runServer();
         }
 
-        public static void runServer()
+        static public void runServer()
         {
             var server = new UdpClient(43);
-            var responseData = Encoding.ASCII.GetBytes("Test data");
 
             while (true)
             {
@@ -28,8 +27,26 @@ namespace Xiangqi
                 var clientRequest = Encoding.ASCII.GetString(clientRequestData);
 
                 Console.WriteLine("Recieved request: " + clientRequest + " from: " + clientEp);
-                server.Send(responseData, responseData.Length, clientEp);
+
+                if(clientRequest == "Xiangqi?")
+                {
+                    var response = Encoding.ASCII.GetBytes("Xiangqi. " + getLocalIPAddress());
+                    server.Send(response, response.Length, clientEp);
+                }
             }
+        }
+
+        public static string getLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Could not find local IP address");
         }
         public class Handler
         {

@@ -7,20 +7,21 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms.VisualStyles;
 
 namespace Xiangqi
 {
     public class Client
     {
         UdpClient client = null;
-        string address = null;
+        string serverAddress = null;
+        string localAddress = null;
 
         public void findServer()
         {
             try
             {
                 client = new UdpClient();
-                string address = null;
                 int port = 43;
 
                 string localIP = fetchIPAddress();
@@ -31,14 +32,20 @@ namespace Xiangqi
                 var serverEp = new IPEndPoint(IPAddress.Any, 43);
 
                 client.EnableBroadcast = true;
-                var data = Encoding.ASCII.GetBytes("Test data");
+                var data = Encoding.ASCII.GetBytes("Xiangqi?");
                 client.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, 43));
 
                 var serverResponseData = client.Receive(ref serverEp);
                 var serverResponse = Encoding.ASCII.GetString(serverResponseData);
 
                 Console.WriteLine("Got Response: " + serverResponse + " from " + serverEp);
-
+                String[] splitResponse = serverResponse.Split(" ");
+                string serverIPAddress;
+                if (splitResponse[0] == "Xiangqi.")
+                {
+                    serverAddress = splitResponse[1];
+                }
+                Console.WriteLine(serverAddress);
                 client.Close();
             }
             catch (Exception e)
