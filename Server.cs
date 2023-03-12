@@ -17,35 +17,18 @@ namespace Xiangqi
 
         public static void runServer()
         {
-            TcpListener listener;
-            Socket connection;
-            Handler requestHandler;
-            try
-            {
-                listener = new TcpListener(IPAddress.Any, 43);
-                listener.Start();
-                Console.WriteLine("Server started Listening");
+            var server = new UdpClient(43);
+            var responseData = Encoding.ASCII.GetBytes("Test data");
 
-                //dictionary for storing users and their locations
-                IDictionary<string, string> userData = new Dictionary<string, string>()
+            while (true)
             {
-                {"Max", "is being tested"}
-            };
+                Console.WriteLine("Server started listening... ");
+                var clientEp = new IPEndPoint(IPAddress.Any, 43); 
+                var clientRequestData = server.Receive(ref clientEp);
+                var clientRequest = Encoding.ASCII.GetString(clientRequestData);
 
-                //connection is given a server thread
-                while (true)
-                {
-                    connection = listener.AcceptSocket();
-                    requestHandler = new Handler();
-                    Console.WriteLine("Connection recieved");
-                    Thread theThread = new Thread(() => requestHandler.doRequest(connection, ref userData));
-                    theThread.Name = "Thread";
-                    theThread.Start();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("Recieved request: " + clientRequest + " from: " + clientEp);
+                server.Send(responseData, responseData.Length, clientEp);
             }
         }
         public class Handler
