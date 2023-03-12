@@ -27,12 +27,10 @@ namespace Xiangqi
                 string localIP = fetchIPAddress();
                 Console.WriteLine("This Device's IP is: " + localIP);
 
-                string IPBase1 = localIP.Split('.')[0] + "." + localIP.Split('.')[1] + "." + localIP.Split('.')[2] + ".";
-
                 var serverEp = new IPEndPoint(IPAddress.Any, 43);
 
                 client.EnableBroadcast = true;
-                var data = Encoding.ASCII.GetBytes("Xiangqi?");
+                var data = Encoding.ASCII.GetBytes("Xiangqi? " + localIP);
                 client.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, 43));
 
                 var serverResponseData = client.Receive(ref serverEp);

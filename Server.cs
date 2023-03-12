@@ -10,8 +10,12 @@ namespace Xiangqi
 {
     public class Server
     {
+        public static string localAddress = null;
+        public static string clientAddress = null;
+
         static void Main(string[] args)
         {
+            localAddress = getLocalIPAddress();
             runServer();
         }
 
@@ -27,10 +31,12 @@ namespace Xiangqi
                 var clientRequest = Encoding.ASCII.GetString(clientRequestData);
 
                 Console.WriteLine("Recieved request: " + clientRequest + " from: " + clientEp);
+                string[] splitRequest = clientRequest.Split(" ");
 
-                if(clientRequest == "Xiangqi?")
+                if (splitRequest[0] == "Xiangqi?")
                 {
-                    var response = Encoding.ASCII.GetBytes("Xiangqi. " + getLocalIPAddress());
+                    clientAddress = splitRequest[1];
+                    var response = Encoding.ASCII.GetBytes("Xiangqi. " + localAddress);
                     server.Send(response, response.Length, clientEp);
                 }
             }
