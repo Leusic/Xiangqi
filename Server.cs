@@ -22,8 +22,7 @@ namespace Xiangqi
 
             while (true)
             {
-                Console.WriteLine("Server started listening... ");
-                var clientEp = new IPEndPoint(IPAddress.Any, 43); 
+                var clientEp = new IPEndPoint(IPAddress.Any, 43);
                 var clientRequestData = server.Receive(ref clientEp);
                 var clientRequest = Encoding.ASCII.GetString(clientRequestData);
 
