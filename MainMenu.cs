@@ -73,7 +73,7 @@ namespace Xiangqi
         {
             Client client = new Client();
             client.findServer();
-            //gameBoard GameBoard = new gameBoard(null, )
+            gameBoard GameBoard = new gameBoard(null, )
         }
 
         private void hostGameButton_Click(object sender, EventArgs e)
@@ -84,6 +84,7 @@ namespace Xiangqi
                 Thread.CurrentThread.IsBackground = true;
                 Server.runServer();
             }).Start();
+            gameBoard GameBoard = new gameBoard(null, )
         }
 
         private void MainMenu_Load(object sender, EventArgs e)

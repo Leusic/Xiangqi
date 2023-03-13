@@ -508,9 +508,8 @@ namespace Xiangqi
             }
         }
 
-        //converts movement strings to the corresponding piece and the x and y movement it made (for going backwards through moves)
-        //move strings are formatted as the x and y the piece started at and the x and y the piece ended at
-        private List<char> getPieceCode(Piece piece)
+        //gets the code for a piece, used for describing the piece that was taken on a turn
+        private List<char> getCodeFromPiece(Piece piece)
         {
             List<char> charCode = new List<char>();
             String pieceName = piece.name;
@@ -584,7 +583,7 @@ namespace Xiangqi
                 {
                     blackGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
                 }
-                moveChars.AddRange(getPieceCode(board.grid[x, y].piece));
+                moveChars.AddRange(getCodeFromPiece(board.grid[x, y].piece));
                 updateGraveyard();
             }
             piece.x = x;
