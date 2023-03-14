@@ -119,9 +119,6 @@ namespace Xiangqi
             //if joining or hosting network game start client
             if (modeCode == 2)
             {
-                client = new Client();
-                client.findPlayer();
-
                 playerTeam = 1;
                 myTeamLabel.Text = "You are playing as Black";
             }

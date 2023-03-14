@@ -28,6 +28,7 @@ namespace Xiangqi
             try
             {
                 UdpClient client = new UdpClient();
+
                 client.Client.SendTimeout = 1000;
                 client.Client.ReceiveTimeout = 1000;
 
@@ -51,10 +52,9 @@ namespace Xiangqi
                     {
                         otherAddress = splitResponse[1];
                         var response = Encoding.ASCII.GetBytes("Xiangqi. " + myAddress);
-                        server.Send(response, response.Length, otherEp);
+                        client.Send(response, response.Length, otherEp);
                     }
                 }
-                client.Close();
             }
             catch (Exception e)
             {
@@ -69,6 +69,7 @@ namespace Xiangqi
             {
                 server.Close();
                 server = null;
+                return;
             }
             myAddress = fetchIPAddress();
             server = new UdpClient(port);
@@ -111,6 +112,11 @@ namespace Xiangqi
                     server.Send(response, response.Length, clientEp);
                 }
             }
+        }
+
+        public void getIndentifier()
+        {
+
         }
 
         //client sends last move to server to update it

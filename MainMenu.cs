@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using static System.Windows.Forms.AxHost;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Xiangqi
 {
@@ -84,9 +85,9 @@ namespace Xiangqi
 
             while (client.otherAddress == null)
             {
-                Console.WriteLine("Searching for player on network");
-                client.findPlayer();
-                Thread.Sleep(500);
+                connectionLabel.Text = "Seaching for player...";
+                Application.DoEvents();
+                searchForPlayer();
             }
 
             if(client.otherAddress != null)
@@ -100,6 +101,13 @@ namespace Xiangqi
             {
                 Console.WriteLine("Server could not be found");
             }
+        }
+
+        private async void searchForPlayer()
+        {
+            Console.WriteLine("Searching for player on network");
+            client.findPlayer();
+            await Task.Delay(500);
         }
 
         private void MainMenu_Load(object sender, EventArgs e)

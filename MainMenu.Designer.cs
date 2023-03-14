@@ -37,6 +37,7 @@
             this.loadLabel = new System.Windows.Forms.Label();
             this.unloadSaveButton = new System.Windows.Forms.Button();
             this.waitingLabel = new System.Windows.Forms.Label();
+            this.connectionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // localGameButton
@@ -128,11 +129,21 @@
             this.waitingLabel.TabIndex = 9;
             this.waitingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // connectionLabel
+            // 
+            this.connectionLabel.Location = new System.Drawing.Point(460, 274);
+            this.connectionLabel.Name = "connectionLabel";
+            this.connectionLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.connectionLabel.Size = new System.Drawing.Size(161, 27);
+            this.connectionLabel.TabIndex = 10;
+            this.connectionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.connectionLabel);
             this.Controls.Add(this.unloadSaveButton);
             this.Controls.Add(this.loadLabel);
             this.Controls.Add(this.joinGameButton);
@@ -161,5 +172,6 @@
         private System.Windows.Forms.Label loadLabel;
         private System.Windows.Forms.Button unloadSaveButton;
         private System.Windows.Forms.Label waitingLabel;
+        private System.Windows.Forms.Label connectionLabel;
     }
 }
