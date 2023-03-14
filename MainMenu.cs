@@ -82,7 +82,7 @@ namespace Xiangqi
                 }).Start();
             }
 
-            while (true)
+            while (client.otherAddress == null)
             {
                 Console.WriteLine("Searching for player on network");
                 client.findPlayer();
