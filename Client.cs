@@ -45,7 +45,7 @@ namespace Xiangqi
 
                 Console.WriteLine("Got Response: " + serverResponse + " from " + otherEp);
                 String[] splitResponse = serverResponse.Split(" ");
-                if (splitResponse[0] == "Xiangqi?")
+                if (splitResponse[0] == "Xiangqi.")
                 {
                     if (splitResponse[1] != myAddress)
                     {
