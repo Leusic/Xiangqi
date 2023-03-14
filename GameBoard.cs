@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
 using System.Threading;
+using System.Resources;
 
 namespace Xiangqi
 {
@@ -78,7 +79,7 @@ namespace Xiangqi
         public gameBoard(Save loadedSave, int modeCode, Client client)
         {
             InitializeComponent();
-            this.client = client;
+            this.client = client;           
 
             this.modeCode = modeCode;
 
