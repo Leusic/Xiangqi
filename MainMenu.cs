@@ -83,7 +83,13 @@ namespace Xiangqi
                 });
             }
 
-            client.findServer();
+            while (true)
+            {
+                Console.WriteLine("Searching for player on network");
+                client.findServer();
+                Thread.Sleep(500);
+            }
+
             if(client.otherAddress != null)
             {
                 GameBoard = new gameBoard(null, 2);

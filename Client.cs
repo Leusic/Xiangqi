@@ -58,7 +58,8 @@ namespace Xiangqi
             }
             catch (Exception e)
             {
-                Console.WriteLine("Runtime Error Detected: " + e.ToString());
+                //Console.WriteLine("Runtime Error Detected: " + e.ToString());
+                //Console.WriteLine("");
             }
         }
 
