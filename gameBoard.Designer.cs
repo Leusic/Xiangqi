@@ -30,697 +30,657 @@ namespace Xiangqi
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(gameBoard));
-            panel1 = new System.Windows.Forms.Panel();
-            MenuButton = new System.Windows.Forms.Button();
-            CheckTextbox = new System.Windows.Forms.Label();
-            TurnTextbox = new System.Windows.Forms.Label();
-            RedCannon2 = new System.Windows.Forms.PictureBox();
-            RedCannon1 = new System.Windows.Forms.PictureBox();
-            BlackCannon2 = new System.Windows.Forms.PictureBox();
-            BlackCannon1 = new System.Windows.Forms.PictureBox();
-            BlackChariot2 = new System.Windows.Forms.PictureBox();
-            RedChariot2 = new System.Windows.Forms.PictureBox();
-            RedChariot1 = new System.Windows.Forms.PictureBox();
-            BlackChariot1 = new System.Windows.Forms.PictureBox();
-            BlackHorse2 = new System.Windows.Forms.PictureBox();
-            BlackHorse1 = new System.Windows.Forms.PictureBox();
-            RedHorse1 = new System.Windows.Forms.PictureBox();
-            RedHorse2 = new System.Windows.Forms.PictureBox();
-            RedElephant2 = new System.Windows.Forms.PictureBox();
-            RedElephant1 = new System.Windows.Forms.PictureBox();
-            BlackElephant2 = new System.Windows.Forms.PictureBox();
-            BlackElephant1 = new System.Windows.Forms.PictureBox();
-            BlackGuard2 = new System.Windows.Forms.PictureBox();
-            RedGuard2 = new System.Windows.Forms.PictureBox();
-            BlackGuard1 = new System.Windows.Forms.PictureBox();
-            RedGuard1 = new System.Windows.Forms.PictureBox();
-            BlackSoldier5 = new System.Windows.Forms.PictureBox();
-            BlackSoldier4 = new System.Windows.Forms.PictureBox();
-            BlackSoldier3 = new System.Windows.Forms.PictureBox();
-            BlackSoldier2 = new System.Windows.Forms.PictureBox();
-            BlackSoldier1 = new System.Windows.Forms.PictureBox();
-            BlackGeneral = new System.Windows.Forms.PictureBox();
-            RedGeneral = new System.Windows.Forms.PictureBox();
-            RedSoldier3 = new System.Windows.Forms.PictureBox();
-            RedSoldier4 = new System.Windows.Forms.PictureBox();
-            RedSoldier5 = new System.Windows.Forms.PictureBox();
-            RedSoldier2 = new System.Windows.Forms.PictureBox();
-            RedSoldier1 = new System.Windows.Forms.PictureBox();
-            BoardImage = new System.Windows.Forms.PictureBox();
-            CheckmateTextbox = new System.Windows.Forms.Label();
-            WinningTeamTextbox = new System.Windows.Forms.Label();
-            RollbackButton = new System.Windows.Forms.Button();
-            moveLabel1 = new System.Windows.Forms.Label();
-            moveLabel2 = new System.Windows.Forms.Label();
-            moveLabel4 = new System.Windows.Forms.Label();
-            moveLabel3 = new System.Windows.Forms.Label();
-            saveGameButton = new System.Windows.Forms.Button();
-            saveGameStatusLabel = new System.Windows.Forms.Label();
-            myTeamLabel = new System.Windows.Forms.Label();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)RedCannon2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedCannon1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackCannon2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackCannon1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackChariot2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedChariot2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedChariot1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackChariot1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackHorse2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackHorse1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedHorse1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedHorse2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedElephant2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedElephant1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackElephant2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackElephant1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGuard2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedGuard2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGuard1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedGuard1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGeneral).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedGeneral).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BoardImage).BeginInit();
-            SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.MenuButton = new System.Windows.Forms.Button();
+            this.CheckTextbox = new System.Windows.Forms.Label();
+            this.TurnTextbox = new System.Windows.Forms.Label();
+            this.RedCannon2 = new System.Windows.Forms.PictureBox();
+            this.RedCannon1 = new System.Windows.Forms.PictureBox();
+            this.BlackCannon2 = new System.Windows.Forms.PictureBox();
+            this.BlackCannon1 = new System.Windows.Forms.PictureBox();
+            this.BlackChariot2 = new System.Windows.Forms.PictureBox();
+            this.RedChariot2 = new System.Windows.Forms.PictureBox();
+            this.RedChariot1 = new System.Windows.Forms.PictureBox();
+            this.BlackChariot1 = new System.Windows.Forms.PictureBox();
+            this.BlackHorse2 = new System.Windows.Forms.PictureBox();
+            this.BlackHorse1 = new System.Windows.Forms.PictureBox();
+            this.RedHorse1 = new System.Windows.Forms.PictureBox();
+            this.RedHorse2 = new System.Windows.Forms.PictureBox();
+            this.RedElephant2 = new System.Windows.Forms.PictureBox();
+            this.RedElephant1 = new System.Windows.Forms.PictureBox();
+            this.BlackElephant2 = new System.Windows.Forms.PictureBox();
+            this.BlackElephant1 = new System.Windows.Forms.PictureBox();
+            this.BlackGuard2 = new System.Windows.Forms.PictureBox();
+            this.RedGuard2 = new System.Windows.Forms.PictureBox();
+            this.BlackGuard1 = new System.Windows.Forms.PictureBox();
+            this.RedGuard1 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier5 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier4 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier3 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier2 = new System.Windows.Forms.PictureBox();
+            this.BlackSoldier1 = new System.Windows.Forms.PictureBox();
+            this.BlackGeneral = new System.Windows.Forms.PictureBox();
+            this.RedGeneral = new System.Windows.Forms.PictureBox();
+            this.RedSoldier3 = new System.Windows.Forms.PictureBox();
+            this.RedSoldier4 = new System.Windows.Forms.PictureBox();
+            this.RedSoldier5 = new System.Windows.Forms.PictureBox();
+            this.RedSoldier2 = new System.Windows.Forms.PictureBox();
+            this.RedSoldier1 = new System.Windows.Forms.PictureBox();
+            this.BoardImage = new System.Windows.Forms.PictureBox();
+            this.CheckmateTextbox = new System.Windows.Forms.Label();
+            this.WinningTeamTextbox = new System.Windows.Forms.Label();
+            this.RollbackButton = new System.Windows.Forms.Button();
+            this.moveLabel1 = new System.Windows.Forms.Label();
+            this.moveLabel2 = new System.Windows.Forms.Label();
+            this.moveLabel4 = new System.Windows.Forms.Label();
+            this.moveLabel3 = new System.Windows.Forms.Label();
+            this.saveGameButton = new System.Windows.Forms.Button();
+            this.saveGameStatusLabel = new System.Windows.Forms.Label();
+            this.myTeamLabel = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackChariot2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedChariot2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedChariot1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackChariot1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackHorse2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackHorse1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedHorse1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedHorse2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGeneral)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).BeginInit();
+            this.SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(MenuButton);
-            panel1.Controls.Add(CheckTextbox);
-            panel1.Controls.Add(TurnTextbox);
-            panel1.Controls.Add(RedCannon2);
-            panel1.Controls.Add(RedCannon1);
-            panel1.Controls.Add(BlackCannon2);
-            panel1.Controls.Add(BlackCannon1);
-            panel1.Controls.Add(BlackChariot2);
-            panel1.Controls.Add(RedChariot2);
-            panel1.Controls.Add(RedChariot1);
-            panel1.Controls.Add(BlackChariot1);
-            panel1.Controls.Add(BlackHorse2);
-            panel1.Controls.Add(BlackHorse1);
-            panel1.Controls.Add(RedHorse1);
-            panel1.Controls.Add(RedHorse2);
-            panel1.Controls.Add(RedElephant2);
-            panel1.Controls.Add(RedElephant1);
-            panel1.Controls.Add(BlackElephant2);
-            panel1.Controls.Add(BlackElephant1);
-            panel1.Controls.Add(BlackGuard2);
-            panel1.Controls.Add(RedGuard2);
-            panel1.Controls.Add(BlackGuard1);
-            panel1.Controls.Add(RedGuard1);
-            panel1.Controls.Add(BlackSoldier5);
-            panel1.Controls.Add(BlackSoldier4);
-            panel1.Controls.Add(BlackSoldier3);
-            panel1.Controls.Add(BlackSoldier2);
-            panel1.Controls.Add(BlackSoldier1);
-            panel1.Controls.Add(BlackGeneral);
-            panel1.Controls.Add(RedGeneral);
-            panel1.Controls.Add(RedSoldier3);
-            panel1.Controls.Add(RedSoldier4);
-            panel1.Controls.Add(RedSoldier5);
-            panel1.Controls.Add(RedSoldier2);
-            panel1.Controls.Add(RedSoldier1);
-            panel1.Controls.Add(BoardImage);
-            panel1.Controls.Add(CheckmateTextbox);
-            panel1.Controls.Add(WinningTeamTextbox);
-            panel1.Location = new System.Drawing.Point(1, -1);
-            panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(1257, 1067);
-            panel1.TabIndex = 1;
+            this.panel1.Controls.Add(this.MenuButton);
+            this.panel1.Controls.Add(this.CheckTextbox);
+            this.panel1.Controls.Add(this.TurnTextbox);
+            this.panel1.Controls.Add(this.RedCannon2);
+            this.panel1.Controls.Add(this.RedCannon1);
+            this.panel1.Controls.Add(this.BlackCannon2);
+            this.panel1.Controls.Add(this.BlackCannon1);
+            this.panel1.Controls.Add(this.BlackChariot2);
+            this.panel1.Controls.Add(this.RedChariot2);
+            this.panel1.Controls.Add(this.RedChariot1);
+            this.panel1.Controls.Add(this.BlackChariot1);
+            this.panel1.Controls.Add(this.BlackHorse2);
+            this.panel1.Controls.Add(this.BlackHorse1);
+            this.panel1.Controls.Add(this.RedHorse1);
+            this.panel1.Controls.Add(this.RedHorse2);
+            this.panel1.Controls.Add(this.RedElephant2);
+            this.panel1.Controls.Add(this.RedElephant1);
+            this.panel1.Controls.Add(this.BlackElephant2);
+            this.panel1.Controls.Add(this.BlackElephant1);
+            this.panel1.Controls.Add(this.BlackGuard2);
+            this.panel1.Controls.Add(this.RedGuard2);
+            this.panel1.Controls.Add(this.BlackGuard1);
+            this.panel1.Controls.Add(this.RedGuard1);
+            this.panel1.Controls.Add(this.BlackSoldier5);
+            this.panel1.Controls.Add(this.BlackSoldier4);
+            this.panel1.Controls.Add(this.BlackSoldier3);
+            this.panel1.Controls.Add(this.BlackSoldier2);
+            this.panel1.Controls.Add(this.BlackSoldier1);
+            this.panel1.Controls.Add(this.BlackGeneral);
+            this.panel1.Controls.Add(this.RedGeneral);
+            this.panel1.Controls.Add(this.RedSoldier3);
+            this.panel1.Controls.Add(this.RedSoldier4);
+            this.panel1.Controls.Add(this.RedSoldier5);
+            this.panel1.Controls.Add(this.RedSoldier2);
+            this.panel1.Controls.Add(this.RedSoldier1);
+            this.panel1.Controls.Add(this.BoardImage);
+            this.panel1.Controls.Add(this.CheckmateTextbox);
+            this.panel1.Controls.Add(this.WinningTeamTextbox);
+            this.panel1.Location = new System.Drawing.Point(1, -1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1100, 800);
+            this.panel1.TabIndex = 1;
             // 
             // MenuButton
             // 
-            MenuButton.Location = new System.Drawing.Point(1142, 491);
-            MenuButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            MenuButton.Name = "MenuButton";
-            MenuButton.Size = new System.Drawing.Size(103, 69);
-            MenuButton.TabIndex = 37;
-            MenuButton.Text = "Return to Menu";
-            MenuButton.UseVisualStyleBackColor = true;
-            MenuButton.Click += MenuButtonClick;
+            this.MenuButton.Location = new System.Drawing.Point(999, 368);
+            this.MenuButton.Name = "MenuButton";
+            this.MenuButton.Size = new System.Drawing.Size(90, 52);
+            this.MenuButton.TabIndex = 37;
+            this.MenuButton.Text = "Return to Menu";
+            this.MenuButton.UseVisualStyleBackColor = true;
+            this.MenuButton.Click += new System.EventHandler(this.MenuButton_Click);
             // 
             // CheckTextbox
             // 
-            CheckTextbox.BackColor = System.Drawing.SystemColors.Control;
-            CheckTextbox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            CheckTextbox.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            CheckTextbox.Location = new System.Drawing.Point(986, 519);
-            CheckTextbox.Name = "CheckTextbox";
-            CheckTextbox.Size = new System.Drawing.Size(149, 21);
-            CheckTextbox.TabIndex = 41;
-            CheckTextbox.Text = "Neither team in check";
-            CheckTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckTextbox.BackColor = System.Drawing.SystemColors.Control;
+            this.CheckTextbox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckTextbox.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CheckTextbox.Location = new System.Drawing.Point(863, 389);
+            this.CheckTextbox.Name = "CheckTextbox";
+            this.CheckTextbox.Size = new System.Drawing.Size(130, 16);
+            this.CheckTextbox.TabIndex = 41;
+            this.CheckTextbox.Text = "Neither team in check";
+            this.CheckTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TurnTextbox
             // 
-            TurnTextbox.BackColor = System.Drawing.Color.IndianRed;
-            TurnTextbox.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            TurnTextbox.Location = new System.Drawing.Point(843, 505);
-            TurnTextbox.Name = "TurnTextbox";
-            TurnTextbox.Size = new System.Drawing.Size(136, 44);
-            TurnTextbox.TabIndex = 40;
-            TurnTextbox.Text = "Red's Turn";
-            TurnTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TurnTextbox.BackColor = System.Drawing.Color.IndianRed;
+            this.TurnTextbox.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TurnTextbox.Location = new System.Drawing.Point(738, 379);
+            this.TurnTextbox.Name = "TurnTextbox";
+            this.TurnTextbox.Size = new System.Drawing.Size(119, 33);
+            this.TurnTextbox.TabIndex = 40;
+            this.TurnTextbox.Text = "Red\'s Turn";
+            this.TurnTextbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RedCannon2
             // 
-            RedCannon2.Image = (System.Drawing.Image)resources.GetObject("RedCannon2.Image");
-            RedCannon2.Location = new System.Drawing.Point(633, 740);
-            RedCannon2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedCannon2.Name = "RedCannon2";
-            RedCannon2.Size = new System.Drawing.Size(69, 80);
-            RedCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedCannon2.TabIndex = 33;
-            RedCannon2.TabStop = false;
+            this.RedCannon2.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon2.Image")));
+            this.RedCannon2.Location = new System.Drawing.Point(554, 555);
+            this.RedCannon2.Name = "RedCannon2";
+            this.RedCannon2.Size = new System.Drawing.Size(60, 60);
+            this.RedCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedCannon2.TabIndex = 33;
+            this.RedCannon2.TabStop = false;
             // 
             // RedCannon1
             // 
-            RedCannon1.Image = (System.Drawing.Image)resources.GetObject("RedCannon1.Image");
-            RedCannon1.Location = new System.Drawing.Point(118, 740);
-            RedCannon1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedCannon1.Name = "RedCannon1";
-            RedCannon1.Size = new System.Drawing.Size(69, 80);
-            RedCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedCannon1.TabIndex = 32;
-            RedCannon1.TabStop = false;
+            this.RedCannon1.Image = ((System.Drawing.Image)(resources.GetObject("RedCannon1.Image")));
+            this.RedCannon1.Location = new System.Drawing.Point(103, 555);
+            this.RedCannon1.Name = "RedCannon1";
+            this.RedCannon1.Size = new System.Drawing.Size(60, 60);
+            this.RedCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedCannon1.TabIndex = 32;
+            this.RedCannon1.TabStop = false;
             // 
             // BlackCannon2
             // 
-            BlackCannon2.Image = (System.Drawing.Image)resources.GetObject("BlackCannon2.Image");
-            BlackCannon2.Location = new System.Drawing.Point(633, 241);
-            BlackCannon2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackCannon2.Name = "BlackCannon2";
-            BlackCannon2.Size = new System.Drawing.Size(69, 80);
-            BlackCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackCannon2.TabIndex = 31;
-            BlackCannon2.TabStop = false;
+            this.BlackCannon2.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon2.Image")));
+            this.BlackCannon2.Location = new System.Drawing.Point(554, 181);
+            this.BlackCannon2.Name = "BlackCannon2";
+            this.BlackCannon2.Size = new System.Drawing.Size(60, 60);
+            this.BlackCannon2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackCannon2.TabIndex = 31;
+            this.BlackCannon2.TabStop = false;
             // 
             // BlackCannon1
             // 
-            BlackCannon1.Image = (System.Drawing.Image)resources.GetObject("BlackCannon1.Image");
-            BlackCannon1.Location = new System.Drawing.Point(118, 241);
-            BlackCannon1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackCannon1.Name = "BlackCannon1";
-            BlackCannon1.Size = new System.Drawing.Size(69, 80);
-            BlackCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackCannon1.TabIndex = 30;
-            BlackCannon1.TabStop = false;
+            this.BlackCannon1.Image = ((System.Drawing.Image)(resources.GetObject("BlackCannon1.Image")));
+            this.BlackCannon1.Location = new System.Drawing.Point(103, 181);
+            this.BlackCannon1.Name = "BlackCannon1";
+            this.BlackCannon1.Size = new System.Drawing.Size(60, 60);
+            this.BlackCannon1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackCannon1.TabIndex = 30;
+            this.BlackCannon1.TabStop = false;
             // 
             // BlackChariot2
             // 
-            BlackChariot2.Image = (System.Drawing.Image)resources.GetObject("BlackChariot2.Image");
-            BlackChariot2.Location = new System.Drawing.Point(717, 45);
-            BlackChariot2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackChariot2.Name = "BlackChariot2";
-            BlackChariot2.Size = new System.Drawing.Size(69, 80);
-            BlackChariot2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackChariot2.TabIndex = 29;
-            BlackChariot2.TabStop = false;
+            this.BlackChariot2.Image = ((System.Drawing.Image)(resources.GetObject("BlackChariot2.Image")));
+            this.BlackChariot2.Location = new System.Drawing.Point(627, 34);
+            this.BlackChariot2.Name = "BlackChariot2";
+            this.BlackChariot2.Size = new System.Drawing.Size(60, 60);
+            this.BlackChariot2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackChariot2.TabIndex = 29;
+            this.BlackChariot2.TabStop = false;
             // 
             // RedChariot2
             // 
-            RedChariot2.Image = (System.Drawing.Image)resources.GetObject("RedChariot2.Image");
-            RedChariot2.Location = new System.Drawing.Point(717, 943);
-            RedChariot2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedChariot2.Name = "RedChariot2";
-            RedChariot2.Size = new System.Drawing.Size(69, 80);
-            RedChariot2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedChariot2.TabIndex = 28;
-            RedChariot2.TabStop = false;
+            this.RedChariot2.Image = ((System.Drawing.Image)(resources.GetObject("RedChariot2.Image")));
+            this.RedChariot2.Location = new System.Drawing.Point(627, 707);
+            this.RedChariot2.Name = "RedChariot2";
+            this.RedChariot2.Size = new System.Drawing.Size(60, 60);
+            this.RedChariot2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedChariot2.TabIndex = 28;
+            this.RedChariot2.TabStop = false;
             // 
             // RedChariot1
             // 
-            RedChariot1.Image = (System.Drawing.Image)resources.GetObject("RedChariot1.Image");
-            RedChariot1.Location = new System.Drawing.Point(37, 943);
-            RedChariot1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedChariot1.Name = "RedChariot1";
-            RedChariot1.Size = new System.Drawing.Size(69, 80);
-            RedChariot1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedChariot1.TabIndex = 27;
-            RedChariot1.TabStop = false;
+            this.RedChariot1.Image = ((System.Drawing.Image)(resources.GetObject("RedChariot1.Image")));
+            this.RedChariot1.Location = new System.Drawing.Point(32, 707);
+            this.RedChariot1.Name = "RedChariot1";
+            this.RedChariot1.Size = new System.Drawing.Size(60, 60);
+            this.RedChariot1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedChariot1.TabIndex = 27;
+            this.RedChariot1.TabStop = false;
             // 
             // BlackChariot1
             // 
-            BlackChariot1.Image = (System.Drawing.Image)resources.GetObject("BlackChariot1.Image");
-            BlackChariot1.Location = new System.Drawing.Point(37, 45);
-            BlackChariot1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackChariot1.Name = "BlackChariot1";
-            BlackChariot1.Size = new System.Drawing.Size(69, 80);
-            BlackChariot1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackChariot1.TabIndex = 26;
-            BlackChariot1.TabStop = false;
+            this.BlackChariot1.Image = ((System.Drawing.Image)(resources.GetObject("BlackChariot1.Image")));
+            this.BlackChariot1.Location = new System.Drawing.Point(32, 34);
+            this.BlackChariot1.Name = "BlackChariot1";
+            this.BlackChariot1.Size = new System.Drawing.Size(60, 60);
+            this.BlackChariot1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackChariot1.TabIndex = 26;
+            this.BlackChariot1.TabStop = false;
             // 
             // BlackHorse2
             // 
-            BlackHorse2.Image = (System.Drawing.Image)resources.GetObject("BlackHorse2.Image");
-            BlackHorse2.Location = new System.Drawing.Point(633, 45);
-            BlackHorse2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackHorse2.Name = "BlackHorse2";
-            BlackHorse2.Size = new System.Drawing.Size(69, 80);
-            BlackHorse2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackHorse2.TabIndex = 25;
-            BlackHorse2.TabStop = false;
+            this.BlackHorse2.Image = ((System.Drawing.Image)(resources.GetObject("BlackHorse2.Image")));
+            this.BlackHorse2.Location = new System.Drawing.Point(554, 34);
+            this.BlackHorse2.Name = "BlackHorse2";
+            this.BlackHorse2.Size = new System.Drawing.Size(60, 60);
+            this.BlackHorse2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackHorse2.TabIndex = 25;
+            this.BlackHorse2.TabStop = false;
             // 
             // BlackHorse1
             // 
-            BlackHorse1.Image = (System.Drawing.Image)resources.GetObject("BlackHorse1.Image");
-            BlackHorse1.Location = new System.Drawing.Point(118, 45);
-            BlackHorse1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackHorse1.Name = "BlackHorse1";
-            BlackHorse1.Size = new System.Drawing.Size(69, 80);
-            BlackHorse1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackHorse1.TabIndex = 24;
-            BlackHorse1.TabStop = false;
+            this.BlackHorse1.Image = ((System.Drawing.Image)(resources.GetObject("BlackHorse1.Image")));
+            this.BlackHorse1.Location = new System.Drawing.Point(103, 34);
+            this.BlackHorse1.Name = "BlackHorse1";
+            this.BlackHorse1.Size = new System.Drawing.Size(60, 60);
+            this.BlackHorse1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackHorse1.TabIndex = 24;
+            this.BlackHorse1.TabStop = false;
             // 
             // RedHorse1
             // 
-            RedHorse1.Image = (System.Drawing.Image)resources.GetObject("RedHorse1.Image");
-            RedHorse1.Location = new System.Drawing.Point(118, 943);
-            RedHorse1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedHorse1.Name = "RedHorse1";
-            RedHorse1.Size = new System.Drawing.Size(69, 80);
-            RedHorse1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedHorse1.TabIndex = 23;
-            RedHorse1.TabStop = false;
+            this.RedHorse1.Image = ((System.Drawing.Image)(resources.GetObject("RedHorse1.Image")));
+            this.RedHorse1.Location = new System.Drawing.Point(103, 707);
+            this.RedHorse1.Name = "RedHorse1";
+            this.RedHorse1.Size = new System.Drawing.Size(60, 60);
+            this.RedHorse1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedHorse1.TabIndex = 23;
+            this.RedHorse1.TabStop = false;
             // 
             // RedHorse2
             // 
-            RedHorse2.Image = (System.Drawing.Image)resources.GetObject("RedHorse2.Image");
-            RedHorse2.Location = new System.Drawing.Point(633, 943);
-            RedHorse2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedHorse2.Name = "RedHorse2";
-            RedHorse2.Size = new System.Drawing.Size(69, 80);
-            RedHorse2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedHorse2.TabIndex = 22;
-            RedHorse2.TabStop = false;
+            this.RedHorse2.Image = ((System.Drawing.Image)(resources.GetObject("RedHorse2.Image")));
+            this.RedHorse2.Location = new System.Drawing.Point(554, 707);
+            this.RedHorse2.Name = "RedHorse2";
+            this.RedHorse2.Size = new System.Drawing.Size(60, 60);
+            this.RedHorse2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedHorse2.TabIndex = 22;
+            this.RedHorse2.TabStop = false;
             // 
             // RedElephant2
             // 
-            RedElephant2.Image = (System.Drawing.Image)resources.GetObject("RedElephant2.Image");
-            RedElephant2.Location = new System.Drawing.Point(547, 943);
-            RedElephant2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedElephant2.Name = "RedElephant2";
-            RedElephant2.Size = new System.Drawing.Size(69, 80);
-            RedElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedElephant2.TabIndex = 21;
-            RedElephant2.TabStop = false;
+            this.RedElephant2.Image = ((System.Drawing.Image)(resources.GetObject("RedElephant2.Image")));
+            this.RedElephant2.Location = new System.Drawing.Point(479, 707);
+            this.RedElephant2.Name = "RedElephant2";
+            this.RedElephant2.Size = new System.Drawing.Size(60, 60);
+            this.RedElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedElephant2.TabIndex = 21;
+            this.RedElephant2.TabStop = false;
             // 
             // RedElephant1
             // 
-            RedElephant1.Image = (System.Drawing.Image)resources.GetObject("RedElephant1.Image");
-            RedElephant1.Location = new System.Drawing.Point(203, 943);
-            RedElephant1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedElephant1.Name = "RedElephant1";
-            RedElephant1.Size = new System.Drawing.Size(69, 80);
-            RedElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedElephant1.TabIndex = 20;
-            RedElephant1.TabStop = false;
+            this.RedElephant1.Image = ((System.Drawing.Image)(resources.GetObject("RedElephant1.Image")));
+            this.RedElephant1.Location = new System.Drawing.Point(178, 707);
+            this.RedElephant1.Name = "RedElephant1";
+            this.RedElephant1.Size = new System.Drawing.Size(60, 60);
+            this.RedElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedElephant1.TabIndex = 20;
+            this.RedElephant1.TabStop = false;
             // 
             // BlackElephant2
             // 
-            BlackElephant2.Image = (System.Drawing.Image)resources.GetObject("BlackElephant2.Image");
-            BlackElephant2.Location = new System.Drawing.Point(547, 45);
-            BlackElephant2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackElephant2.Name = "BlackElephant2";
-            BlackElephant2.Size = new System.Drawing.Size(69, 80);
-            BlackElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackElephant2.TabIndex = 19;
-            BlackElephant2.TabStop = false;
+            this.BlackElephant2.Image = ((System.Drawing.Image)(resources.GetObject("BlackElephant2.Image")));
+            this.BlackElephant2.Location = new System.Drawing.Point(479, 34);
+            this.BlackElephant2.Name = "BlackElephant2";
+            this.BlackElephant2.Size = new System.Drawing.Size(60, 60);
+            this.BlackElephant2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackElephant2.TabIndex = 19;
+            this.BlackElephant2.TabStop = false;
             // 
             // BlackElephant1
             // 
-            BlackElephant1.Image = (System.Drawing.Image)resources.GetObject("BlackElephant1.Image");
-            BlackElephant1.Location = new System.Drawing.Point(203, 45);
-            BlackElephant1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackElephant1.Name = "BlackElephant1";
-            BlackElephant1.Size = new System.Drawing.Size(69, 80);
-            BlackElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackElephant1.TabIndex = 18;
-            BlackElephant1.TabStop = false;
-            BlackElephant1.Click += BlackElephant1_Click;
+            this.BlackElephant1.Image = ((System.Drawing.Image)(resources.GetObject("BlackElephant1.Image")));
+            this.BlackElephant1.Location = new System.Drawing.Point(178, 34);
+            this.BlackElephant1.Name = "BlackElephant1";
+            this.BlackElephant1.Size = new System.Drawing.Size(60, 60);
+            this.BlackElephant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackElephant1.TabIndex = 18;
+            this.BlackElephant1.TabStop = false;
             // 
             // BlackGuard2
             // 
-            BlackGuard2.Image = (System.Drawing.Image)resources.GetObject("BlackGuard2.Image");
-            BlackGuard2.Location = new System.Drawing.Point(463, 45);
-            BlackGuard2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackGuard2.Name = "BlackGuard2";
-            BlackGuard2.Size = new System.Drawing.Size(69, 80);
-            BlackGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackGuard2.TabIndex = 17;
-            BlackGuard2.TabStop = false;
+            this.BlackGuard2.Image = ((System.Drawing.Image)(resources.GetObject("BlackGuard2.Image")));
+            this.BlackGuard2.Location = new System.Drawing.Point(405, 34);
+            this.BlackGuard2.Name = "BlackGuard2";
+            this.BlackGuard2.Size = new System.Drawing.Size(60, 60);
+            this.BlackGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGuard2.TabIndex = 17;
+            this.BlackGuard2.TabStop = false;
             // 
             // RedGuard2
             // 
-            RedGuard2.Image = (System.Drawing.Image)resources.GetObject("RedGuard2.Image");
-            RedGuard2.Location = new System.Drawing.Point(463, 943);
-            RedGuard2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedGuard2.Name = "RedGuard2";
-            RedGuard2.Size = new System.Drawing.Size(69, 80);
-            RedGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedGuard2.TabIndex = 16;
-            RedGuard2.TabStop = false;
+            this.RedGuard2.Image = ((System.Drawing.Image)(resources.GetObject("RedGuard2.Image")));
+            this.RedGuard2.Location = new System.Drawing.Point(405, 707);
+            this.RedGuard2.Name = "RedGuard2";
+            this.RedGuard2.Size = new System.Drawing.Size(60, 60);
+            this.RedGuard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedGuard2.TabIndex = 16;
+            this.RedGuard2.TabStop = false;
             // 
             // BlackGuard1
             // 
-            BlackGuard1.Image = (System.Drawing.Image)resources.GetObject("BlackGuard1.Image");
-            BlackGuard1.Location = new System.Drawing.Point(290, 45);
-            BlackGuard1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackGuard1.Name = "BlackGuard1";
-            BlackGuard1.Size = new System.Drawing.Size(69, 80);
-            BlackGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackGuard1.TabIndex = 15;
-            BlackGuard1.TabStop = false;
+            this.BlackGuard1.Image = ((System.Drawing.Image)(resources.GetObject("BlackGuard1.Image")));
+            this.BlackGuard1.Location = new System.Drawing.Point(254, 34);
+            this.BlackGuard1.Name = "BlackGuard1";
+            this.BlackGuard1.Size = new System.Drawing.Size(60, 60);
+            this.BlackGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGuard1.TabIndex = 15;
+            this.BlackGuard1.TabStop = false;
             // 
             // RedGuard1
             // 
-            RedGuard1.Image = (System.Drawing.Image)resources.GetObject("RedGuard1.Image");
-            RedGuard1.Location = new System.Drawing.Point(290, 943);
-            RedGuard1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedGuard1.Name = "RedGuard1";
-            RedGuard1.Size = new System.Drawing.Size(69, 80);
-            RedGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedGuard1.TabIndex = 14;
-            RedGuard1.TabStop = false;
+            this.RedGuard1.Image = ((System.Drawing.Image)(resources.GetObject("RedGuard1.Image")));
+            this.RedGuard1.Location = new System.Drawing.Point(254, 707);
+            this.RedGuard1.Name = "RedGuard1";
+            this.RedGuard1.Size = new System.Drawing.Size(60, 60);
+            this.RedGuard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedGuard1.TabIndex = 14;
+            this.RedGuard1.TabStop = false;
             // 
             // BlackSoldier5
             // 
-            BlackSoldier5.Image = (System.Drawing.Image)resources.GetObject("BlackSoldier5.Image");
-            BlackSoldier5.Location = new System.Drawing.Point(717, 347);
-            BlackSoldier5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackSoldier5.Name = "BlackSoldier5";
-            BlackSoldier5.Size = new System.Drawing.Size(69, 80);
-            BlackSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackSoldier5.TabIndex = 13;
-            BlackSoldier5.TabStop = false;
+            this.BlackSoldier5.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier5.Image")));
+            this.BlackSoldier5.Location = new System.Drawing.Point(627, 260);
+            this.BlackSoldier5.Name = "BlackSoldier5";
+            this.BlackSoldier5.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier5.TabIndex = 13;
+            this.BlackSoldier5.TabStop = false;
             // 
             // BlackSoldier4
             // 
-            BlackSoldier4.Image = (System.Drawing.Image)resources.GetObject("BlackSoldier4.Image");
-            BlackSoldier4.Location = new System.Drawing.Point(547, 347);
-            BlackSoldier4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackSoldier4.Name = "BlackSoldier4";
-            BlackSoldier4.Size = new System.Drawing.Size(69, 80);
-            BlackSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackSoldier4.TabIndex = 12;
-            BlackSoldier4.TabStop = false;
+            this.BlackSoldier4.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier4.Image")));
+            this.BlackSoldier4.Location = new System.Drawing.Point(479, 260);
+            this.BlackSoldier4.Name = "BlackSoldier4";
+            this.BlackSoldier4.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier4.TabIndex = 12;
+            this.BlackSoldier4.TabStop = false;
             // 
             // BlackSoldier3
             // 
-            BlackSoldier3.Image = (System.Drawing.Image)resources.GetObject("BlackSoldier3.Image");
-            BlackSoldier3.Location = new System.Drawing.Point(377, 347);
-            BlackSoldier3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackSoldier3.Name = "BlackSoldier3";
-            BlackSoldier3.Size = new System.Drawing.Size(69, 80);
-            BlackSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackSoldier3.TabIndex = 11;
-            BlackSoldier3.TabStop = false;
+            this.BlackSoldier3.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier3.Image")));
+            this.BlackSoldier3.Location = new System.Drawing.Point(330, 260);
+            this.BlackSoldier3.Name = "BlackSoldier3";
+            this.BlackSoldier3.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier3.TabIndex = 11;
+            this.BlackSoldier3.TabStop = false;
             // 
             // BlackSoldier2
             // 
-            BlackSoldier2.Image = (System.Drawing.Image)resources.GetObject("BlackSoldier2.Image");
-            BlackSoldier2.Location = new System.Drawing.Point(203, 347);
-            BlackSoldier2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackSoldier2.Name = "BlackSoldier2";
-            BlackSoldier2.Size = new System.Drawing.Size(69, 80);
-            BlackSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackSoldier2.TabIndex = 10;
-            BlackSoldier2.TabStop = false;
+            this.BlackSoldier2.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier2.Image")));
+            this.BlackSoldier2.Location = new System.Drawing.Point(178, 260);
+            this.BlackSoldier2.Name = "BlackSoldier2";
+            this.BlackSoldier2.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier2.TabIndex = 10;
+            this.BlackSoldier2.TabStop = false;
             // 
             // BlackSoldier1
             // 
-            BlackSoldier1.Image = (System.Drawing.Image)resources.GetObject("BlackSoldier1.Image");
-            BlackSoldier1.Location = new System.Drawing.Point(37, 347);
-            BlackSoldier1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackSoldier1.Name = "BlackSoldier1";
-            BlackSoldier1.Size = new System.Drawing.Size(69, 80);
-            BlackSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackSoldier1.TabIndex = 9;
-            BlackSoldier1.TabStop = false;
+            this.BlackSoldier1.Image = ((System.Drawing.Image)(resources.GetObject("BlackSoldier1.Image")));
+            this.BlackSoldier1.Location = new System.Drawing.Point(32, 260);
+            this.BlackSoldier1.Name = "BlackSoldier1";
+            this.BlackSoldier1.Size = new System.Drawing.Size(60, 60);
+            this.BlackSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackSoldier1.TabIndex = 9;
+            this.BlackSoldier1.TabStop = false;
             // 
             // BlackGeneral
             // 
-            BlackGeneral.Image = (System.Drawing.Image)resources.GetObject("BlackGeneral.Image");
-            BlackGeneral.Location = new System.Drawing.Point(377, 45);
-            BlackGeneral.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BlackGeneral.Name = "BlackGeneral";
-            BlackGeneral.Size = new System.Drawing.Size(69, 80);
-            BlackGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            BlackGeneral.TabIndex = 8;
-            BlackGeneral.TabStop = false;
+            this.BlackGeneral.Image = ((System.Drawing.Image)(resources.GetObject("BlackGeneral.Image")));
+            this.BlackGeneral.Location = new System.Drawing.Point(330, 34);
+            this.BlackGeneral.Name = "BlackGeneral";
+            this.BlackGeneral.Size = new System.Drawing.Size(60, 60);
+            this.BlackGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BlackGeneral.TabIndex = 8;
+            this.BlackGeneral.TabStop = false;
             // 
             // RedGeneral
             // 
-            RedGeneral.Image = (System.Drawing.Image)resources.GetObject("RedGeneral.Image");
-            RedGeneral.Location = new System.Drawing.Point(377, 943);
-            RedGeneral.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedGeneral.Name = "RedGeneral";
-            RedGeneral.Size = new System.Drawing.Size(69, 80);
-            RedGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedGeneral.TabIndex = 7;
-            RedGeneral.TabStop = false;
+            this.RedGeneral.Image = ((System.Drawing.Image)(resources.GetObject("RedGeneral.Image")));
+            this.RedGeneral.Location = new System.Drawing.Point(330, 707);
+            this.RedGeneral.Name = "RedGeneral";
+            this.RedGeneral.Size = new System.Drawing.Size(60, 60);
+            this.RedGeneral.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedGeneral.TabIndex = 7;
+            this.RedGeneral.TabStop = false;
             // 
             // RedSoldier3
             // 
-            RedSoldier3.Image = (System.Drawing.Image)resources.GetObject("RedSoldier3.Image");
-            RedSoldier3.Location = new System.Drawing.Point(377, 647);
-            RedSoldier3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedSoldier3.Name = "RedSoldier3";
-            RedSoldier3.Size = new System.Drawing.Size(69, 80);
-            RedSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedSoldier3.TabIndex = 6;
-            RedSoldier3.TabStop = false;
+            this.RedSoldier3.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier3.Image")));
+            this.RedSoldier3.Location = new System.Drawing.Point(330, 485);
+            this.RedSoldier3.Name = "RedSoldier3";
+            this.RedSoldier3.Size = new System.Drawing.Size(60, 60);
+            this.RedSoldier3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedSoldier3.TabIndex = 6;
+            this.RedSoldier3.TabStop = false;
             // 
             // RedSoldier4
             // 
-            RedSoldier4.Image = (System.Drawing.Image)resources.GetObject("RedSoldier4.Image");
-            RedSoldier4.Location = new System.Drawing.Point(547, 647);
-            RedSoldier4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedSoldier4.Name = "RedSoldier4";
-            RedSoldier4.Size = new System.Drawing.Size(69, 80);
-            RedSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedSoldier4.TabIndex = 5;
-            RedSoldier4.TabStop = false;
+            this.RedSoldier4.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier4.Image")));
+            this.RedSoldier4.Location = new System.Drawing.Point(479, 485);
+            this.RedSoldier4.Name = "RedSoldier4";
+            this.RedSoldier4.Size = new System.Drawing.Size(60, 60);
+            this.RedSoldier4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedSoldier4.TabIndex = 5;
+            this.RedSoldier4.TabStop = false;
             // 
             // RedSoldier5
             // 
-            RedSoldier5.Image = (System.Drawing.Image)resources.GetObject("RedSoldier5.Image");
-            RedSoldier5.Location = new System.Drawing.Point(717, 647);
-            RedSoldier5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedSoldier5.Name = "RedSoldier5";
-            RedSoldier5.Size = new System.Drawing.Size(69, 80);
-            RedSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedSoldier5.TabIndex = 4;
-            RedSoldier5.TabStop = false;
+            this.RedSoldier5.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier5.Image")));
+            this.RedSoldier5.Location = new System.Drawing.Point(627, 485);
+            this.RedSoldier5.Name = "RedSoldier5";
+            this.RedSoldier5.Size = new System.Drawing.Size(60, 60);
+            this.RedSoldier5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedSoldier5.TabIndex = 4;
+            this.RedSoldier5.TabStop = false;
             // 
             // RedSoldier2
             // 
-            RedSoldier2.Image = (System.Drawing.Image)resources.GetObject("RedSoldier2.Image");
-            RedSoldier2.Location = new System.Drawing.Point(203, 647);
-            RedSoldier2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedSoldier2.Name = "RedSoldier2";
-            RedSoldier2.Size = new System.Drawing.Size(69, 80);
-            RedSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedSoldier2.TabIndex = 3;
-            RedSoldier2.TabStop = false;
+            this.RedSoldier2.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier2.Image")));
+            this.RedSoldier2.Location = new System.Drawing.Point(178, 485);
+            this.RedSoldier2.Name = "RedSoldier2";
+            this.RedSoldier2.Size = new System.Drawing.Size(60, 60);
+            this.RedSoldier2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedSoldier2.TabIndex = 3;
+            this.RedSoldier2.TabStop = false;
             // 
             // RedSoldier1
             // 
-            RedSoldier1.Image = (System.Drawing.Image)resources.GetObject("RedSoldier1.Image");
-            RedSoldier1.Location = new System.Drawing.Point(37, 647);
-            RedSoldier1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RedSoldier1.Name = "RedSoldier1";
-            RedSoldier1.Size = new System.Drawing.Size(69, 80);
-            RedSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            RedSoldier1.TabIndex = 2;
-            RedSoldier1.TabStop = false;
+            this.RedSoldier1.Image = ((System.Drawing.Image)(resources.GetObject("RedSoldier1.Image")));
+            this.RedSoldier1.Location = new System.Drawing.Point(32, 485);
+            this.RedSoldier1.Name = "RedSoldier1";
+            this.RedSoldier1.Size = new System.Drawing.Size(60, 60);
+            this.RedSoldier1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RedSoldier1.TabIndex = 2;
+            this.RedSoldier1.TabStop = false;
             // 
             // BoardImage
             // 
-            BoardImage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            BoardImage.BackColor = System.Drawing.Color.Transparent;
-            BoardImage.Image = (System.Drawing.Image)resources.GetObject("BoardImage.Image");
-            BoardImage.Location = new System.Drawing.Point(3, -4);
-            BoardImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            BoardImage.Name = "BoardImage";
-            BoardImage.Size = new System.Drawing.Size(1257, 1067);
-            BoardImage.TabIndex = 0;
-            BoardImage.TabStop = false;
+            this.BoardImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BoardImage.BackColor = System.Drawing.Color.Transparent;
+            this.BoardImage.Image = ((System.Drawing.Image)(resources.GetObject("BoardImage.Image")));
+            this.BoardImage.Location = new System.Drawing.Point(3, -3);
+            this.BoardImage.Name = "BoardImage";
+            this.BoardImage.Size = new System.Drawing.Size(1100, 800);
+            this.BoardImage.TabIndex = 0;
+            this.BoardImage.TabStop = false;
             // 
             // CheckmateTextbox
             // 
-            CheckmateTextbox.AutoSize = true;
-            CheckmateTextbox.BackColor = System.Drawing.Color.White;
-            CheckmateTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            CheckmateTextbox.Location = new System.Drawing.Point(355, 491);
-            CheckmateTextbox.Name = "CheckmateTextbox";
-            CheckmateTextbox.Size = new System.Drawing.Size(137, 35);
-            CheckmateTextbox.TabIndex = 38;
-            CheckmateTextbox.Text = "Checkmate";
-            CheckmateTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.CheckmateTextbox.AutoSize = true;
+            this.CheckmateTextbox.BackColor = System.Drawing.Color.White;
+            this.CheckmateTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CheckmateTextbox.Location = new System.Drawing.Point(311, 368);
+            this.CheckmateTextbox.Name = "CheckmateTextbox";
+            this.CheckmateTextbox.Size = new System.Drawing.Size(108, 28);
+            this.CheckmateTextbox.TabIndex = 38;
+            this.CheckmateTextbox.Text = "Checkmate";
+            this.CheckmateTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // WinningTeamTextbox
             // 
-            WinningTeamTextbox.AutoSize = true;
-            WinningTeamTextbox.BackColor = System.Drawing.Color.White;
-            WinningTeamTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            WinningTeamTextbox.Location = new System.Drawing.Point(360, 528);
-            WinningTeamTextbox.Name = "WinningTeamTextbox";
-            WinningTeamTextbox.Size = new System.Drawing.Size(125, 35);
-            WinningTeamTextbox.TabIndex = 39;
-            WinningTeamTextbox.Text = "Red Wins!";
-            WinningTeamTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.WinningTeamTextbox.AutoSize = true;
+            this.WinningTeamTextbox.BackColor = System.Drawing.Color.White;
+            this.WinningTeamTextbox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.WinningTeamTextbox.Location = new System.Drawing.Point(315, 396);
+            this.WinningTeamTextbox.Name = "WinningTeamTextbox";
+            this.WinningTeamTextbox.Size = new System.Drawing.Size(99, 28);
+            this.WinningTeamTextbox.TabIndex = 39;
+            this.WinningTeamTextbox.Text = "Red Wins!";
+            this.WinningTeamTextbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // RollbackButton
             // 
-            RollbackButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            RollbackButton.Location = new System.Drawing.Point(14, 1073);
-            RollbackButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            RollbackButton.Name = "RollbackButton";
-            RollbackButton.Size = new System.Drawing.Size(174, 45);
-            RollbackButton.TabIndex = 2;
-            RollbackButton.Text = "Rollback a turn";
-            RollbackButton.UseVisualStyleBackColor = true;
-            RollbackButton.Click += RollbackButton_Click;
+            this.RollbackButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RollbackButton.Location = new System.Drawing.Point(12, 805);
+            this.RollbackButton.Name = "RollbackButton";
+            this.RollbackButton.Size = new System.Drawing.Size(152, 34);
+            this.RollbackButton.TabIndex = 2;
+            this.RollbackButton.Text = "Rollback a turn";
+            this.RollbackButton.UseVisualStyleBackColor = true;
             // 
             // moveLabel1
             // 
-            moveLabel1.AutoSize = true;
-            moveLabel1.ForeColor = System.Drawing.Color.Red;
-            moveLabel1.Location = new System.Drawing.Point(205, 1073);
-            moveLabel1.Name = "moveLabel1";
-            moveLabel1.Size = new System.Drawing.Size(15, 20);
-            moveLabel1.TabIndex = 3;
-            moveLabel1.Text = "-";
+            this.moveLabel1.AutoSize = true;
+            this.moveLabel1.ForeColor = System.Drawing.Color.Red;
+            this.moveLabel1.Location = new System.Drawing.Point(179, 805);
+            this.moveLabel1.Name = "moveLabel1";
+            this.moveLabel1.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel1.TabIndex = 3;
+            this.moveLabel1.Text = "-";
             // 
             // moveLabel2
             // 
-            moveLabel2.AutoSize = true;
-            moveLabel2.Location = new System.Drawing.Point(255, 1073);
-            moveLabel2.Name = "moveLabel2";
-            moveLabel2.Size = new System.Drawing.Size(15, 20);
-            moveLabel2.TabIndex = 5;
-            moveLabel2.Text = "-";
-            moveLabel2.Click += label3_Click;
+            this.moveLabel2.AutoSize = true;
+            this.moveLabel2.Location = new System.Drawing.Point(223, 805);
+            this.moveLabel2.Name = "moveLabel2";
+            this.moveLabel2.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel2.TabIndex = 5;
+            this.moveLabel2.Text = "-";
             // 
             // moveLabel4
             // 
-            moveLabel4.AutoSize = true;
-            moveLabel4.Location = new System.Drawing.Point(255, 1103);
-            moveLabel4.Name = "moveLabel4";
-            moveLabel4.Size = new System.Drawing.Size(15, 20);
-            moveLabel4.TabIndex = 6;
-            moveLabel4.Text = "-";
+            this.moveLabel4.AutoSize = true;
+            this.moveLabel4.Location = new System.Drawing.Point(223, 827);
+            this.moveLabel4.Name = "moveLabel4";
+            this.moveLabel4.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel4.TabIndex = 6;
+            this.moveLabel4.Text = "-";
             // 
             // moveLabel3
             // 
-            moveLabel3.AutoSize = true;
-            moveLabel3.ForeColor = System.Drawing.Color.Red;
-            moveLabel3.Location = new System.Drawing.Point(205, 1103);
-            moveLabel3.Name = "moveLabel3";
-            moveLabel3.Size = new System.Drawing.Size(15, 20);
-            moveLabel3.TabIndex = 7;
-            moveLabel3.Text = "-";
+            this.moveLabel3.AutoSize = true;
+            this.moveLabel3.ForeColor = System.Drawing.Color.Red;
+            this.moveLabel3.Location = new System.Drawing.Point(179, 827);
+            this.moveLabel3.Name = "moveLabel3";
+            this.moveLabel3.Size = new System.Drawing.Size(12, 15);
+            this.moveLabel3.TabIndex = 7;
+            this.moveLabel3.Text = "-";
             // 
             // saveGameButton
             // 
-            saveGameButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            saveGameButton.Location = new System.Drawing.Point(321, 1073);
-            saveGameButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            saveGameButton.Name = "saveGameButton";
-            saveGameButton.Size = new System.Drawing.Size(174, 45);
-            saveGameButton.TabIndex = 8;
-            saveGameButton.Text = "Save game";
-            saveGameButton.UseVisualStyleBackColor = true;
-            saveGameButton.Click += saveGameButton_Click;
+            this.saveGameButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.saveGameButton.Location = new System.Drawing.Point(281, 805);
+            this.saveGameButton.Name = "saveGameButton";
+            this.saveGameButton.Size = new System.Drawing.Size(152, 34);
+            this.saveGameButton.TabIndex = 8;
+            this.saveGameButton.Text = "Save game";
+            this.saveGameButton.UseVisualStyleBackColor = true;
             // 
             // saveGameStatusLabel
             // 
-            saveGameStatusLabel.AutoSize = true;
-            saveGameStatusLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            saveGameStatusLabel.Location = new System.Drawing.Point(502, 1084);
-            saveGameStatusLabel.Name = "saveGameStatusLabel";
-            saveGameStatusLabel.Size = new System.Drawing.Size(20, 25);
-            saveGameStatusLabel.TabIndex = 9;
-            saveGameStatusLabel.Text = "-";
+            this.saveGameStatusLabel.AutoSize = true;
+            this.saveGameStatusLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.saveGameStatusLabel.Location = new System.Drawing.Point(439, 813);
+            this.saveGameStatusLabel.Name = "saveGameStatusLabel";
+            this.saveGameStatusLabel.Size = new System.Drawing.Size(15, 20);
+            this.saveGameStatusLabel.TabIndex = 9;
+            this.saveGameStatusLabel.Text = "-";
             // 
             // myTeamLabel
             // 
-            myTeamLabel.BackColor = System.Drawing.SystemColors.Control;
-            myTeamLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            myTeamLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            myTeamLabel.Location = new System.Drawing.Point(832, 1088);
-            myTeamLabel.Name = "myTeamLabel";
-            myTeamLabel.Size = new System.Drawing.Size(223, 23);
-            myTeamLabel.TabIndex = 42;
-            myTeamLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.myTeamLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.myTeamLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.myTeamLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.myTeamLabel.Location = new System.Drawing.Point(728, 816);
+            this.myTeamLabel.Name = "myTeamLabel";
+            this.myTeamLabel.Size = new System.Drawing.Size(195, 17);
+            this.myTeamLabel.TabIndex = 42;
+            this.myTeamLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gameBoard
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1259, 1055);
-            Controls.Add(myTeamLabel);
-            Controls.Add(saveGameStatusLabel);
-            Controls.Add(saveGameButton);
-            Controls.Add(moveLabel3);
-            Controls.Add(moveLabel4);
-            Controls.Add(moveLabel2);
-            Controls.Add(moveLabel1);
-            Controls.Add(RollbackButton);
-            Controls.Add(panel1);
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            Name = "gameBoard";
-            Text = "Xiangqi";
-            Load += Form1_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)RedCannon2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedCannon1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackCannon2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackCannon1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackChariot2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedChariot2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedChariot1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackChariot1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackHorse2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackHorse1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedHorse1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedHorse2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedElephant2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedElephant1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackElephant2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackElephant1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGuard2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedGuard2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGuard1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedGuard1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackSoldier1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BlackGeneral).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedGeneral).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)RedSoldier1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BoardImage).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1102, 791);
+            this.Controls.Add(this.myTeamLabel);
+            this.Controls.Add(this.saveGameStatusLabel);
+            this.Controls.Add(this.saveGameButton);
+            this.Controls.Add(this.moveLabel3);
+            this.Controls.Add(this.moveLabel4);
+            this.Controls.Add(this.moveLabel2);
+            this.Controls.Add(this.moveLabel1);
+            this.Controls.Add(this.RollbackButton);
+            this.Controls.Add(this.panel1);
+            this.Name = "gameBoard";
+            this.Text = "Xiangqi";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedCannon1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackCannon1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackChariot2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedChariot2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedChariot1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackChariot1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackHorse2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackHorse1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedHorse1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedHorse2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedElephant1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackElephant1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGuard1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGuard1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackSoldier1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlackGeneral)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedGeneral)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RedSoldier1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardImage)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

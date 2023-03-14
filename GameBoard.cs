@@ -233,7 +233,7 @@ namespace Xiangqi
             }
         }
 
-        private void MenuButtonClick(object sender, EventArgs e)
+        private void MenuButton_Click(object sender, EventArgs e)
         {
             MainMenu mainMenu = new MainMenu();
             this.Hide();
