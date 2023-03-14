@@ -226,6 +226,48 @@ namespace Xiangqi
             updateGraveyard();
         }
 
+        //checks if the other player has moved
+        private async void checkForTurnChange()
+        {
+            Console.WriteLine("Checking for turn change...");
+            try
+            {
+                if (client.lastMove != moveLog[moveLog.Count - 1])
+                {
+                    int startX = client.lastMove[0] - 65;
+                    int startY = client.lastMove[1] - '0';
+                    startY = 9 - startY;
+                    int endX = client.lastMove[2] - 65;
+                    int endY = client.lastMove[3] - '0';
+                    endY = 9 - endY;
+
+                    //use the start x and y to find the piece that needs to be moved and then it's picturebox
+                    Piece pieceToMove = board.grid[startX, startY].piece;
+
+                    int xDiff = endX - startX;
+                    int yDiff = endY - startY;
+                    PictureBox pictureBoxToMove = allPieces[pieceToMove];
+
+                    //move the piece to where it was before it moved, and update the board accordingly
+                    pieceToMove.x = endX;
+                    pieceToMove.y = endY;
+                    board.grid[startX, startY].occupied = false;
+                    board.grid[startX, startY].piece = null;
+                    pictureBoxToMove.Left += xDiff * 75;
+                    pictureBoxToMove.Top += yDiff * 75;
+
+                    board.grid[endX, endY].occupied = true;
+                    board.grid[endX, endY].piece = pieceToMove;
+
+                }
+            }
+            catch
+            {
+
+            }
+            await Task.Delay(500);
+        }
+
         private void updateTurn()
         {
             board.currentTurn = -board.currentTurn;
@@ -629,9 +671,10 @@ namespace Xiangqi
             UnshowMoves();
             string moveString = new string(moveChars.ToArray());
             moveLog.Add(moveString);
-            if ((modeCode == 2) || modeCode == 3)
+            //sends turn to the other player if playing networked
+            if (modeCode == 2)
             {
-                client.updateServer(moveString);
+                client.sendTurn(moveString);
             }
             updateMoveDisplay();
             updateTurn();
