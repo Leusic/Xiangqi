@@ -80,40 +80,6 @@ namespace Xiangqi
             InitializeComponent();
             this.client = client;
 
-            //places images inside executable folder
-            BlackCannon1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackCannon.png");
-            BlackCannon2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackCannon.png");
-            BlackHorse1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackHorse.png");
-            BlackHorse2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackHorse.png");
-            BlackChariot1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackChariot.png");
-            BlackChariot2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackChariot.png");
-            BlackElephant1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackElephant.png");
-            BlackElephant2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackElephant.png");
-            BlackGuard1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGuard.png");
-            BlackGuard2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGuard.png");
-            BlackGeneral.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGeneral.png");
-            BlackSoldier1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
-            BlackSoldier2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
-            BlackSoldier3.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
-            BlackSoldier4.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
-            BlackSoldier5.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
-            RedCannon1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedCannon.png");
-            RedCannon2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedCannon.png");
-            RedHorse1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedHorse.png");
-            RedHorse2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedHorse.png");
-            RedChariot1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedChariot.png");
-            RedChariot2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedChariot.png");           
-            RedElephant1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedElephant.png");
-            RedElephant2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedElephant.png");
-            RedGuard1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGuard.png");
-            RedGuard2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGuard.png");
-            RedGeneral.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGeneral.png");
-            RedSoldier1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
-            RedSoldier2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
-            RedSoldier3.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
-            RedSoldier4.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
-            RedSoldier5.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
-
             this.modeCode = modeCode;
 
             //if joining or hosting network game start client
