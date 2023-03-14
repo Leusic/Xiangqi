@@ -636,7 +636,7 @@ namespace Xiangqi
             updateMoveDisplay();
             updateTurn();
             checkScan();
-            saveGameStatusLabel.Text = "";
+            saveGameStatusLabel.Text = "-";
         }
 
         private void label1_Click_2(object sender, EventArgs e)
@@ -717,7 +717,7 @@ namespace Xiangqi
                     CheckTextbox.BringToFront();
                     UnshowMoves();
                     checkScan();
-                    saveGameStatusLabel.Text = "";
+                    saveGameStatusLabel.Text = "-";
                 }
                 catch { }
             }

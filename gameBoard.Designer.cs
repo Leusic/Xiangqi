@@ -560,6 +560,7 @@ namespace Xiangqi
             this.RollbackButton.TabIndex = 2;
             this.RollbackButton.Text = "Rollback a turn";
             this.RollbackButton.UseVisualStyleBackColor = true;
+            this.RollbackButton.Click += new System.EventHandler(this.RollbackButton_Click);
             // 
             // moveLabel1
             // 
@@ -608,6 +609,7 @@ namespace Xiangqi
             this.saveGameButton.TabIndex = 8;
             this.saveGameButton.Text = "Save game";
             this.saveGameButton.UseVisualStyleBackColor = true;
+            this.saveGameButton.Click += new System.EventHandler(this.saveGameButton_Click);
             // 
             // saveGameStatusLabel
             // 
