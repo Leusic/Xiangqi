@@ -33,11 +33,11 @@ namespace Xiangqi
         {
             if(loadedSave == null)
             {
-                GameBoard = new gameBoard(null, 0);
+                GameBoard = new gameBoard(null, 0, null);
             }
             if(loadedSave != null)
             {
-                GameBoard = new gameBoard(loadedSave, 1);
+                GameBoard = new gameBoard(loadedSave, 1, null);
             }
             this.Hide();
             GameBoard.ShowDialog();
@@ -92,7 +92,7 @@ namespace Xiangqi
 
             if(client.otherAddress != null)
             {
-                GameBoard = new gameBoard(null, 2);
+                GameBoard = new gameBoard(null, 2, client);
                 this.Hide();
                 GameBoard.ShowDialog();
                 this.Close();

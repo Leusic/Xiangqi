@@ -72,13 +72,13 @@ namespace Xiangqi
         bool blackInCheck = false;
 
         Client client = null;
-        Server server = null;
         int modeCode;
         int playerTeam;
 
-        public gameBoard(Save loadedSave, int modeCode)
+        public gameBoard(Save loadedSave, int modeCode, Client client)
         {
             InitializeComponent();
+            this.client = client;
 
             //places images inside executable folder
             BlackCannon1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackCannon.png");
@@ -121,6 +121,8 @@ namespace Xiangqi
             {
                 playerTeam = 1;
                 myTeamLabel.Text = "You are playing as Black";
+                Console.WriteLine("My address: " + client.myAddress);
+                Console.WriteLine("Other address: " + client.otherAddress);
             }
 
 

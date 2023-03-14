@@ -16,12 +16,12 @@ namespace Xiangqi
     public class Client
     {
         public string otherAddress = null;
-        string myAddress = null;
-        int port = 43;
-        bool haltProcess = false;
-        string lastMove = null;
-        int currentTurn = -1;
-        UdpClient server = null;
+        public string myAddress = null;
+        public int port = 43;
+        public bool haltProcess = false;
+        public string lastMove = null;
+        public int currentTurn = -1;
+        public UdpClient server = null;
 
         public void findPlayer()
         {
