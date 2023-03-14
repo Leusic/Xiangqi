@@ -78,9 +78,8 @@ namespace Xiangqi
                 client = new Client();
                 new Thread(() =>
                 {
-                    Thread.CurrentThread.IsBackground = true;
                     client.runServer();
-                });
+                }).Start();
             }
 
             while (true)
