@@ -14,6 +14,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace Xiangqi
 {
@@ -70,9 +71,61 @@ namespace Xiangqi
         bool redInCheck = false;
         bool blackInCheck = false;
 
+        Client client = null;
+        Server server = null;
+        int modeCode;
+        int playerTeam;
+
         public gameBoard(Save loadedSave, int modeCode)
         {
             InitializeComponent();
+
+            //places images inside executable folder
+            BlackCannon1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackCannon.png");
+            BlackCannon2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackCannon.png");
+            BlackHorse1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackHorse.png");
+            BlackHorse2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackHorse.png");
+            BlackChariot1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackChariot.png");
+            BlackChariot2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackChariot.png");
+            BlackElephant1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackElephant.png");
+            BlackElephant2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackElephant.png");
+            BlackGuard1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGuard.png");
+            BlackGuard2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGuard.png");
+            BlackGeneral.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackGeneral.png");
+            BlackSoldier1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
+            BlackSoldier2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
+            BlackSoldier3.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
+            BlackSoldier4.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
+            BlackSoldier5.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//BlackSoldier.png");
+            RedCannon1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedCannon.png");
+            RedCannon2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedCannon.png");
+            RedHorse1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedHorse.png");
+            RedHorse2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedHorse.png");
+            RedChariot1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedChariot.png");
+            RedChariot2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedChariot.png");           
+            RedElephant1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedElephant.png");
+            RedElephant2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedElephant.png");
+            RedGuard1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGuard.png");
+            RedGuard2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGuard.png");
+            RedGeneral.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedGeneral.png");
+            RedSoldier1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
+            RedSoldier2.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
+            RedSoldier3.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
+            RedSoldier4.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
+            RedSoldier5.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "//Images//RedSoldier.png");
+
+            this.modeCode = modeCode;
+
+            //if joining or hosting network game start client
+            if (modeCode == 2)
+            {
+                client = new Client();
+                client.findServer();
+
+                playerTeam = 1;
+                myTeamLabel.Text = "You are playing as Black";
+            }
+
 
             allPieces = new Dictionary<Piece, PictureBox>
             {
@@ -93,7 +146,7 @@ namespace Xiangqi
 
 
             //if loading saved game
-            if(loadedSave != null)
+            if((loadedSave != null) && (modeCode == 1))
             {
                 foreach(Piece i in loadedSave.pieces)
                 {
@@ -378,9 +431,10 @@ namespace Xiangqi
 
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
-            if (piece.alive == true)
+            if ((piece.alive == true) && (piece.teamModifier == board.currentTurn))
             {
-                if (piece.teamModifier == board.currentTurn)
+                //if in networked mode, check that the client's team matches the current turn's team
+                if ((((modeCode == 2) || (modeCode == 3)) && (board.currentTurn == playerTeam)) || ((modeCode != 2) && (modeCode != 3)))
                 {
                     UnshowMoves();
                     int[,] moveBoard;
@@ -403,7 +457,7 @@ namespace Xiangqi
                                 movementIcons[i, z].BringToFront();
                                 movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
                             }
-                            if (moveBoard[i,z] == 1)
+                            if (moveBoard[i, z] == 1)
                             {
                                 int a = i;
                                 int b = z;
@@ -600,6 +654,10 @@ namespace Xiangqi
             UnshowMoves();
             string moveString = new string(moveChars.ToArray());
             moveLog.Add(moveString);
+            if((modeCode == 2) || modeCode == 3)
+            {
+                client.updateServer(moveString);
+            }
             updateMoveDisplay();
             updateTurn();
             checkScan();
@@ -618,73 +676,75 @@ namespace Xiangqi
 
         private void RollbackButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //retrieve last move and get the starting and ending X and Y values from it
-                String rollbackMove = moveLog[moveLog.Count - 1];
-                int startX = rollbackMove[0] - 65;
-                int startY = rollbackMove[1] - '0';
-                startY = 9 - startY;
-                int endX = rollbackMove[2] - 65;
-                int endY = rollbackMove[3] - '0';
-                endY = 9 - endY;
-
-                //use the end x and y to find the piece that needs to be moved and then it's picturebox
-                Piece pieceToMove = board.grid[endX, endY].piece;
-
-                int xDiff = endX - startX;
-                int yDiff = endY - startY;
-                PictureBox pictureBoxToMove = allPieces[pieceToMove];
-
-                //move the piece to where it was before it moved, and update the board accordingly
-                pieceToMove.x = startX;
-                pieceToMove.y = startY;
-                board.grid[startX, startY].occupied = true;
-                board.grid[startX, startY].piece = pieceToMove;
-                pictureBoxToMove.Left -= xDiff * 75;
-                pictureBoxToMove.Top -= yDiff * 75;
-
-                //if a piece was taken on the move in question (the move code will have additional characters if this is the case)
-                if (rollbackMove.Length > 4)
+            if((modeCode != 2) && (modeCode != 3)){
+                try
                 {
-                    //translates the code for the taken piece from the end of the move code and retrieves the piece and the picturebox for it
-                    Piece revivedPiece = getTakenPieceFromCode(rollbackMove);
-                    PictureBox revivedPictureBox = allPieces[revivedPiece];
-                    revivedPiece.alive = true;
-                    //removes the piece from it's team's graveyard
-                    if (revivedPiece.teamModifier == -1)
+                    //retrieve last move and get the starting and ending X and Y values from it
+                    String rollbackMove = moveLog[moveLog.Count - 1];
+                    int startX = rollbackMove[0] - 65;
+                    int startY = rollbackMove[1] - '0';
+                    startY = 9 - startY;
+                    int endX = rollbackMove[2] - 65;
+                    int endY = rollbackMove[3] - '0';
+                    endY = 9 - endY;
+
+                    //use the end x and y to find the piece that needs to be moved and then it's picturebox
+                    Piece pieceToMove = board.grid[endX, endY].piece;
+
+                    int xDiff = endX - startX;
+                    int yDiff = endY - startY;
+                    PictureBox pictureBoxToMove = allPieces[pieceToMove];
+
+                    //move the piece to where it was before it moved, and update the board accordingly
+                    pieceToMove.x = startX;
+                    pieceToMove.y = startY;
+                    board.grid[startX, startY].occupied = true;
+                    board.grid[startX, startY].piece = pieceToMove;
+                    pictureBoxToMove.Left -= xDiff * 75;
+                    pictureBoxToMove.Top -= yDiff * 75;
+
+                    //if a piece was taken on the move in question (the move code will have additional characters if this is the case)
+                    if (rollbackMove.Length > 4)
                     {
-                        redGraveyard.Remove(revivedPiece);
+                        //translates the code for the taken piece from the end of the move code and retrieves the piece and the picturebox for it
+                        Piece revivedPiece = getTakenPieceFromCode(rollbackMove);
+                        PictureBox revivedPictureBox = allPieces[revivedPiece];
+                        revivedPiece.alive = true;
+                        //removes the piece from it's team's graveyard
+                        if (revivedPiece.teamModifier == -1)
+                        {
+                            redGraveyard.Remove(revivedPiece);
+                        }
+                        else
+                        {
+                            blackGraveyard.Remove(revivedPiece);
+                        }
+                        //resets the position of the now revived piece's picturebox and updates the board
+                        revivedPictureBox.Top = 33;
+                        revivedPictureBox.Left = 28;
+                        revivedPictureBox.Top += endY * 75;
+                        revivedPictureBox.Left += endX * 75;
+
+                        board.grid[endX, endY].piece = revivedPiece;
                     }
+                    //if no piece was taken on the turn being rolled back, update the board to empty the cell the piece is now leaving
                     else
                     {
-                        blackGraveyard.Remove(revivedPiece);
+                        board.grid[endX, endY].occupied = false;
+                        board.grid[endX, endY].piece = null;
                     }
-                    //resets the position of the now revived piece's picturebox and updates the board
-                    revivedPictureBox.Top = 33;
-                    revivedPictureBox.Left = 28;
-                    revivedPictureBox.Top += endY * 75;
-                    revivedPictureBox.Left += endX * 75;
 
-                    board.grid[endX, endY].piece = revivedPiece;
+                    //remove the rolled back move from the movelog and update the move display, the current turn, bring forward the check textbox incase you are rolling back from a end of game state and run a checkscan
+                    moveLog.Remove(rollbackMove);
+                    updateMoveDisplay();
+                    updateTurn();
+                    CheckTextbox.BringToFront();
+                    UnshowMoves();
+                    checkScan();
+                    saveGameStatusLabel.Text = "";
                 }
-                //if no piece was taken on the turn being rolled back, update the board to empty the cell the piece is now leaving
-                else
-                {
-                    board.grid[endX, endY].occupied = false;
-                    board.grid[endX, endY].piece = null;
-                }
-
-                //remove the rolled back move from the movelog and update the move display, the current turn, bring forward the check textbox incase you are rolling back from a end of game state and run a checkscan
-                moveLog.Remove(rollbackMove);
-                updateMoveDisplay();
-                updateTurn();
-                CheckTextbox.BringToFront();
-                UnshowMoves();
-                checkScan();
-                saveGameStatusLabel.Text = "";
+                catch { }
             }
-            catch { }
         }
 
         private void saveGameButton_Click(object sender, EventArgs e)

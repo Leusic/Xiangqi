@@ -20,10 +20,12 @@ namespace Xiangqi
     {
         Save loadedSave = null;
         gameBoard GameBoard = null;
+        Client client = null;
 
         public MainMenu()
         {
             InitializeComponent();
+            waitingLabel.Text = " ";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,20 +73,28 @@ namespace Xiangqi
 
         private void joinGameButton_Click(object sender, EventArgs e)
         {
-            Client client = new Client();
-            client.findServer();
-            gameBoard GameBoard = new gameBoard(null, )
-        }
-
-        private void hostGameButton_Click(object sender, EventArgs e)
-        {
-            //runs the server in parallel
-            new Thread(() =>
+            if (client == null)
             {
-                Thread.CurrentThread.IsBackground = true;
-                Server.runServer();
-            }).Start();
-            gameBoard GameBoard = new gameBoard(null, )
+                client = new Client();
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    client.runServer();
+                });
+            }
+
+            client.findServer();
+            if(client.otherAddress != null)
+            {
+                GameBoard = new gameBoard(null, 2);
+                this.Hide();
+                GameBoard.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                Console.WriteLine("Server could not be found");
+            }
         }
 
         private void MainMenu_Load(object sender, EventArgs e)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -13,37 +15,44 @@ namespace Xiangqi
 {
     public class Client
     {
-        UdpClient client = null;
-        string serverAddress = null;
-        string localAddress = null;
+        public string otherAddress = null;
+        string myAddress = null;
         int port = 43;
+        bool haltProcess = false;
+        string lastMove = null;
+        int currentTurn = -1;
+        UdpClient server = null;
 
         public void findServer()
         {
             try
             {
-                client = new UdpClient();
+                UdpClient client = new UdpClient();
                 client.Client.SendTimeout = 1000;
                 client.Client.ReceiveTimeout = 1000;
 
-                localAddress = fetchIPAddress();
-                Console.WriteLine("Client IP: " + localAddress);
+                myAddress = fetchIPAddress();
+                Console.WriteLine("Client IP: " + myAddress);
 
-                var serverEp = new IPEndPoint(IPAddress.Any, port);
+                var otherEp = new IPEndPoint(IPAddress.Any, port);
 
                 client.EnableBroadcast = true;
-                var data = Encoding.ASCII.GetBytes("Xiangqi? " + localAddress);
+                var data = Encoding.ASCII.GetBytes("Xiangqi? " + myAddress);
                 client.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, port));
 
-                var serverResponseData = client.Receive(ref serverEp);
+                var serverResponseData = client.Receive(ref otherEp);
                 var serverResponse = Encoding.ASCII.GetString(serverResponseData);
 
-                Console.WriteLine("Got Response: " + serverResponse + " from " + serverEp);
+                Console.WriteLine("Got Response: " + serverResponse + " from " + otherEp);
                 String[] splitResponse = serverResponse.Split(" ");
-                string serverIPAddress;
                 if (splitResponse[0] == "Xiangqi.")
                 {
-                    serverAddress = splitResponse[1];
+                    if (splitResponse[1] != myAddress)
+                    {
+                        otherAddress = splitResponse[1];
+                        var response = Encoding.ASCII.GetBytes("Xiangqi. " + myAddress);
+                        server.Send(response, response.Length, otherEp);
+                    }
                 }
                 client.Close();
             }
@@ -53,14 +62,64 @@ namespace Xiangqi
             }
         }
 
+        public void runServer()
+        {
+            if(server != null)
+            {
+                server.Close();
+                server = null;
+            }
+            myAddress = fetchIPAddress();
+            server = new UdpClient(port);
+
+            while (true)
+            {
+                Console.WriteLine("Server started listening... ");
+                var clientEp = new IPEndPoint(IPAddress.Any, port);
+                var clientRequestData = server.Receive(ref clientEp);
+                var clientRequest = Encoding.ASCII.GetString(clientRequestData);
+
+                Console.WriteLine("Recieved request: " + clientRequest + " from: " + clientEp);
+                string[] splitRequest = clientRequest.Split(" ");
+
+                //client and server exchange IP addresses
+                if (splitRequest[0] == "Xiangqi?")
+                {
+                    if (splitRequest[1] != myAddress){
+                        otherAddress = splitRequest[1];
+                        var response = Encoding.ASCII.GetBytes("Xiangqi. " + myAddress);
+                        server.Send(response, response.Length, clientEp);
+                    }
+                }
+                //send last move to other
+                else if (splitRequest[0] == "FetchLastMove")
+                {
+                    var response = Encoding.ASCII.GetBytes(lastMove);
+                    server.Send(response, response.Length, clientEp);
+                    currentTurn = -currentTurn;
+                }
+                else if (splitRequest[0] == "UpdateTurn")
+                {
+                    var response = Encoding.ASCII.GetBytes(currentTurn.ToString());
+                    server.Send(response, response.Length, clientEp);
+                    Console.WriteLine("spam time");
+                }
+                else
+                {
+                    var response = Encoding.ASCII.GetBytes("Unknown Command");
+                    server.Send(response, response.Length, clientEp);
+                }
+            }
+        }
+
         //client sends last move to server to update it
         public void updateServer(String move)
         {
-            client = new UdpClient();
+            UdpClient client = new UdpClient();
             client.Client.SendTimeout = 1000;
             client.Client.ReceiveTimeout = 1000;
 
-            var serverEp = new IPEndPoint(IPAddress.Parse(serverAddress), port);
+            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
 
             var data = Encoding.ASCII.GetBytes("UpdateServer " + move);
             client.Send(data, data.Length, serverEp);
@@ -73,16 +132,15 @@ namespace Xiangqi
                 Console.WriteLine("Server updated.");
             }
             client.Close();
-
         }
 
         public string updateClient()
         {
-            client = new UdpClient();
+            UdpClient client = new UdpClient();
             client.Client.SendTimeout = 1000;
             client.Client.ReceiveTimeout = 1000;
 
-            var serverEp = new IPEndPoint(IPAddress.Parse(serverAddress), port);
+            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
 
             var data = Encoding.ASCII.GetBytes("UpdateClient");
             client.Send(data, data.Length, serverEp);
@@ -90,8 +148,26 @@ namespace Xiangqi
             var serverResponseData = client.Receive(ref serverEp);
             var serverResponse = Encoding.ASCII.GetString(serverResponseData);
 
-            return serverResponse;
             client.Close();
+            return serverResponse;
+        }
+
+        //requests the current game turn from the server
+        public int turnUpdate()
+        {
+            UdpClient client = new UdpClient();
+            client.Client.SendTimeout = 1000;
+            client.Client.ReceiveTimeout = 1000;
+
+            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
+
+            var data = Encoding.ASCII.GetBytes("UpdateTurn");
+            client.Send(data, data.Length, serverEp);
+            
+            var serverResponseData = client.Receive(ref serverEp);
+            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
+
+            return int.Parse(serverResponse);
         }
 
         public string fetchIPAddress()

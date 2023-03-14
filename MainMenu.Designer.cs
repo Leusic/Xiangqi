@@ -34,9 +34,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.loadSaveButton = new System.Windows.Forms.Button();
             this.joinGameButton = new System.Windows.Forms.Button();
-            this.hostGameButton = new System.Windows.Forms.Button();
             this.loadLabel = new System.Windows.Forms.Label();
             this.unloadSaveButton = new System.Windows.Forms.Button();
+            this.waitingLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // localGameButton
@@ -99,16 +99,6 @@
             this.joinGameButton.UseVisualStyleBackColor = true;
             this.joinGameButton.Click += new System.EventHandler(this.joinGameButton_Click);
             // 
-            // hostGameButton
-            // 
-            this.hostGameButton.Location = new System.Drawing.Point(328, 305);
-            this.hostGameButton.Name = "hostGameButton";
-            this.hostGameButton.Size = new System.Drawing.Size(126, 23);
-            this.hostGameButton.TabIndex = 6;
-            this.hostGameButton.Text = "Host Network Game";
-            this.hostGameButton.UseVisualStyleBackColor = true;
-            this.hostGameButton.Click += new System.EventHandler(this.hostGameButton_Click);
-            // 
             // loadLabel
             // 
             this.loadLabel.Location = new System.Drawing.Point(312, 352);
@@ -129,6 +119,15 @@
             this.unloadSaveButton.UseVisualStyleBackColor = true;
             this.unloadSaveButton.Click += new System.EventHandler(this.unloadSaveButton_Click);
             // 
+            // waitingLabel
+            // 
+            this.waitingLabel.Location = new System.Drawing.Point(460, 303);
+            this.waitingLabel.Name = "waitingLabel";
+            this.waitingLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.waitingLabel.Size = new System.Drawing.Size(161, 27);
+            this.waitingLabel.TabIndex = 9;
+            this.waitingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -136,13 +135,13 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.unloadSaveButton);
             this.Controls.Add(this.loadLabel);
-            this.Controls.Add(this.hostGameButton);
             this.Controls.Add(this.joinGameButton);
             this.Controls.Add(this.loadSaveButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.localGameButton);
+            this.Controls.Add(this.waitingLabel);
             this.Name = "MainMenu";
             this.Text = "Xiangqi Menu";
             this.Load += new System.EventHandler(this.MainMenu_Load);
@@ -159,8 +158,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button loadSaveButton;
         private System.Windows.Forms.Button joinGameButton;
-        private System.Windows.Forms.Button hostGameButton;
         private System.Windows.Forms.Label loadLabel;
         private System.Windows.Forms.Button unloadSaveButton;
+        private System.Windows.Forms.Label waitingLabel;
     }
 }

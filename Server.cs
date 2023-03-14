@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -10,17 +11,14 @@ namespace Xiangqi
 {
     public class Server
     {
-        public static int port = 43;
-        public static string localAddress = null;
-        public static string clientAddress = null;
-        public static List<String> moveLog = new List<String>();
+        public int port = 43;
+        public string localAddress = null;
+        public string clientAddress = null;
+        public List<String> moveLog = new List<String>();
+        public int currentTurn = -1;
+        public bool connected = false;
 
-        static void Main(string[] args)
-        {
-            runServer();
-        }
-
-        static public void runServer()
+        public void runServer()
         {
             localAddress = getLocalIPAddress();
             var server = new UdpClient(port);
@@ -43,7 +41,7 @@ namespace Xiangqi
                     server.Send(response, response.Length, clientEp);
                 }
                 //client updates the server with it's last move
-                if (splitRequest[0] == "UpdateServer")
+                else if (splitRequest[0] == "UpdateServer")
                 {
                     moveLog.Add(splitRequest[1]);
                     Console.WriteLine("Server updated.");
@@ -51,15 +49,27 @@ namespace Xiangqi
                     server.Send(response, response.Length, clientEp);
                 }
                 //server sends last move to client
-                if (splitRequest[0] == "UpdateClient")
+                else if (splitRequest[0] == "UpdateClient")
                 {
                     var response = Encoding.ASCII.GetBytes(moveLog[moveLog.Count - 1]);
+                    server.Send(response, response.Length, clientEp);
+                    currentTurn = -currentTurn;
+                }
+                else if (splitRequest[0] == "UpdateTurn")
+                {
+                    var response = Encoding.ASCII.GetBytes(currentTurn.ToString());
+                    server.Send(response, response.Length, clientEp);
+                    Console.WriteLine("spam time");
+                }
+                else
+                {
+                    var response = Encoding.ASCII.GetBytes("Unknown Command");
                     server.Send(response, response.Length, clientEp);
                 }
             }
         }
 
-        public static string getLocalIPAddress()
+        public string getLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
