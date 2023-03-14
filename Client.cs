@@ -80,8 +80,7 @@ namespace Xiangqi
                 var serverResponseData = client.Receive(ref otherEp);
                 var serverResponse = Encoding.ASCII.GetString(serverResponseData);
 
-                Console.WriteLine("Random team shuffle, My team is: " + team + " Enemy team is: " + serverResponse);
-                if (team != int.Parse(serverResponse))
+                if (serverResponse == "OK")
                 {
                     ;
                 }
@@ -144,7 +143,11 @@ namespace Xiangqi
                     if(team != int.Parse(splitRequest[1]))
                     {
                         myTeam = team;
-                        Console.WriteLine("Random team shuffle, My team is: " + team + " Enemy team is: " + splitRequest[1]);
+                        server.Send(Encoding.ASCII.GetBytes("OK"), Encoding.ASCII.GetBytes("OK").Length, clientEp);
+                    }
+                    else
+                    {
+                        server.Send(Encoding.ASCII.GetBytes("NOTOK"), Encoding.ASCII.GetBytes("NOTOK").Length, clientEp);
                     }
                 }
                 else
