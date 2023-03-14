@@ -633,7 +633,8 @@ namespace Xiangqi
             // gameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1102, 791);
             this.Controls.Add(this.myTeamLabel);
             this.Controls.Add(this.saveGameStatusLabel);
