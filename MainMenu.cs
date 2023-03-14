@@ -86,7 +86,7 @@ namespace Xiangqi
             while (true)
             {
                 Console.WriteLine("Searching for player on network");
-                client.findServer();
+                client.findPlayer();
                 Thread.Sleep(500);
             }
 

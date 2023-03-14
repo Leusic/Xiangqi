@@ -23,7 +23,7 @@ namespace Xiangqi
         int currentTurn = -1;
         UdpClient server = null;
 
-        public void findServer()
+        public void findPlayer()
         {
             try
             {
