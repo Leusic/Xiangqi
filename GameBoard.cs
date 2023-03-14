@@ -79,7 +79,7 @@ namespace Xiangqi
         public gameBoard(Save loadedSave, int modeCode, Client client)
         {
             InitializeComponent();
-            this.client = client;           
+            this.client = client;
 
             this.modeCode = modeCode;
 
@@ -112,9 +112,9 @@ namespace Xiangqi
 
 
             //if loading saved game
-            if((loadedSave != null) && (modeCode == 1))
+            if ((loadedSave != null) && (modeCode == 1))
             {
-                foreach(Piece i in loadedSave.pieces)
+                foreach (Piece i in loadedSave.pieces)
                 {
                     Piece currentPiece = nameToPiece[i.name];
                     currentPiece.x = i.x;
@@ -123,16 +123,16 @@ namespace Xiangqi
                     currentPiece.name = i.name;
 
                     //
-                    if((currentPiece.x > 10) || (currentPiece.y > 10))
+                    if ((currentPiece.x > 10) || (currentPiece.y > 10))
                     {
                         currentPiece.x = 0;
                         currentPiece.y = 0;
                     }
                     initialisePiece(currentPiece, allPieces[currentPiece], currentPiece.x, currentPiece.y, currentPiece.name);
-                    if(currentPiece.alive == false)
+                    if (currentPiece.alive == false)
                     {
                         currentPiece.x = 99; currentPiece.y = 99;
-                        if(currentPiece.teamModifier == -1)
+                        if (currentPiece.teamModifier == -1)
                         {
                             redGraveyard.Add(currentPiece, allPieces[currentPiece]);
                         }
@@ -144,12 +144,13 @@ namespace Xiangqi
                     }
                 }
                 board.currentTurn = loadedSave.currentTurn;
-                if(board.currentTurn == 1)
+                if (board.currentTurn == 1)
                 {
                     board.currentTurn = -1;
                     updateTurn();
                 }
-                if (board.currentTurn == -1){
+                if (board.currentTurn == -1)
+                {
                     board.currentTurn = 1;
                     updateTurn();
                 }
@@ -277,9 +278,9 @@ namespace Xiangqi
                     foreach (KeyValuePair<Piece, PictureBox> z in allPieces) if (z.Key.teamModifier == 1)
                         {
                             int[,] moveBoard = z.Key.legalMoves(ref board, ref allPieces);
-                            for(int a = 0; a < 8; a++)
+                            for (int a = 0; a < 8; a++)
                             {
-                                for(int b = 0; b < 9; b++)
+                                for (int b = 0; b < 9; b++)
                                 {
                                     if (moveBoard[a, b] == 2)
                                     {
@@ -288,7 +289,7 @@ namespace Xiangqi
                                 }
                             }
                         }
-                    if(possibleMove == false)
+                    if (possibleMove == false)
                     {
                         WinningTeamTextbox.Text = "Red Wins!";
                         gameOver();
@@ -315,7 +316,7 @@ namespace Xiangqi
                                 }
                             }
                         }
-                    if(possibleMove == false)
+                    if (possibleMove == false)
                     {
                         WinningTeamTextbox.Text = "Black Wins!";
                         gameOver();
@@ -608,7 +609,7 @@ namespace Xiangqi
             }
             piece.x = x;
             piece.y = y;
-            if (board.grid[x,y].occupied == true)
+            if (board.grid[x, y].occupied == true)
             {
                 board.grid[x, y].piece.x = 99;
                 board.grid[x, y].piece.y = 99;
@@ -620,7 +621,7 @@ namespace Xiangqi
             UnshowMoves();
             string moveString = new string(moveChars.ToArray());
             moveLog.Add(moveString);
-            if((modeCode == 2) || modeCode == 3)
+            if ((modeCode == 2) || modeCode == 3)
             {
                 client.updateServer(moveString);
             }
@@ -642,7 +643,8 @@ namespace Xiangqi
 
         private void RollbackButton_Click(object sender, EventArgs e)
         {
-            if((modeCode != 2) && (modeCode != 3)){
+            if ((modeCode != 2) && (modeCode != 3))
+            {
                 try
                 {
                     //retrieve last move and get the starting and ending X and Y values from it
@@ -733,7 +735,7 @@ namespace Xiangqi
             }
             finally
             {
-                if(writer != null)
+                if (writer != null)
                 {
                     writer.Close();
                 }
@@ -913,6 +915,11 @@ namespace Xiangqi
                 }
             }
             return revivedPiece;
+        }
+
+        private void BlackElephant1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
