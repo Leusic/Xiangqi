@@ -259,6 +259,13 @@ namespace Xiangqi
                     board.grid[endX, endY].occupied = true;
                     board.grid[endX, endY].piece = pieceToMove;
 
+                    moveLog.Add(client.lastMove);
+                    updateMoveDisplay();
+                    updateTurn();
+                    UnshowMoves();
+                    checkScan();
+                    saveGameStatusLabel.Text = "-";
+
                 }
             }
             catch
