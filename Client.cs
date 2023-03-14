@@ -131,9 +131,7 @@ namespace Xiangqi
                 }
                 else if (splitRequest[0] == "UpdateTurn")
                 {
-                    var response = Encoding.ASCII.GetBytes(currentTurn.ToString());
-                    server.Send(response, response.Length, clientEp);
-                    Console.WriteLine("spam time");
+                    lastMove = splitRequest[1];
                 }
                 else if (splitRequest[0] == "AssignTeam")
                 {
@@ -150,6 +148,7 @@ namespace Xiangqi
                         server.Send(Encoding.ASCII.GetBytes("NOTOK"), Encoding.ASCII.GetBytes("NOTOK").Length, clientEp);
                     }
                 }
+
                 else
                 {
                     var response = Encoding.ASCII.GetBytes("Unknown Command");
@@ -159,7 +158,7 @@ namespace Xiangqi
         }
 
         //client sends last move to server to update it
-        public void updateServer(String move)
+        public void sendTurn(string moveCode)
         {
             UdpClient client = new UdpClient();
             client.Client.SendTimeout = 1000;
@@ -167,53 +166,8 @@ namespace Xiangqi
 
             var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
 
-            var data = Encoding.ASCII.GetBytes("UpdateServer " + move);
+            var data = Encoding.ASCII.GetBytes("UpdateTurn " + moveCode);
             client.Send(data, data.Length, serverEp);
-
-            var serverResponseData = client.Receive(ref serverEp);
-            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
-
-            if (serverResponse == "Server updated.")
-            {
-                Console.WriteLine("Server updated.");
-            }
-            client.Close();
-        }
-
-        public string updateClient()
-        {
-            UdpClient client = new UdpClient();
-            client.Client.SendTimeout = 1000;
-            client.Client.ReceiveTimeout = 1000;
-
-            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
-
-            var data = Encoding.ASCII.GetBytes("UpdateClient");
-            client.Send(data, data.Length, serverEp);
-
-            var serverResponseData = client.Receive(ref serverEp);
-            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
-
-            client.Close();
-            return serverResponse;
-        }
-
-        //requests the current game turn from the server
-        public int turnUpdate()
-        {
-            UdpClient client = new UdpClient();
-            client.Client.SendTimeout = 1000;
-            client.Client.ReceiveTimeout = 1000;
-
-            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
-
-            var data = Encoding.ASCII.GetBytes("UpdateTurn");
-            client.Send(data, data.Length, serverEp);
-            
-            var serverResponseData = client.Receive(ref serverEp);
-            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
-
-            return int.Parse(serverResponse);
         }
 
         public string fetchIPAddress()
