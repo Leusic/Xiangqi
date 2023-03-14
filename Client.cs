@@ -21,6 +21,7 @@ namespace Xiangqi
         public bool haltProcess = false;
         public string lastMove = null;
         public int currentTurn = -1;
+        public int myTeam;
         public UdpClient server = null;
 
         public void findPlayer()
@@ -33,7 +34,6 @@ namespace Xiangqi
                 client.Client.ReceiveTimeout = 1000;
 
                 myAddress = fetchIPAddress();
-                Console.WriteLine("Client IP: " + myAddress);
 
                 var otherEp = new IPEndPoint(IPAddress.Any, port);
 
@@ -44,7 +44,6 @@ namespace Xiangqi
                 var serverResponseData = client.Receive(ref otherEp);
                 var serverResponse = Encoding.ASCII.GetString(serverResponseData);
 
-                Console.WriteLine("Got Response: " + serverResponse + " from " + otherEp);
                 String[] splitResponse = serverResponse.Split(" ");
                 if (splitResponse[0] == "Xiangqi.")
                 {
@@ -61,6 +60,37 @@ namespace Xiangqi
                 //Console.WriteLine("Runtime Error Detected: " + e.ToString());
                 //Console.WriteLine("");
             }
+        }
+
+        //both players exchange random team selections until both select different teams, these become their teams
+        public void assignTeams()
+        {
+            int team = 0;
+            while (team == 0)
+            {
+                UdpClient client = new UdpClient();
+
+                var otherEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
+                var teams = new[] { -1, 1 };
+                Random r = new Random();
+                team = teams[r.Next(teams.Length)];
+                var data = Encoding.ASCII.GetBytes("AssignTeam " + team);
+                client.Send(data, data.Length, otherEp);
+
+                var serverResponseData = client.Receive(ref otherEp);
+                var serverResponse = Encoding.ASCII.GetString(serverResponseData);
+
+                Console.WriteLine("Random team shuffle, My team is: " + team + " Enemy team is: " + serverResponse);
+                if (team != int.Parse(serverResponse))
+                {
+                    ;
+                }
+                else
+                {
+                    team = 0;
+                }
+            }
+            myTeam = team;
         }
 
         public void runServer()
@@ -106,17 +136,23 @@ namespace Xiangqi
                     server.Send(response, response.Length, clientEp);
                     Console.WriteLine("spam time");
                 }
+                else if (splitRequest[0] == "AssignTeam")
+                {
+                    var teams = new[] { -1, 1 };
+                    Random r = new Random();
+                    int team = teams[r.Next(teams.Length)];
+                    if(team != int.Parse(splitRequest[1]))
+                    {
+                        myTeam = team;
+                        Console.WriteLine("Random team shuffle, My team is: " + team + " Enemy team is: " + splitRequest[1]);
+                    }
+                }
                 else
                 {
                     var response = Encoding.ASCII.GetBytes("Unknown Command");
                     server.Send(response, response.Length, clientEp);
                 }
             }
-        }
-
-        public void getIndentifier()
-        {
-
         }
 
         //client sends last move to server to update it

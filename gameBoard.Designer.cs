@@ -634,7 +634,7 @@ namespace Xiangqi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1102, 791);
+            this.ClientSize = new System.Drawing.Size(1102, 850);
             this.Controls.Add(this.myTeamLabel);
             this.Controls.Add(this.saveGameStatusLabel);
             this.Controls.Add(this.saveGameButton);

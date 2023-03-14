@@ -86,8 +86,16 @@ namespace Xiangqi
             //if joining or hosting network game start client
             if (modeCode == 2)
             {
-                playerTeam = 1;
-                myTeamLabel.Text = "You are playing as Black";
+                client.assignTeams();
+                playerTeam = client.myTeam;
+                if(playerTeam == -1)
+                {
+                    myTeamLabel.Text = "You are playing as Red";
+                }
+                else
+                {
+                    myTeamLabel.Text = "You are playing as Black";
+                }
                 Console.WriteLine("My address: " + client.myAddress);
                 Console.WriteLine("Other address: " + client.otherAddress);
             }
