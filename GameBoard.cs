@@ -236,7 +236,7 @@ namespace Xiangqi
                 Console.WriteLine("Checking for turn change...");
                 try
                 {
-                    if (client.lastMove != moveLog[moveLog.Count - 1])
+                    if ((client.lastMove != moveLog[moveLog.Count - 1]) && (moveLog[moveLog.Count - 1] != "-"))
                     {
                         int startX = client.lastMove[0] - 65;
                         int startY = client.lastMove[1] - '0';

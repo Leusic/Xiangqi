@@ -21,7 +21,7 @@ namespace Xiangqi
         public bool haltProcess = false;
         public string lastMove = null;
         public int currentTurn = -1;
-        public int myTeam;
+        public int myTeam = 0;
         public UdpClient server = null;
         public bool gameBegun = false;
 
@@ -66,16 +66,26 @@ namespace Xiangqi
         //both players exchange random team selections until both select different teams, these become their teams
         public void assignTeams()
         {
-            int team = 0;
-            while (team == 0)
+            //prevents both teams generating randomly and thus stopping coherence of teams
+            if(myTeam == 0)
             {
                 UdpClient client = new UdpClient();
 
-                var otherEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
-                var teams = new[] { -1, 1 };
+                var teams = new[] { "-11", "1-1" }; // red/black or black/red , the one assigning teams picks the left team
                 Random r = new Random();
-                team = teams[r.Next(teams.Length)];
-                var data = Encoding.ASCII.GetBytes("AssignTeam " + team);
+                String randTeamsString = teams[r.Next(teams.Length)];
+
+                if((randTeamsString == "-11"))
+                {
+                    myTeam = -1;
+                }
+                else
+                {
+                    myTeam = 1;
+                }
+
+                var otherEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
+                var data = Encoding.ASCII.GetBytes("AssignTeam " + randTeamsString);
                 client.Send(data, data.Length, otherEp);
 
                 var serverResponseData = client.Receive(ref otherEp);
@@ -85,12 +95,7 @@ namespace Xiangqi
                 {
                     gameBegun = true;
                 }
-                else
-                {
-                    team = 0;
-                }
             }
-            myTeam = team;
         }
 
         public void runServer()
@@ -134,22 +139,19 @@ namespace Xiangqi
                 {
                     lastMove = splitRequest[1];
                 }
-                else if (splitRequest[0] == "AssignTeam")
+                else if (splitRequest[0] == "AssignTeam") // red/black or black/red , the one recieving the teams picks the right team
                 {
-                    var teams = new[] { -1, 1 };
-                    Random r = new Random();
-                    int team = teams[r.Next(teams.Length)];
-                    if(team != int.Parse(splitRequest[1]))
+                    if (splitRequest[1] == "-11")
                     {
-                        myTeam = team;
-                        server.Send(Encoding.ASCII.GetBytes("OK"), Encoding.ASCII.GetBytes("OK").Length, clientEp);
+                        myTeam = 1;
                     }
                     else
                     {
-                        server.Send(Encoding.ASCII.GetBytes("NOTOK"), Encoding.ASCII.GetBytes("NOTOK").Length, clientEp);
+                        myTeam = -1;
                     }
+                    var response = Encoding.ASCII.GetBytes("OK");
+                    server.Send(response, response.Length, clientEp);
                 }
-
                 else
                 {
                     var response = Encoding.ASCII.GetBytes("Unknown Command");
