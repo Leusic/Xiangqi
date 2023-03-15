@@ -98,6 +98,7 @@ namespace Xiangqi
                 }
                 Console.WriteLine("My address: " + client.myAddress);
                 Console.WriteLine("Other address: " + client.otherAddress);
+
                 checkForTurnChange();
             }
 
@@ -230,50 +231,53 @@ namespace Xiangqi
         //checks if the other player has moved
         private async void checkForTurnChange()
         {
-            Console.WriteLine("Checking for turn change...");
-            try
+            while (true)
             {
-                if (client.lastMove != moveLog[moveLog.Count - 1])
+                Console.WriteLine("Checking for turn change...");
+                try
                 {
-                    int startX = client.lastMove[0] - 65;
-                    int startY = client.lastMove[1] - '0';
-                    startY = 9 - startY;
-                    int endX = client.lastMove[2] - 65;
-                    int endY = client.lastMove[3] - '0';
-                    endY = 9 - endY;
+                    if (client.lastMove != moveLog[moveLog.Count - 1])
+                    {
+                        int startX = client.lastMove[0] - 65;
+                        int startY = client.lastMove[1] - '0';
+                        startY = 9 - startY;
+                        int endX = client.lastMove[2] - 65;
+                        int endY = client.lastMove[3] - '0';
+                        endY = 9 - endY;
 
-                    //use the start x and y to find the piece that needs to be moved and then it's picturebox
-                    Piece pieceToMove = board.grid[startX, startY].piece;
+                        //use the start x and y to find the piece that needs to be moved and then it's picturebox
+                        Piece pieceToMove = board.grid[startX, startY].piece;
 
-                    int xDiff = endX - startX;
-                    int yDiff = endY - startY;
-                    PictureBox pictureBoxToMove = allPieces[pieceToMove];
+                        int xDiff = endX - startX;
+                        int yDiff = endY - startY;
+                        PictureBox pictureBoxToMove = allPieces[pieceToMove];
 
-                    //move the piece to where it was before it moved, and update the board accordingly
-                    pieceToMove.x = endX;
-                    pieceToMove.y = endY;
-                    board.grid[startX, startY].occupied = false;
-                    board.grid[startX, startY].piece = null;
-                    pictureBoxToMove.Left += xDiff * 75;
-                    pictureBoxToMove.Top += yDiff * 75;
+                        //move the piece to where it was before it moved, and update the board accordingly
+                        pieceToMove.x = endX;
+                        pieceToMove.y = endY;
+                        board.grid[startX, startY].occupied = false;
+                        board.grid[startX, startY].piece = null;
+                        pictureBoxToMove.Left += xDiff * 75;
+                        pictureBoxToMove.Top += yDiff * 75;
 
-                    board.grid[endX, endY].occupied = true;
-                    board.grid[endX, endY].piece = pieceToMove;
+                        board.grid[endX, endY].occupied = true;
+                        board.grid[endX, endY].piece = pieceToMove;
 
-                    moveLog.Add(client.lastMove);
-                    updateMoveDisplay();
-                    updateTurn();
-                    UnshowMoves();
-                    checkScan();
-                    saveGameStatusLabel.Text = "-";
+                        moveLog.Add(client.lastMove);
+                        updateMoveDisplay();
+                        updateTurn();
+                        UnshowMoves();
+                        checkScan();
+                        saveGameStatusLabel.Text = "-";
+
+                    }
+                }
+                catch
+                {
 
                 }
+                await Task.Delay(500);
             }
-            catch
-            {
-
-            }
-            await Task.Delay(500);
         }
 
         private void updateTurn()
