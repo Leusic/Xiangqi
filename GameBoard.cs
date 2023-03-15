@@ -261,23 +261,23 @@ namespace Xiangqi
                         pictureBoxToMove.Left += xDiff * 75;
                         pictureBoxToMove.Top += yDiff * 75;
 
-                        board.grid[endX, endY].occupied = true;
-                        board.grid[endX, endY].piece = pieceToMove;
-
                         //taking a piece moves the taken piece to its team graveyard
                         if (board.grid[endX, endY].occupied == true)
                         {
                             board.grid[endX, endY].piece.alive = false;
                             if (board.grid[endX, endY].piece.teamModifier == -1)
                             {
-                                redGraveyard.Add(board.grid[endX, endY].piece, allPieces[board.grid[x, y].piece]);
+                                redGraveyard.Add(board.grid[endX, endY].piece, allPieces[board.grid[endX, endY].piece]);
                             }
                             else
                             {
-                                blackGraveyard.Add(board.grid[endX, endY].piece, allPieces[board.grid[x, y].piece]);
+                                blackGraveyard.Add(board.grid[endX, endY].piece, allPieces[board.grid[endX, endY].piece]);
                             }
                             updateGraveyard();
                         }
+
+                        board.grid[endX, endY].occupied = true;
+                        board.grid[endX, endY].piece = pieceToMove;
 
                         moveLog.Add(client.lastMove);
                         updateMoveDisplay();
