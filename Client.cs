@@ -23,6 +23,7 @@ namespace Xiangqi
         public int currentTurn = -1;
         public int myTeam;
         public UdpClient server = null;
+        public bool gameBegun = false;
 
         public void findPlayer()
         {
@@ -82,7 +83,7 @@ namespace Xiangqi
 
                 if (serverResponse == "OK")
                 {
-                    ;
+                    gameBegun = true;
                 }
                 else
                 {
@@ -116,7 +117,7 @@ namespace Xiangqi
                 //client and server exchange IP addresses
                 if (splitRequest[0] == "Xiangqi?")
                 {
-                    if (splitRequest[1] != myAddress){
+                    if ((splitRequest[1] != myAddress) && (gameBegun == false)){
                         otherAddress = splitRequest[1];
                         var response = Encoding.ASCII.GetBytes("Xiangqi. " + myAddress);
                         server.Send(response, response.Length, clientEp);

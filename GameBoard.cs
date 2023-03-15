@@ -98,6 +98,7 @@ namespace Xiangqi
                 }
                 Console.WriteLine("My address: " + client.myAddress);
                 Console.WriteLine("Other address: " + client.otherAddress);
+                checkForTurnChange();
             }
 
 
