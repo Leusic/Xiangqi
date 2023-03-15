@@ -83,6 +83,8 @@ namespace Xiangqi
 
             this.modeCode = modeCode;
 
+            moveLog.Add("-");
+
             //if joining or hosting network game start client
             if (modeCode == 2)
             {
@@ -207,7 +209,6 @@ namespace Xiangqi
                 initialisePiece(blackChariot2, BlackChariot2, 8, 0, "blackChariot2");
                 initialisePiece(blackCannon1, BlackCannon1, 1, 2, "blackCannon1");
                 initialisePiece(blackCannon2, BlackCannon2, 7, 2, "blackCannon2");
-                moveLog.Add("-");
             }
 
             int iconX = 47;
@@ -236,7 +237,7 @@ namespace Xiangqi
                 Console.WriteLine("Checking for turn change...");
                 try
                 {
-                    if ((client.lastMove != moveLog[moveLog.Count - 1]) && (moveLog[moveLog.Count - 1] != "-"))
+                    if (client.lastMove != moveLog[moveLog.Count - 1])
                     {
                         int startX = client.lastMove[0] - 65;
                         int startY = client.lastMove[1] - '0';

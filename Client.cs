@@ -109,6 +109,8 @@ namespace Xiangqi
             myAddress = fetchIPAddress();
             server = new UdpClient(port);
 
+            lastMove = "-";
+
             while (true)
             {
                 Console.WriteLine("Server started listening... ");
