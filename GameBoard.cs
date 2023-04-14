@@ -102,6 +102,7 @@ namespace Xiangqi
                 Console.WriteLine("Other address: " + client.otherAddress);
 
                 checkForTurnChange();
+                RollbackButton.Visible = false;
             }
 
 
@@ -302,6 +303,7 @@ namespace Xiangqi
                     {
                         i.Key.alive = false;
                     }
+                    break;
                 }
                 await Task.Delay(100);
             }
