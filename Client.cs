@@ -165,27 +165,28 @@ namespace Xiangqi
         //client sends last move to server to update it
         public void sendTurn(string moveCode)
         {
-            try
+            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
+
+            Ping pingSender = new Ping();
+            PingOptions options = new PingOptions();
+            options.DontFragment = true;
+
+            string ping = "ping";
+            byte[] buffer = Encoding.ASCII.GetBytes(ping);
+            int timeout = 1000;
+            PingReply reply = pingSender.Send(IPAddress.Parse(otherAddress), timeout, buffer, options);
+            if(reply.Status == IPStatus.Success)
             {
                 UdpClient client = new UdpClient();
                 client.Client.SendTimeout = 2000;
                 client.Client.ReceiveTimeout = 2000;
 
-                var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
-
                 var data = Encoding.ASCII.GetBytes("UpdateTurn " + moveCode);
                 client.Send(data, data.Length, serverEp);
-
-                var serverResponseData = client.Receive(ref serverEp);
-                var serverResponse = Encoding.ASCII.GetString(serverResponseData);
             }
-            catch(SocketException ex)
+            else
             {
-                //if error was caused by a timeout
-                if(ex.ErrorCode == 10060)
-                {
-                    Console.WriteLine("timed out");
-                }
+                Console.WriteLine("Server unavailable");
             }
         }
 
