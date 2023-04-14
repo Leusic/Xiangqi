@@ -292,6 +292,17 @@ namespace Xiangqi
                 {
 
                 }
+                //check for timeouts
+                if(client.checkConnection() == false)
+                {
+                    CheckTextbox.Text = "Lost Connection :(";
+                    MenuButton.BringToFront();
+                    TurnTextbox.SendToBack();
+                    foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
+                    {
+                        i.Key.alive = false;
+                    }
+                }
                 await Task.Delay(100);
             }
         }

@@ -143,6 +143,11 @@ namespace Xiangqi
                     lastMove = splitRequest[1];
                     server.Send(response, response.Length, clientEp);
                 }
+                else if (splitRequest[0] == "ping")
+                {
+                    var response = Encoding.ASCII.GetBytes("OK");
+                    server.Send(response, response.Length, clientEp);
+                }
                 else if (splitRequest[0] == "AssignTeam") // red/black or black/red , the one recieving the teams picks the right team
                 {
                     if (splitRequest[1] == "-11")
@@ -164,31 +169,46 @@ namespace Xiangqi
             }
         }
 
-        //client sends last move to server to update it
-        public void sendTurn(string moveCode)
+        //pings server to check if other player is still available
+        public bool checkConnection()
         {
             try
             {
                 UdpClient client = new UdpClient();
                 client.Client.SendTimeout = 2000;
                 client.Client.ReceiveTimeout = 2000;
-
                 var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
-
-                var data = Encoding.ASCII.GetBytes("UpdateTurn " + moveCode);
+                var data = Encoding.ASCII.GetBytes("ping");
                 client.Send(data, data.Length, serverEp);
 
                 var serverResponseData = client.Receive(ref serverEp);
-                var serverResponse = Encoding.ASCII.GetString(serverResponseData);
             }
             catch(SocketException ex)
             {
                 //if error was caused by a timeout
-                if(ex.ErrorCode == 10060)
+                if (ex.ErrorCode == 10060)
                 {
                     Console.WriteLine("timed out");
+                    return false;
                 }
             }
+            return true;
+        }
+
+        //client sends last move to server to update it
+        public void sendTurn(string moveCode)
+        {
+            UdpClient client = new UdpClient();
+            client.Client.SendTimeout = 2000;
+            client.Client.ReceiveTimeout = 2000;
+
+            var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
+
+            var data = Encoding.ASCII.GetBytes("UpdateTurn " + moveCode);
+            client.Send(data, data.Length, serverEp);
+
+            var serverResponseData = client.Receive(ref serverEp);
+            var serverResponse = Encoding.ASCII.GetString(serverResponseData);
         }
 
         public string fetchIPAddress()
