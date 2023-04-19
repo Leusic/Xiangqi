@@ -120,5 +120,20 @@ namespace Xiangqi
             loadedSave = null;
             loadLabel.Text = "Current Game: New Game";
         }
+
+        private void playAgainstAIButton_Click(object sender, EventArgs e)
+        {
+            if (loadedSave == null)
+            {
+                GameBoard = new gameBoard(null, 3, null);
+            }
+            if (loadedSave != null)
+            {
+                GameBoard = new gameBoard(loadedSave, 4, null);
+            }
+            this.Hide();
+            GameBoard.ShowDialog();
+            this.Close();
+        }
     }
 }

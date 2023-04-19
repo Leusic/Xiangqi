@@ -38,6 +38,7 @@
             this.unloadSaveButton = new System.Windows.Forms.Button();
             this.waitingLabel = new System.Windows.Forms.Label();
             this.connectionLabel = new System.Windows.Forms.Label();
+            this.playAgainstAIButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // localGameButton
@@ -92,7 +93,7 @@
             // 
             // joinGameButton
             // 
-            this.joinGameButton.Location = new System.Drawing.Point(328, 276);
+            this.joinGameButton.Location = new System.Drawing.Point(328, 307);
             this.joinGameButton.Name = "joinGameButton";
             this.joinGameButton.Size = new System.Drawing.Size(126, 23);
             this.joinGameButton.TabIndex = 5;
@@ -112,7 +113,7 @@
             // 
             // unloadSaveButton
             // 
-            this.unloadSaveButton.Location = new System.Drawing.Point(328, 247);
+            this.unloadSaveButton.Location = new System.Drawing.Point(328, 276);
             this.unloadSaveButton.Name = "unloadSaveButton";
             this.unloadSaveButton.Size = new System.Drawing.Size(126, 23);
             this.unloadSaveButton.TabIndex = 8;
@@ -131,18 +132,29 @@
             // 
             // connectionLabel
             // 
-            this.connectionLabel.Location = new System.Drawing.Point(460, 274);
+            this.connectionLabel.Location = new System.Drawing.Point(460, 303);
             this.connectionLabel.Name = "connectionLabel";
             this.connectionLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.connectionLabel.Size = new System.Drawing.Size(161, 27);
             this.connectionLabel.TabIndex = 10;
             this.connectionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // playAgainstAIButton
+            // 
+            this.playAgainstAIButton.Location = new System.Drawing.Point(326, 247);
+            this.playAgainstAIButton.Name = "playAgainstAIButton";
+            this.playAgainstAIButton.Size = new System.Drawing.Size(130, 23);
+            this.playAgainstAIButton.TabIndex = 11;
+            this.playAgainstAIButton.Text = "Start game versus AI";
+            this.playAgainstAIButton.UseVisualStyleBackColor = true;
+            this.playAgainstAIButton.Click += new System.EventHandler(this.playAgainstAIButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.playAgainstAIButton);
             this.Controls.Add(this.connectionLabel);
             this.Controls.Add(this.unloadSaveButton);
             this.Controls.Add(this.loadLabel);
@@ -173,5 +185,6 @@
         private System.Windows.Forms.Button unloadSaveButton;
         private System.Windows.Forms.Label waitingLabel;
         private System.Windows.Forms.Label connectionLabel;
+        private System.Windows.Forms.Button playAgainstAIButton;
     }
 }

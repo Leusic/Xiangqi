@@ -61,6 +61,8 @@ namespace Xiangqi
         Dictionary<Piece, PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
         Dictionary<Piece, PictureBox> blackGraveyard = new Dictionary<Piece, PictureBox>();
 
+        Dictionary<String, int> pieceValues = new Dictionary<String, int>();
+
 
         PictureBox[,] movementIcons = new PictureBox[9, 10];
         PictureBox[,] movementCrosses = new PictureBox[9, 10];
@@ -105,6 +107,13 @@ namespace Xiangqi
                 RollbackButton.Visible = false;
             }
 
+            //if playing against AI
+            if(modeCode == 3 || modeCode == 4)
+            {
+                myTeamLabel.Text = "You are playing as Red";
+                playerTeam = -1;
+            }
+
 
             allPieces = new Dictionary<Piece, PictureBox>
             {
@@ -121,6 +130,11 @@ namespace Xiangqi
                 {"redElephant1", redElephant1 }, {"redElephant2", redElephant2}, {"redHorse1", redHorse1}, {"redHorse2", redHorse2}, {"redChariot1", redChariot1}, {"redChariot2", redChariot2}, {"redCannon1", redCannon1}, {"redCannon2", redCannon2},
                 {"blackSoldier1", blackSoldier1}, {"blackSoldier2", blackSoldier2 }, {"blackSoldier3", blackSoldier3}, {"blackSoldier4", blackSoldier4 }, {"blackSoldier5", blackSoldier5}, {"blackGeneral1", blackGeneral}, {"blackGuard1", blackGuard1}, {"blackGuard2", blackGuard2},
                 {"blackElephant1", blackElephant1 }, {"blackElephant2", blackElephant2}, {"blackHorse1", blackHorse1}, {"blackHorse2", blackHorse2}, {"blackChariot1", blackChariot1}, {"blackChariot2", blackChariot2}, {"blackCannon1", blackCannon1}, {"blackCannon2", blackCannon2}
+            };
+
+            pieceValues = new Dictionary<String, int>
+            {
+                {"Soldier", 2}, {"Chariot", 18}, {"Horse", 8}, {"Cannon", 9}, {"Guard", 2}, {"Elephant", 2}, {"General", 9999}
             };
 
 
@@ -483,16 +497,12 @@ namespace Xiangqi
             pictureBox.MouseClick += (sender, EventArgs) => { ShowMoves(sender, EventArgs, piece, pictureBox); }; ;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
             if ((piece.alive == true) && (piece.teamModifier == board.currentTurn))
             {
                 //if in networked mode, check that the client's team matches the current turn's team
-                if ((((modeCode == 2) || (modeCode == 3)) && (board.currentTurn == playerTeam)) || ((modeCode != 2) && (modeCode != 3)))
+                if ((((modeCode == 2) || (modeCode == 3) || (modeCode == 4)) && (board.currentTurn == playerTeam)) || ((modeCode != 2) && (modeCode != 3) && (modeCode != 4)))
                 {
                     UnshowMoves();
                     int[,] moveBoard;
@@ -665,6 +675,119 @@ namespace Xiangqi
             return charCode;
         }
 
+        private void AIMoveUnit()
+        {
+            //stores the current best moveScore, starts at -9999 because sometimes the ai will have to choose between several 'bad' moves
+            int bestMoveScore = -9999;
+            int bestMoveX = 99;
+            int bestMoveY = 99;
+            Piece bestMovePiece = null;
+            PictureBox bestMovePictureBox = null;
+            foreach (KeyValuePair<Piece, PictureBox> p in allPieces)
+            {
+                //only acts on pieces that are on the AI's team and are currently alive
+                if(p.Key.alive == true && p.Key.teamModifier == 1)
+                {
+                    int[,] moveBoard = p.Key.legalMoves(ref board, ref allPieces);
+                    //gets valid moves
+                    for (int i = 0; i < 9; i++)
+                    {
+                        for (int z = 0; z < 10; z++)
+                        {
+                            if (moveBoard[i, z] == 2)
+                            {
+                                int moveScore = 0;
+
+                                //store the current board so it can be returned back to later
+                                //will run a checkscan on the board as if the piece was moved
+                                int startX = p.Key.x;
+                                int startY = p.Key.y;
+
+                                board.grid[p.Key.x, p.Key.y].occupied = false;
+                                board.grid[p.Key.x, p.Key.y].piece = null;
+
+                                //change current piece coordinates
+                                p.Key.x = i;
+                                p.Key.y = z;
+
+                                //makes it so that you can undo the piece change after calculating a move
+                                Piece undoPiece = null;
+
+                                //if a piece is taken, moves it out of play
+                                if (board.grid[p.Key.x, p.Key.y].occupied == true)
+                                {
+                                    undoPiece = board.grid[p.Key.x, p.Key.y].piece;
+
+                                    //adds potential taken piece score to moveScore
+                                    moveScore = moveScore + pieceValues[undoPiece.GetType().Name];
+                                    if((undoPiece.GetType().Name == "Soldier") && undoPiece.crossedRiver == true)
+                                    {
+                                        moveScore = moveScore + 2;
+                                    }
+
+                                    board.grid[p.Key.x, p.Key.y].piece.x = 99;
+                                    board.grid[p.Key.x, p.Key.y].piece.y = 99;
+                                }
+
+                                //temporarily move the piece to the new location
+                                board.grid[p.Key.x, p.Key.y].occupied = true;
+                                board.grid[p.Key.x, p.Key.y].piece = p.Key;
+
+                                //move weighting
+
+                                bool inDanger = false;
+                                //check if the move would put the unit in immediate danger
+                                foreach (KeyValuePair<Piece, PictureBox> e in allPieces) if (e.Key.teamModifier == -1){
+                                        int[,] enemyMoves = e.Key.legalMoves(ref board, ref allPieces);
+                                        if (enemyMoves[p.Key.x,p.Key.y] == 2)
+                                        {
+                                            inDanger = true;
+                                            moveScore = moveScore - pieceValues[p.Key.GetType().Name];
+                                            //check if ai unit is a soldier and if it has crossed the river, increase it's value
+                                            if((p.Key.GetType().Name == "Soldier") && (p.Key.crossedRiver == true))
+                                            {
+                                                moveScore = moveScore - 2;
+                                            }
+                                            break;
+                                        }
+                                }
+
+                                //if calculated move has the highest score so far, log it.
+                                if(moveScore > bestMoveScore)
+                                {
+                                    bestMoveScore = moveScore;
+                                    bestMoveX = p.Key.x;
+                                    bestMoveY = p.Key.y;
+                                    bestMovePiece = p.Key;
+                                    bestMovePictureBox = p.Value;                                    
+                                }
+
+                                    //undo board changes
+                                if (undoPiece != null)
+                                {
+                                    undoPiece.x = p.Key.x;
+                                    undoPiece.y = p.Key.y;
+                                    board.grid[p.Key.x, p.Key.y].piece = undoPiece;
+                                }
+                                else
+                                {
+                                    board.grid[p.Key.x, p.Key.y].occupied = false;
+                                    board.grid[p.Key.x, p.Key.y].piece = null;
+                                }
+
+                                p.Key.x = startX;
+                                p.Key.y = startY;
+
+                                board.grid[startX, startY].occupied = true;
+                                board.grid[startX, startY].piece = p.Key;
+                            }
+                            }
+                        }
+                    }
+            }
+            MoveUnit(null,null,bestMoveX,bestMoveY,bestMovePiece,bestMovePictureBox);
+        }
+
         private void MoveUnit(object sender, EventArgs e, int x, int y, Piece piece, PictureBox pictureBox)
         {
             //characters for logging the move
@@ -720,22 +843,16 @@ namespace Xiangqi
             updateMoveDisplay();
             updateTurn();
             checkScan();
+            if ((modeCode == 3 || modeCode == 4) && (board.currentTurn == 1))
+            {
+                AIMoveUnit();
+            }
             saveGameStatusLabel.Text = "-";
-        }
-
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void RollbackButton_Click(object sender, EventArgs e)
         {
-            if ((modeCode != 2) && (modeCode != 3))
+            if (modeCode != 2)
             {
                 try
                 {
@@ -1007,11 +1124,6 @@ namespace Xiangqi
                 }
             }
             return revivedPiece;
-        }
-
-        private void BlackElephant1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Xiangqi
                 this.x = this.x + xMod;
                 this.y = this.y + yMod;
 
-                //makes it so 
+                //makes it so that you can undo a piece if it is taken
                 Piece undoPiece = null;
 
                 //if a piece is taken, moves it out of play
