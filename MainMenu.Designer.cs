@@ -79,7 +79,6 @@
             this.label3.Size = new System.Drawing.Size(97, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Max Trotter, 2023";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // loadSaveButton
             // 
@@ -93,7 +92,7 @@
             // 
             // joinGameButton
             // 
-            this.joinGameButton.Location = new System.Drawing.Point(328, 307);
+            this.joinGameButton.Location = new System.Drawing.Point(328, 276);
             this.joinGameButton.Name = "joinGameButton";
             this.joinGameButton.Size = new System.Drawing.Size(126, 23);
             this.joinGameButton.TabIndex = 5;
@@ -113,7 +112,7 @@
             // 
             // unloadSaveButton
             // 
-            this.unloadSaveButton.Location = new System.Drawing.Point(328, 276);
+            this.unloadSaveButton.Location = new System.Drawing.Point(328, 247);
             this.unloadSaveButton.Name = "unloadSaveButton";
             this.unloadSaveButton.Size = new System.Drawing.Size(126, 23);
             this.unloadSaveButton.TabIndex = 8;
@@ -141,7 +140,7 @@
             // 
             // playAgainstAIButton
             // 
-            this.playAgainstAIButton.Location = new System.Drawing.Point(326, 247);
+            this.playAgainstAIButton.Location = new System.Drawing.Point(326, 307);
             this.playAgainstAIButton.Name = "playAgainstAIButton";
             this.playAgainstAIButton.Size = new System.Drawing.Size(130, 23);
             this.playAgainstAIButton.TabIndex = 11;

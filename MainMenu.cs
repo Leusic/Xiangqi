@@ -29,6 +29,7 @@ namespace Xiangqi
             waitingLabel.Text = " ";
         }
 
+        //button for starting a game, either starts a new game or starts a loaded game depending on wether the user has loaded a save
         private void button1_Click(object sender, EventArgs e)
         {
             if(loadedSave == null)
@@ -44,11 +45,7 @@ namespace Xiangqi
             this.Close();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //fetches saved json object from XiangqiSave.txt and converts it into a save and stores it
         private void loadSaveButton_Click(object sender, EventArgs e)
         {
             TextReader reader = null;
@@ -72,6 +69,7 @@ namespace Xiangqi
             }
         }
 
+        //creates a client and server and waits until another player is found on the local network
         private void joinGameButton_Click(object sender, EventArgs e)
         {
             if (client == null)
@@ -103,6 +101,7 @@ namespace Xiangqi
             }
         }
 
+        //asynchronous task that runs the client findPlayer method regularly to detect players on the network
         private async void searchForPlayer()
         {
             Console.WriteLine("Searching for player on network");
@@ -115,12 +114,14 @@ namespace Xiangqi
 
         }
 
+        //removes the currently loaded save so the player can start a new game again
         private void unloadSaveButton_Click(object sender, EventArgs e)
         {
             loadedSave = null;
             loadLabel.Text = "Current Game: New Game";
         }
 
+        //loads the game either with a new game or a saved game with the AI playing as black
         private void playAgainstAIButton_Click(object sender, EventArgs e)
         {
             if (loadedSave == null)

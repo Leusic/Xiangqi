@@ -8,8 +8,13 @@ namespace Xiangqi
     public class Piece
     {
         public string name;
+        
+        //if the unit can cross the river
         public bool canCrossRiver;
+
+        //if the unit has crossed the river
         public bool crossedRiver;
+
         public bool alive;
         //-1 is Red, 1 is Black
         public int teamModifier;
@@ -24,6 +29,7 @@ namespace Xiangqi
             return legalMovesBoard;
         }
 
+        //finds all legal moves for the piece without performing any check scanning (necessary to prevent endless loops in legalMoves)
         public virtual int[,] legalMovesBasic (ref Board board)
         {
             int[,] legalMovesBoard = new int[9, 10];
@@ -58,9 +64,6 @@ namespace Xiangqi
             //if the position is valid run a checkscan:
             if (tempBoard[this.x + xMod, this.y + yMod] == 2)
             {
-                //store the current board so it can be returned back to later
-                //will run a checkscan on the board as if the piece was moved
-
                 //change current piece coordinates
                 this.x = this.x + xMod;
                 this.y = this.y + yMod;
@@ -156,6 +159,7 @@ namespace Xiangqi
             }
         }
 
+        //move check for units that cannot leave the palace (guards and the general), also runs check scans
         public void palaceMoveCheck(ref Board board, ref Dictionary<Piece, PictureBox> allPieces, int[,] tempBoard, int xMod, int yMod)
         {
             //standard move check
@@ -181,6 +185,7 @@ namespace Xiangqi
             }
         }
 
+        //checks if a move puts a unit out of board bounds, or collides with a friendly unit or if the unit is attempting to cross the river and cannot (does not run check scans)
         public void moveCheckBasic(ref Board board, int[,] tempBoard, int xMod, int yMod)
         {
             //checks if position is within the board
@@ -205,6 +210,7 @@ namespace Xiangqi
             }
         }
 
+        //palaceMoveCheck but without check scans
         public void palaceMoveCheckBasic(ref Board board, int[,] tempBoard, int xMod, int yMod)
         {
             //standard move check

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Xiangqi
 {
+    //an object representing the saved information of a xiangqi game
     public class Save
     {
         public List<Piece> pieces;

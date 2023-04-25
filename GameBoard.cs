@@ -23,7 +23,8 @@ namespace Xiangqi
     {
         Board board = new Board();
 
-        //piece definitions
+        //instances of all units
+        //red team
         Soldier redSoldier1 = new Soldier(0, 6, -1);
         Soldier redSoldier2 = new Soldier(2, 6, -1);
         Soldier redSoldier3 = new Soldier(4, 6, -1);
@@ -41,6 +42,7 @@ namespace Xiangqi
         Cannon redCannon1 = new Cannon(1, 7, -1);
         Cannon redCannon2 = new Cannon(7, 7, -1);
 
+        //black team
         Soldier blackSoldier1 = new Soldier(0, 3, 1);
         Soldier blackSoldier2 = new Soldier(2, 3, 1);
         Soldier blackSoldier3 = new Soldier(4, 3, 1);
@@ -58,40 +60,56 @@ namespace Xiangqi
         Cannon blackCannon1 = new Cannon(1, 2, 1);
         Cannon blackCannon2 = new Cannon(7, 2, 1);
 
+        //graveyards store the pieces that have been taken
         Dictionary<Piece, PictureBox> redGraveyard = new Dictionary<Piece, PictureBox>();
         Dictionary<Piece, PictureBox> blackGraveyard = new Dictionary<Piece, PictureBox>();
 
+        //stores piece type names next to their generalised value, used for scoring moves
         Dictionary<String, int> pieceValues = new Dictionary<String, int>();
 
-
+        //stores the green movement dots (valid moves)
         PictureBox[,] movementIcons = new PictureBox[9, 10];
+        //stores the red movement crosses (invalid moves)
         PictureBox[,] movementCrosses = new PictureBox[9, 10];
+        //stores all the pieces and their pictureboxes
         Dictionary<Piece, PictureBox> allPieces = new Dictionary<Piece, PictureBox>();
+        //connects piece names to the pieces themselves
         Dictionary<String, Piece> nameToPiece = null;
 
+        //stores the moves of the game, used for rollback
         List<String> moveLog = new List<String>();
 
         bool redInCheck = false;
         bool blackInCheck = false;
 
+        //instance of the client class, used for network play
         Client client = null;
+
+        //represents the mode of the game, 0 is new local game, 1 is local game loaded from save, 2 is networked game, 3 is new game against AI, 4 is loaded game against AI
         int modeCode;
+        
         int playerTeam;
 
         public gameBoard(Save loadedSave, int modeCode, Client client)
         {
             InitializeComponent();
-            this.client = client;
 
+            //placeholder value in the previous move log, necessary for checking if the other player has moved in networked games
+            moveLog.Add("-");
+            
+            //takes in client that was created in the menu
+            this.client = client;
+            //game mode passed in from menu
             this.modeCode = modeCode;
 
-            moveLog.Add("-");
-
-            //if joining or hosting network game start client
+            //if playing networked game
             if (modeCode == 2)
             {
+                //assign teams to players
                 client.assignTeams();
                 playerTeam = client.myTeam;
+
+                //signify player of their team
                 if(playerTeam == -1)
                 {
                     myTeamLabel.Text = "You are playing as Red";
@@ -103,18 +121,22 @@ namespace Xiangqi
                 Console.WriteLine("My address: " + client.myAddress);
                 Console.WriteLine("Other address: " + client.otherAddress);
 
+                //begin asynchronous turn checking method, runs in the background to check if the other player has taken their turn, or if they have disconnected
                 checkForTurnChange();
+
+                //disables rollback for networked games as this would enable a player to force their opponent to replay all their moves
                 RollbackButton.Visible = false;
             }
 
             //if playing against AI
             if(modeCode == 3 || modeCode == 4)
             {
+                //sets player team to red, AI plays as black
                 myTeamLabel.Text = "You are playing as Red";
                 playerTeam = -1;
             }
 
-
+            //matches pieces to their pictureboxes
             allPieces = new Dictionary<Piece, PictureBox>
             {
                 {redSoldier1 , RedSoldier1}, {redSoldier2, RedSoldier2}, {redSoldier3, RedSoldier3}, {redSoldier4, RedSoldier4}, {redSoldier5, RedSoldier5}, {redGeneral, RedGeneral}, {redGuard1, RedGuard1}, {redGuard2, RedGuard2},
@@ -123,7 +145,7 @@ namespace Xiangqi
                 {blackElephant1, BlackElephant1 }, {blackElephant2, BlackElephant2}, {blackHorse1, BlackHorse1}, {blackHorse2, BlackHorse2}, {blackChariot1, BlackChariot1}, {blackChariot2, BlackChariot2}, {blackCannon1, BlackCannon1}, {blackCannon2, BlackCannon2},
             };
 
-            //maps piece names to picture boxes, used for loading saves
+            //maps piece names to their pieces, used for loading saves
             nameToPiece = new Dictionary<String, Piece>
             {
                 {"redSoldier1", redSoldier1}, {"redSoldier2", redSoldier2 }, {"redSoldier3", redSoldier3}, {"redSoldier4", redSoldier4 }, {"redSoldier5", redSoldier5}, {"redGeneral1", redGeneral}, {"redGuard1", redGuard1}, {"redGuard2", redGuard2},
@@ -132,6 +154,7 @@ namespace Xiangqi
                 {"blackElephant1", blackElephant1 }, {"blackElephant2", blackElephant2}, {"blackHorse1", blackHorse1}, {"blackHorse2", blackHorse2}, {"blackChariot1", blackChariot1}, {"blackChariot2", blackChariot2}, {"blackCannon1", blackCannon1}, {"blackCannon2", blackCannon2}
             };
 
+            //stores piece names next to their generalised values, used for AI move scoring
             pieceValues = new Dictionary<String, int>
             {
                 {"Soldier", 2}, {"Chariot", 18}, {"Horse", 8}, {"Cannon", 9}, {"Guard", 2}, {"Elephant", 2}, {"General", 9999}
@@ -141,6 +164,7 @@ namespace Xiangqi
             //if loading saved game
             if ((loadedSave != null) && (modeCode == 1))
             {
+                //fetches pieces from save and their properties
                 foreach (Piece i in loadedSave.pieces)
                 {
                     Piece currentPiece = nameToPiece[i.name];
@@ -149,13 +173,17 @@ namespace Xiangqi
                     currentPiece.alive = i.alive;
                     currentPiece.name = i.name;
 
-                    //
+                    //regulates piece x and y values, if they go out of range initialisePiece will crash
                     if ((currentPiece.x > 10) || (currentPiece.y > 10))
                     {
                         currentPiece.x = 0;
                         currentPiece.y = 0;
                     }
+
+                    //initialises instances of each piece in the save
                     initialisePiece(currentPiece, allPieces[currentPiece], currentPiece.x, currentPiece.y, currentPiece.name);
+
+                    //restores taken units to their respective graveyards
                     if (currentPiece.alive == false)
                     {
                         currentPiece.x = 99; currentPiece.y = 99;
@@ -170,7 +198,10 @@ namespace Xiangqi
 
                     }
                 }
+                //restore whether it was red or black's turn
                 board.currentTurn = loadedSave.currentTurn;
+
+                //runs updateTurn to update the UI to the correct turn
                 if (board.currentTurn == 1)
                 {
                     board.currentTurn = -1;
@@ -181,6 +212,8 @@ namespace Xiangqi
                     board.currentTurn = 1;
                     updateTurn();
                 }
+
+                //restore previous move log
                 moveLog = loadedSave.rollbackMoves;
                 updateMoveDisplay();
 
@@ -188,9 +221,11 @@ namespace Xiangqi
             //if starting new game
             else
             {
+                //start on red's turn
                 board.currentTurn = -1;
                 //initialising pieces
-                //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions.
+                //board pieces offset to match the board is (28,33) and there is 75 pixels between board positions
+                //red team
                 initialisePiece(redSoldier1, RedSoldier1, 0, 6, "redSoldier1");
                 initialisePiece(redSoldier2, RedSoldier2, 2, 6, "redSoldier2");
                 initialisePiece(redSoldier3, RedSoldier3, 4, 6, "redSoldier3");
@@ -207,7 +242,7 @@ namespace Xiangqi
                 initialisePiece(redChariot2, RedChariot2, 8, 9, "redChariot2");
                 initialisePiece(redCannon1, RedCannon1, 1, 7, "redCannon1");
                 initialisePiece(redCannon2, RedCannon2, 7, 7, "redCannon2");
-
+                //black team
                 initialisePiece(blackSoldier1, BlackSoldier1, 0, 3, "blackSoldier1");
                 initialisePiece(blackSoldier2, BlackSoldier2, 2, 3, "blackSoldier2");
                 initialisePiece(blackSoldier3, BlackSoldier3, 4, 3, "blackSoldier3");
@@ -226,12 +261,16 @@ namespace Xiangqi
                 initialisePiece(blackCannon2, BlackCannon2, 7, 2, "blackCannon2");
             }
 
+            //distance in x and y from the top left corner of the board image to the top left corner of the playable area of the board
             int iconX = 47;
             int iconY = 47;
+
+            //initialises all the movement dots (valid moves) and movement crosses (invalid moves) onto their positions on the board
             for (int i = 0; i < 9; i++)
             {
                 for (int z = 0; z < 10; z++)
                 {
+                    //sets all dots and crosses as invisible to start as they will be made visible when they are showing possible moves
                     initialiseMovementCross(i, z, iconX, iconY);
                     movementCrosses[i, z].Visible = false;
                     initialiseMovementIcon(i, z, iconX, iconY);
@@ -241,19 +280,24 @@ namespace Xiangqi
                 iconY = 47;
                 iconX += 75;
             }
+
+            //updates the UI graveyard
             updateGraveyard();
         }
 
-        //checks if the other player has moved
+        //(networked game) checks if the other player has moved or if they have disconnected
         private async void checkForTurnChange()
         {
+            //runs continuously in the background
             while (true)
             {
                 Console.WriteLine("Checking for turn change...");
                 try
                 {
+                    //if the client has a different move logged than the current local move log, a move has been taken by the other player
                     if (client.lastMove != moveLog[moveLog.Count - 1])
                     {
+                        //converts client move codes to coordinate integers
                         int startX = client.lastMove[0] - 65;
                         int startY = client.lastMove[1] - '0';
                         startY = 9 - startY;
@@ -268,7 +312,7 @@ namespace Xiangqi
                         int yDiff = endY - startY;
                         PictureBox pictureBoxToMove = allPieces[pieceToMove];
 
-                        //move the piece to where it was before it moved, and update the board accordingly
+                        //move the piece the other player moved and adjust the board accordingly
                         pieceToMove.x = endX;
                         pieceToMove.y = endY;
                         board.grid[startX, startY].occupied = false;
@@ -294,20 +338,20 @@ namespace Xiangqi
                         board.grid[endX, endY].occupied = true;
                         board.grid[endX, endY].piece = pieceToMove;
 
+                        //update local move log, update UI and perform a check scan
                         moveLog.Add(client.lastMove);
                         updateMoveDisplay();
                         updateTurn();
                         UnshowMoves();
                         checkScan();
                         saveGameStatusLabel.Text = "-";
-
                     }
                 }
                 catch
                 {
 
                 }
-                //check for timeouts
+                //if the other player loses connection, stop turn checking and prompt the player to return to menu
                 if(client.checkConnection() == false)
                 {
                     CheckTextbox.Text = "Lost Connection :(";
@@ -319,11 +363,13 @@ namespace Xiangqi
                     }
                     break;
                 }
+                //perform a turn check every interval of this amount
                 await Task.Delay(100);
             }
         }
 
-        private void updateTurn()
+        //update turn UI and switch current turn
+        private void updateTurn()     
         {
             board.currentTurn = -board.currentTurn;
             if (board.currentTurn == -1)
@@ -338,6 +384,7 @@ namespace Xiangqi
             }
         }
 
+        //return to menu
         private void MenuButton_Click(object sender, EventArgs e)
         {
             MainMenu mainMenu = new MainMenu();
@@ -346,11 +393,13 @@ namespace Xiangqi
             this.Close();
         }
 
+        //changes the UI to it's game over status, displaying the winner and disabling unit movement
         private void gameOver()
         {
             CheckmateTextbox.BringToFront();
             WinningTeamTextbox.BringToFront();
             MenuButton.BringToFront();
+            RollbackButton.Visible = false;
             TurnTextbox.Text = "Game Over!";
             TurnTextbox.BackColor = Color.Tan;
             CheckTextbox.SendToBack();
@@ -360,26 +409,21 @@ namespace Xiangqi
             }
         }
 
-        private void unGameOver()
-        {
-            CheckmateTextbox.SendToBack();
-            WinningTeamTextbox.SendToBack();
-            MenuButton.SendToBack();
-            CheckTextbox.BringToFront();
-        }
-
+        //performs a check scan, displaying whether red or black is in check
         private void checkScan()
         {
+            //by default display that no team is in check
             redInCheck = false; blackInCheck = false;
             CheckTextbox.Text = "Neither team in check";
             bool possibleMove = false;
-            //is black in check
-            //checks if any enemy team units legal movements can hit the friendly general, if they can this move is illegal due to placing self into check
+            //is black in check?
+            //checks if any red units legal movements can hit the black general
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces) if ((i.Key.teamModifier == -1) && (i.Key.legalMovesBasic(ref board)[blackGeneral.x, blackGeneral.y] == 2))
                 {
                     blackInCheck = true;
                     CheckTextbox.Text = "Black in check!";
                     possibleMove = false;
+                    //runs a legal moves check on all black units to see if there is any move that can be made to escape check
                     foreach (KeyValuePair<Piece, PictureBox> z in allPieces) if (z.Key.teamModifier == 1)
                         {
                             int[,] moveBoard = z.Key.legalMoves(ref board, ref allPieces);
@@ -394,6 +438,7 @@ namespace Xiangqi
                                 }
                             }
                         }
+                    //if no move can be made to escape check, red wins
                     if (possibleMove == false)
                     {
                         WinningTeamTextbox.Text = "Red Wins!";
@@ -401,12 +446,14 @@ namespace Xiangqi
                     }
                     break;
                 }
-            //is red in check
+            //is red in check?
+            //checks if any black units legal movements can hit the red general
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces) if ((i.Key.teamModifier == 1) && (i.Key.legalMovesBasic(ref board)[redGeneral.x, redGeneral.y] == 2))
                 {
                     redInCheck = true;
                     CheckTextbox.Text = "Red in check!";
                     possibleMove = false;
+                    //runs a legal moves check on all black units to see if there is any move that can be made to escape check
                     foreach (KeyValuePair<Piece, PictureBox> z in allPieces) if (z.Key.teamModifier == -1)
                         {
                             int[,] moveBoard = z.Key.legalMoves(ref board, ref allPieces);
@@ -421,6 +468,7 @@ namespace Xiangqi
                                 }
                             }
                         }
+                    //if no move can be made to escape check, black wins
                     if (possibleMove == false)
                     {
                         WinningTeamTextbox.Text = "Black Wins!";
@@ -430,6 +478,7 @@ namespace Xiangqi
                 }
         }
 
+        //updates the UI graveyard with all taken pieces, making sure all are visible
         private void updateGraveyard()
         {
             int count = 0;
@@ -464,6 +513,7 @@ namespace Xiangqi
             }
         }
 
+        //initialises a movement dot (valid move)
         private void initialiseMovementIcon(int i, int z, int x, int y)
         {
             movementIcons[i, z] = new PictureBox();
@@ -475,6 +525,7 @@ namespace Xiangqi
             movementIcons[i, z].BackColor = Color.Transparent;
         }
 
+        //initialises a movement cross (invalid move)
         private void initialiseMovementCross(int i, int z, int x, int y)
         {
             movementCrosses[i, z] = new PictureBox();
@@ -486,6 +537,7 @@ namespace Xiangqi
             movementCrosses[i, z].BackColor = Color.Transparent;
         }
 
+        //initialises a piece, places the piece on board and moves the picturebox
         private void initialisePiece(Piece piece, PictureBox pictureBox, int x, int y, string name)
         {
             piece.name = name;
@@ -497,27 +549,32 @@ namespace Xiangqi
             pictureBox.MouseClick += (sender, EventArgs) => { ShowMoves(sender, EventArgs, piece, pictureBox); }; ;
         }
 
+        //displays movement dots and crosses representing where a piece's valid and invalid moves are
         private void ShowMoves(object sender, EventArgs e, Piece piece, PictureBox pictureBox)
         {
+            //only runs if it is the piece's turn
             if ((piece.alive == true) && (piece.teamModifier == board.currentTurn))
             {
                 //if in networked mode, check that the client's team matches the current turn's team
                 if ((((modeCode == 2) || (modeCode == 3) || (modeCode == 4)) && (board.currentTurn == playerTeam)) || ((modeCode != 2) && (modeCode != 3) && (modeCode != 4)))
                 {
+                    //clears any previous movement icons
                     UnshowMoves();
                     int[,] moveBoard;
+                    //gets legal moves for the piece
                     moveBoard = piece.legalMoves(ref board, ref allPieces);
                     for (int i = 0; i < 9; i++)
                     {
                         for (int z = 0; z < 10; z++)
                         {
+                            //if move is valid, display a dot at the move location
                             if (moveBoard[i, z] == 2)
                             {
                                 int a = i;
                                 int b = z;
-                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
                                 int x = movementIcons[i, z].Location.X;
                                 int y = movementIcons[i, z].Location.Y;
+                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
                                 movementIcons[i, z].Dispose();
                                 movementIcons[i, z] = null;
                                 initialiseMovementIcon(i, z, x, y);
@@ -525,13 +582,14 @@ namespace Xiangqi
                                 movementIcons[i, z].BringToFront();
                                 movementIcons[i, z].MouseClick += (sender, EventArgs) => { MoveUnit(sender, EventArgs, a, b, piece, pictureBox); };
                             }
+                            //if move is invalid, display a cross at the move location
                             if (moveBoard[i, z] == 1)
                             {
                                 int a = i;
                                 int b = z;
-                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
                                 int x = movementCrosses[i, z].Location.X;
                                 int y = movementCrosses[i, z].Location.Y;
+                                //removes event handlers of previously used buttons so that multiple pieces dont move at once.
                                 movementCrosses[i, z].Dispose();
                                 movementCrosses[i, z] = null;
                                 initialiseMovementCross(i, z, x, y);
@@ -544,6 +602,7 @@ namespace Xiangqi
             }
         }
 
+        //hides all movement icons
         private void UnshowMoves()
         {
             for (int i = 0; i < 9; i++)
@@ -556,6 +615,7 @@ namespace Xiangqi
             }
         }
 
+        //updates the move log display
         private void updateMoveDisplay()
         {
             if (board.currentTurn == 1)
@@ -630,7 +690,7 @@ namespace Xiangqi
             }
         }
 
-        //gets the code for a piece, used for describing the piece that was taken on a turn
+        //gets the code for a piece, used for describing pieces in move codes
         private List<char> getCodeFromPiece(Piece piece)
         {
             List<char> charCode = new List<char>();
@@ -675,12 +735,14 @@ namespace Xiangqi
             return charCode;
         }
 
+        //when playing against AI, decides which move the AI will take
         private void AIMoveUnit()
         {
-            //stores the current best moveScore, starts at -9999 because sometimes the ai will have to choose between several 'bad' moves
+            //stores the current best moveScore, starts at -9999 because sometimes the AI will have to choose between several 'bad' moves
             int bestMoveScore = -9999;
             int bestMoveX = 99;
             int bestMoveY = 99;
+
             Piece bestMovePiece = null;
             PictureBox bestMovePictureBox = null;
             foreach (KeyValuePair<Piece, PictureBox> p in allPieces)
@@ -697,9 +759,7 @@ namespace Xiangqi
                             if (moveBoard[i, z] == 2)
                             {
                                 int moveScore = 0;
-
-                                //store the current board so it can be returned back to later
-                                //will run a checkscan on the board as if the piece was moved
+                                //store where the piece started so the board can be restored later
                                 int startX = p.Key.x;
                                 int startY = p.Key.y;
 
@@ -734,14 +794,11 @@ namespace Xiangqi
                                 board.grid[p.Key.x, p.Key.y].piece = p.Key;
 
                                 //move weighting
-
-                                bool inDanger = false;
-                                //check if the move would put the unit in immediate danger
+                                //check if the move would put the unit in immediate danger, and if so deduct from the move score the value of the current unit
                                 foreach (KeyValuePair<Piece, PictureBox> e in allPieces) if (e.Key.teamModifier == -1){
                                         int[,] enemyMoves = e.Key.legalMoves(ref board, ref allPieces);
                                         if (enemyMoves[p.Key.x,p.Key.y] == 2)
                                         {
-                                            inDanger = true;
                                             moveScore = moveScore - pieceValues[p.Key.GetType().Name];
                                             //check if ai unit is a soldier and if it has crossed the river, increase it's value
                                             if((p.Key.GetType().Name == "Soldier") && (p.Key.crossedRiver == true))
@@ -754,7 +811,7 @@ namespace Xiangqi
 
                                 //if calculated move has the highest score so far, log it.
                                 if(moveScore > bestMoveScore)
-                                {
+                                {                  
                                     bestMoveScore = moveScore;
                                     bestMoveX = p.Key.x;
                                     bestMoveY = p.Key.y;
@@ -762,7 +819,7 @@ namespace Xiangqi
                                     bestMovePictureBox = p.Value;                                    
                                 }
 
-                                    //undo board changes
+                                //undo board changes
                                 if (undoPiece != null)
                                 {
                                     undoPiece.x = p.Key.x;
@@ -780,14 +837,114 @@ namespace Xiangqi
 
                                 board.grid[startX, startY].occupied = true;
                                 board.grid[startX, startY].piece = p.Key;
+
                             }
                             }
                         }
                     }
             }
-            MoveUnit(null,null,bestMoveX,bestMoveY,bestMovePiece,bestMovePictureBox);
+            //update the board and UI with the decided move (if one with a positive score is possible)
+            if (bestMoveScore > 0)
+            {
+                MoveUnit(null, null, bestMoveX, bestMoveY, bestMovePiece, bestMovePictureBox);
+            }
+            //if there are no positive rating moves to take, try and move towards the player general
+            else
+            {
+                int playerGeneralX = 99;
+                int playerGeneralY = 99;
+                //find the player's general x and y value.
+                foreach (KeyValuePair<Piece, PictureBox> i in allPieces) if (i.Key.GetType().Name == "General")
+                    { 
+                        if (i.Key.teamModifier == -1)
+                        {
+                            playerGeneralX = i.Key.x;
+                            playerGeneralY = i.Key.y;
+                        }
+                    }
+                int combinedGeneralDiff = 99;
+                bestMoveX = 99;
+                bestMoveY = 99;
+                foreach (KeyValuePair<Piece, PictureBox> p in allPieces)
+                {
+                    //only acts on pieces that are on the AI's team and are currently alive
+                    if (p.Key.alive == true && p.Key.teamModifier == 1)
+                    {
+                        int[,] moveBoard = p.Key.legalMoves(ref board, ref allPieces);
+                        //gets valid moves
+                        for (int i = 0; i < 9; i++)
+                        {
+                            for (int z = 0; z < 10; z++)
+                            {
+                                if (moveBoard[i, z] == 2)
+                                {
+                                    //store where the piece started so the board can be restored later
+                                    int startX = p.Key.x;
+                                    int startY = p.Key.y;
+
+                                    board.grid[p.Key.x, p.Key.y].occupied = false;
+                                    board.grid[p.Key.x, p.Key.y].piece = null;
+
+                                    //change current piece coordinates
+                                    p.Key.x = i;
+                                    p.Key.y = z;
+
+                                    //makes it so that you can undo the piece change after calculating a move
+                                    Piece undoPiece = null;
+
+                                    //if a piece is taken, moves it out of play
+                                    if (board.grid[p.Key.x, p.Key.y].occupied == true)
+                                    {
+                                        undoPiece = board.grid[p.Key.x, p.Key.y].piece;
+
+                                        board.grid[p.Key.x, p.Key.y].piece.x = 99;
+                                        board.grid[p.Key.x, p.Key.y].piece.y = 99;
+                                    }
+
+                                    board.grid[p.Key.x, p.Key.y].occupied = true;
+                                    board.grid[p.Key.x, p.Key.y].piece = p.Key;
+
+                                    //find the distance between the piece moved and the player general
+                                    int generalDiffX = Math.Abs(playerGeneralX - p.Key.x);
+                                    int generalDiffY = Math.Abs(playerGeneralY - p.Key.y);
+                                    //if this move results in the shortest distance between the piece and the general, mark it as the best move
+                                    if ((generalDiffX + generalDiffY) < combinedGeneralDiff)
+                                    {
+                                        combinedGeneralDiff = generalDiffX + generalDiffY;
+                                        bestMoveX = p.Key.x;
+                                        bestMoveY = p.Key.y;
+                                        bestMovePiece = p.Key;
+                                        bestMovePictureBox = p.Value;
+                                    }
+                                    //undo board changes
+                                    if (undoPiece != null)
+                                    {
+                                        undoPiece.x = p.Key.x;
+                                        undoPiece.y = p.Key.y;
+                                        board.grid[p.Key.x, p.Key.y].piece = undoPiece;
+                                    }
+                                    else
+                                    {
+                                        board.grid[p.Key.x, p.Key.y].occupied = false;
+                                        board.grid[p.Key.x, p.Key.y].piece = null;
+                                    }
+
+                                    p.Key.x = startX;
+                                    p.Key.y = startY;
+
+                                    board.grid[startX, startY].occupied = true;
+                                    board.grid[startX, startY].piece = p.Key;
+                                }
+                            }
+                        }
+                    }
+                }
+                //update the board and UI with the decided move
+                MoveUnit(null, null, bestMoveX, bestMoveY, bestMovePiece, bestMovePictureBox);
+            }
         }
 
+        //changes the board position of a unit to it's new position and updates it's visible position
         private void MoveUnit(object sender, EventArgs e, int x, int y, Piece piece, PictureBox pictureBox)
         {
             //characters for logging the move
@@ -797,6 +954,7 @@ namespace Xiangqi
             moveChars.Add((char)(x + 65));
             moveChars.Add((char)(9 - y + '0'));
 
+            //clears the position the piece is moving from
             board.grid[piece.x, piece.y].occupied = false;
             board.grid[piece.x, piece.y].piece = null;
             int xDiff = x - piece.x;
@@ -818,16 +976,19 @@ namespace Xiangqi
                 {
                     blackGraveyard.Add(board.grid[x, y].piece, allPieces[board.grid[x, y].piece]);
                 }
+                //adds movement to the move log
                 moveChars.AddRange(getCodeFromPiece(board.grid[x, y].piece));
                 updateGraveyard();
             }
             piece.x = x;
             piece.y = y;
+            //moves piece that was in the position away from interacting with any other pieces (functionally killing it)
             if (board.grid[x, y].occupied == true)
             {
                 board.grid[x, y].piece.x = 99;
                 board.grid[x, y].piece.y = 99;
             }
+            //moves piece into it's new position
             board.grid[x, y].occupied = true;
             board.grid[x, y].piece = piece;
             pictureBox.Left += xDiff * 75;
@@ -843,15 +1004,19 @@ namespace Xiangqi
             updateMoveDisplay();
             updateTurn();
             checkScan();
+            //if playing against AI, prompt AI to make it's move
             if ((modeCode == 3 || modeCode == 4) && (board.currentTurn == 1))
             {
                 AIMoveUnit();
             }
+            //refresh save game label as board is in a new state that would need to be saved
             saveGameStatusLabel.Text = "-";
         }
 
+        //rolls back the last move
         private void RollbackButton_Click(object sender, EventArgs e)
         {
+            //do not allow rollback if playing a networked game
             if (modeCode != 2)
             {
                 try
@@ -879,6 +1044,19 @@ namespace Xiangqi
                     board.grid[startX, startY].piece = pieceToMove;
                     pictureBoxToMove.Left -= xDiff * 75;
                     pictureBoxToMove.Top -= yDiff * 75;
+
+                    //if soldier is returning to before it crossed the river
+                    if (pieceToMove.GetType().Name == "Soldier")
+                    {
+                        if ((pieceToMove.teamModifier == -1) && (pieceToMove.y >= 5))
+                        {
+                            pieceToMove.crossedRiver = false;
+                        }
+                        else if (pieceToMove.y <= 4)
+                        {
+                            pieceToMove.crossedRiver = false;
+                        }
+                    }
 
                     //if a piece was taken on the move in question (the move code will have additional characters if this is the case)
                     if (rollbackMove.Length > 4)
@@ -924,9 +1102,10 @@ namespace Xiangqi
             }
         }
 
+        //saves the game to a text file called XiangqiSave.txt
         private void saveGameButton_Click(object sender, EventArgs e)
         {
-            //uses xml serialisation to serialize the board and save it to a file
+            //converts save to a json object in order to save it to a file
             TextWriter writer = null;
             List<Piece> piecesToWrite = new List<Piece>();
             try
@@ -952,6 +1131,7 @@ namespace Xiangqi
             }
         }
 
+        //extracts the piece that was taken on a move from a move code
         private Piece getTakenPieceFromCode(String moveCode)
         {
             Piece revivedPiece = null;

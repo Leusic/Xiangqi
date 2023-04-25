@@ -15,16 +15,24 @@ namespace Xiangqi
 {
     public class Client
     {
+        //address of the other player
         public string otherAddress = null;
+
         public string myAddress = null;
+
         public int port = 43;
+
+        //true when the server/client has been stopped
         public bool haltProcess = false;
+
+        //stores the last move, used for detecting when a new move has been taken
         public string lastMove = null;
         public int currentTurn = -1;
         public int myTeam = 0;
         public UdpClient server = null;
         public bool gameBegun = false;
 
+        //sends out a udp broadcast of "Xiangqi?" + the player's own address, any other player on the network will respond to with "Xiangqi." if they are also looking for a game
         public void findPlayer()
         {
             try
@@ -58,8 +66,7 @@ namespace Xiangqi
             }
             catch (Exception e)
             {
-                //Console.WriteLine("Runtime Error Detected: " + e.ToString());
-                //Console.WriteLine("");
+
             }
         }
 
@@ -98,8 +105,10 @@ namespace Xiangqi
             }
         }
 
+        //runs a udp server that waits for requests from the other player
         public void runServer()
         {
+            //removes any previously running server to prevent multiple servers on one machine
             if(server != null)
             {
                 server.Close();
@@ -143,11 +152,13 @@ namespace Xiangqi
                     lastMove = splitRequest[1];
                     server.Send(response, response.Length, clientEp);
                 }
+                //ping, used for checking connection status
                 else if (splitRequest[0] == "ping")
                 {
                     var response = Encoding.ASCII.GetBytes("OK");
                     server.Send(response, response.Length, clientEp);
                 }
+                //sets player team
                 else if (splitRequest[0] == "AssignTeam") // red/black or black/red , the one recieving the teams picks the right team
                 {
                     if (splitRequest[1] == "-11")
@@ -161,6 +172,7 @@ namespace Xiangqi
                     var response = Encoding.ASCII.GetBytes("OK");
                     server.Send(response, response.Length, clientEp);
                 }
+                //unknown request
                 else
                 {
                     var response = Encoding.ASCII.GetBytes("Unknown Command");
@@ -211,6 +223,7 @@ namespace Xiangqi
             var serverResponse = Encoding.ASCII.GetString(serverResponseData);
         }
 
+        //fetches ip address of machine
         public string fetchIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());

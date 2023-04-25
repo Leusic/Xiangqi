@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Xiangqi
 {
+    //represents one position on the game board
     public class Cell
     {
         public bool occupied;
