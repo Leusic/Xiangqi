@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Resources;
+using System.Diagnostics;
 
 namespace Xiangqi
 {
@@ -387,6 +388,14 @@ namespace Xiangqi
         //return to menu
         private void MenuButton_Click(object sender, EventArgs e)
         {
+            //restarts the game if in networked mode in order to fully close the network socket.
+            if (modeCode == 2)
+            {
+                client.haltProcess = true;
+                System.Diagnostics.Process.Start(Process.GetCurrentProcess().MainModule.FileName); // to start new instance of application
+                Environment.Exit(0);
+                Application.Exit();
+            }
             MainMenu mainMenu = new MainMenu();
             this.Hide();
             mainMenu.ShowDialog();

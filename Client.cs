@@ -35,9 +35,9 @@ namespace Xiangqi
         //sends out a udp broadcast of "Xiangqi?" + the player's own address, any other player on the network will respond to with "Xiangqi." if they are also looking for a game
         public void findPlayer()
         {
+            UdpClient client = new UdpClient();
             try
             {
-                UdpClient client = new UdpClient();
 
                 client.Client.SendTimeout = 1000;
                 client.Client.ReceiveTimeout = 1000;
@@ -66,17 +66,17 @@ namespace Xiangqi
             }
             catch (Exception e)
             {
-
             }
+            client.Close();
         }
 
         //both players exchange random team selections until both select different teams, these become their teams
         public void assignTeams()
         {
+            UdpClient client = new UdpClient();
             //prevents both teams generating randomly and thus stopping coherence of teams
-            if(myTeam == 0)
+            if (myTeam == 0)
             {
-                UdpClient client = new UdpClient();
 
                 var teams = new[] { "-11", "1-1" }; // red/black or black/red , the one assigning teams picks the left team
                 Random r = new Random();
@@ -103,13 +103,14 @@ namespace Xiangqi
                     gameBegun = true;
                 }
             }
+            client.Close();
         }
 
         //runs a udp server that waits for requests from the other player
         public void runServer()
         {
             //removes any previously running server to prevent multiple servers on one machine
-            if(server != null)
+            if (server != null)
             {
                 server.Close();
                 server = null;
@@ -178,15 +179,20 @@ namespace Xiangqi
                     var response = Encoding.ASCII.GetBytes("Unknown Command");
                     server.Send(response, response.Length, clientEp);
                 }
+                if(haltProcess == true)
+                {
+                    server.Close();
+                    break;
+                }
             }
         }
 
         //pings server to check if other player is still available
         public bool checkConnection()
         {
+            UdpClient client = new UdpClient();
             try
             {
-                UdpClient client = new UdpClient();
                 client.Client.SendTimeout = 2000;
                 client.Client.ReceiveTimeout = 2000;
                 var serverEp = new IPEndPoint(IPAddress.Parse(otherAddress), port);
@@ -201,9 +207,11 @@ namespace Xiangqi
                 if (ex.ErrorCode == 10060)
                 {
                     Console.WriteLine("timed out");
+                    haltProcess = true;
                     return false;
                 }
             }
+            client.Close();
             return true;
         }
 
@@ -221,6 +229,7 @@ namespace Xiangqi
 
             var serverResponseData = client.Receive(ref serverEp);
             var serverResponse = Encoding.ASCII.GetString(serverResponseData);
+            client.Close();
         }
 
         //fetches ip address of machine
