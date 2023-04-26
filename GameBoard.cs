@@ -1033,7 +1033,7 @@ namespace Xiangqi
             //do not allow rollback if playing a networked game
             if (modeCode != 2)
             {
-                for(int t = 0; t <= numOfRollbacks; t++)
+                for(int t = 0; t < numOfRollbacks; t++)
                 {
                     try
                     {
