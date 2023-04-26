@@ -362,6 +362,7 @@ namespace Xiangqi
                     {
                         i.Key.alive = false;
                     }
+                    client.haltProcess = true;
                     break;
                 }
                 //perform a turn check every interval of this amount
@@ -388,14 +389,11 @@ namespace Xiangqi
         //return to menu
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            //restarts the game if in networked mode in order to fully close the network socket.
-            if (modeCode == 2)
-            {
-                client.haltProcess = true;
-                System.Diagnostics.Process.Start(Process.GetCurrentProcess().MainModule.FileName); // to start new instance of application
-                Environment.Exit(0);
-                Application.Exit();
-            }
+            //restarts the game in order to fully close the network socket.
+            System.Diagnostics.Process.Start(Process.GetCurrentProcess().MainModule.FileName); // to start new instance of application
+            Environment.Exit(0);
+            Application.Exit();
+
             MainMenu mainMenu = new MainMenu();
             this.Hide();
             mainMenu.ShowDialog();
@@ -412,6 +410,7 @@ namespace Xiangqi
             TurnTextbox.Text = "Game Over!";
             TurnTextbox.BackColor = Color.Tan;
             CheckTextbox.SendToBack();
+            saveGameButton.Visible = false;
             foreach (KeyValuePair<Piece, PictureBox> i in allPieces)
             {
                 i.Key.alive = false;
